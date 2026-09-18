@@ -105,6 +105,50 @@
             .admin-sidebar.show { transform: translateX(0); }
             .main-content { margin-left: 0; }
         }
+
+        /* ── Pagination Styling & SVG Guard ── */
+        nav[role="navigation"] svg,
+        .pagination svg {
+            width: 1rem !important;
+            height: 1rem !important;
+            max-width: 1rem !important;
+            max-height: 1rem !important;
+            display: inline-block !important;
+            vertical-align: middle !important;
+        }
+        .pagination {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 4px !important;
+            margin-bottom: 0 !important;
+            align-items: center !important;
+        }
+        .pagination .page-item .page-link {
+            border-radius: 8px !important;
+            margin: 0 2px !important;
+            color: #4A5568 !important;
+            border: 1px solid #E2E8F0 !important;
+            padding: 0.38rem 0.8rem !important;
+            font-weight: 600 !important;
+            font-size: 0.875rem !important;
+            transition: all 0.2s ease !important;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: #5A67D8 !important;
+            border-color: #5A67D8 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 2px 8px rgba(90, 103, 216, 0.3) !important;
+        }
+        .pagination .page-item .page-link:hover {
+            background-color: #EEF2FF !important;
+            border-color: #5A67D8 !important;
+            color: #5A67D8 !important;
+        }
+        .pagination .page-item.disabled .page-link {
+            color: #A0AEC0 !important;
+            background-color: #F7FAFC !important;
+            border-color: #E2E8F0 !important;
+        }
     </style>
     @stack('styles')
 </head>

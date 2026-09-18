@@ -3,18 +3,18 @@
 @section('page-title', 'Product Details')
 
 @section('content')
-<div class="d-flex align-items-center justify-content-between gap-2 mb-4">
+<div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
     <div class="d-flex gap-2">
-        <a href="{{ route('seller.products.index') }}" class="btn btn-outline-secondary btn-sm px-3 rounded-3">
-            <i class="bi bi-arrow-left me-1"></i>Back
+        <a href="{{ route('seller.products.index') }}" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
+            <i class="bi bi-arrow-left me-1"></i> Back to Surplus Stock
         </a>
-        <a href="{{ route('seller.products.edit', $product) }}" class="btn btn-dark btn-sm px-3 rounded-3">
-            <i class="bi bi-pencil me-1"></i>Edit
+        <a href="{{ route('seller.products.edit', $product) }}" class="btn btn-primary-bm btn-sm px-3 rounded-pill">
+            <i class="bi bi-pencil me-1"></i> Edit Deal
         </a>
     </div>
     @if($product->status === 'approved')
-    <a href="{{ route('product.show', $product->slug) }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3 rounded-3">
-        <i class="bi bi-box-arrow-up-right me-1"></i>View Live Deal
+    <a href="{{ route('product.show', $product->slug) }}" target="_blank" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
+        <i class="bi bi-box-arrow-up-right me-1"></i> View Live Deal
     </a>
     @endif
 </div>

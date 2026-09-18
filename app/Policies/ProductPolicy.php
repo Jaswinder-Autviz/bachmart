@@ -28,12 +28,15 @@ class ProductPolicy
 
     public function update(User $user, Product $product): bool
     {
-        return $user->isAdmin() || ($user->id === $product->user_id && $user->isActive());
+        return $user->isAdmin() || 
+               (($user->id === $product->user_id || ($user->shop && $product->shop_id === $user->shop->id)) && $user->isActive());
     }
 
     public function delete(User $user, Product $product): bool
     {
-        return $user->isAdmin() || $user->id === $product->user_id;
+        return $user->isAdmin() || 
+               $user->id === $product->user_id || 
+               ($user->shop && $product->shop_id === $user->shop->id);
     }
 
     public function approve(User $user): bool

@@ -7,6 +7,7 @@
     <title>@yield('title', 'Seller Dashboard') - BachatMart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="{{ asset('css/marketplace.css') }}" rel="stylesheet">
     <style>
@@ -119,6 +120,64 @@
             .seller-sidebar.show { transform: translateX(0); }
             .main-content { margin-left: 0; }
         }
+
+        /* ── Pagination Styling & SVG Guard ── */
+        nav[role="navigation"] svg,
+        .pagination svg {
+            width: 1rem !important;
+            height: 1rem !important;
+            max-width: 1rem !important;
+            max-height: 1rem !important;
+            display: inline-block !important;
+            vertical-align: middle !important;
+        }
+        .pagination {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 4px !important;
+            margin-bottom: 0 !important;
+            align-items: center !important;
+        }
+        .pagination .page-item .page-link {
+            border-radius: 8px !important;
+            margin: 0 2px !important;
+            color: #4A5568 !important;
+            border: 1px solid #E2E8F0 !important;
+            padding: 0.38rem 0.8rem !important;
+            font-weight: 600 !important;
+            font-size: 0.875rem !important;
+            transition: all 0.2s ease !important;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: #FF5722 !important;
+            border-color: #FF5722 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 2px 8px rgba(255, 87, 34, 0.3) !important;
+        }
+        .pagination .page-item .page-link:hover {
+            background-color: #FFF3E0 !important;
+            border-color: #FF5722 !important;
+            color: #FF5722 !important;
+        }
+        .pagination .page-item.disabled .page-link {
+            color: #A0AEC0 !important;
+            background-color: #F7FAFC !important;
+            border-color: #E2E8F0 !important;
+        }
+
+        /* ── Toastr Custom Modern Styling ── */
+        #toast-container > div {
+            opacity: 0.98 !important;
+            border-radius: 12px !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.18) !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.875rem !important;
+            padding: 15px 15px 15px 50px !important;
+        }
+        #toast-container > .toast-success { background-color: #10B981 !important; }
+        #toast-container > .toast-error { background-color: #EF4444 !important; }
+        #toast-container > .toast-info { background-color: #3B82F6 !important; }
+        #toast-container > .toast-warning { background-color: #F59E0B !important; }
     </style>
     @stack('styles')
 </head>
@@ -149,11 +208,15 @@
         </a>
 
         <div class="nav-section">Surplus Stock Inventory</div>
-        <a href="{{ route('seller.products.index') }}" class="nav-link {{ request()->routeIs('seller.products.*') ? 'active' : '' }}">
-            <i class="bi bi-box-seam"></i> My Surplus Stock
+        <a href="{{ route('seller.products.index') }}" class="nav-link {{ (request()->routeIs('seller.products.index') || request()->routeIs('seller.products.show') || request()->routeIs('seller.products.edit')) ? 'active' : '' }}">
+            <i class="bi bi-box-seam"></i> <span>My Surplus Stock</span>
+            @if(auth()->user()->shop)
+                <span class="badge ms-auto rounded-pill" style="background:#2d3748;color:#a0aec0;font-size:0.75rem">{{ auth()->user()->shop->products()->count() }}</span>
+            @endif
         </a>
-        <a href="{{ route('seller.products.create') }}" class="nav-link">
-            <i class="bi bi-plus-circle-fill text-warning"></i> List Surplus Stock
+        <a href="{{ route('seller.products.create') }}" class="nav-link {{ request()->routeIs('seller.products.create') ? 'active' : '' }}">
+            <i class="bi bi-plus-circle-fill text-warning"></i> <span>List Surplus Stock</span>
+            <span class="badge bg-warning text-dark ms-auto" style="font-size:0.65rem;font-weight:700">NEW</span>
         </a>
 
         <div class="nav-section">Insights</div>
@@ -200,8 +263,8 @@
             <a href="{{ route('home') }}" class="btn btn-sm btn-outline-secondary" target="_blank">
                 <i class="bi bi-box-arrow-up-right me-1"></i>View Site
             </a>
-            <a href="{{ route('seller.products.create') }}" class="btn btn-primary-bm btn-sm px-3">
-                <i class="bi bi-plus-circle-fill me-1"></i>+ LIST Surplus Stock
+            <a href="{{ route('seller.products.create') }}" class="btn btn-primary-bm btn-sm px-3 rounded-pill">
+                <i class="bi bi-plus-circle-fill me-1"></i>+ Add Surplus Stock
             </a>
         </div>
     </div>
@@ -233,7 +296,47 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "4500",
+        "extendedTimeOut": "1500",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    $(document).ready(function() {
+        @if(session('success'))
+            toastr.success("{{ addslashes(session('success')) }}", "Success");
+        @endif
+        @if(session('error'))
+            toastr.error("{{ addslashes(session('error')) }}", "Notice");
+        @endif
+        @if(session('info'))
+            toastr.info("{{ addslashes(session('info')) }}", "Information");
+        @endif
+        @if(session('warning'))
+            toastr.warning("{{ addslashes(session('warning')) }}", "Warning");
+        @endif
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                toastr.error("{{ addslashes($error) }}", "Validation Error");
+            @endforeach
+        @endif
+    });
+</script>
 @stack('scripts')
 </body>
 </html>

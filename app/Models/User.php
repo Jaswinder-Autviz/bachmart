@@ -122,7 +122,7 @@ class User extends Authenticatable
     public function getMaxProductsAttribute(): int
     {
         $plan = $this->current_plan;
-        if (!$plan) return 5; // free default
+        if (!$plan) return 25; // free default generous limit for testing & surplus listing
         return $plan->max_products; // -1 = unlimited
     }
 }

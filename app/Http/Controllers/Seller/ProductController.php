@@ -68,12 +68,13 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $data = $request->validated();
+        $data['is_negotiable'] = $request->boolean('is_negotiable');
         $images = $request->file('images', []);
 
         $product = $this->productService->create(auth()->user(), $data, $images);
 
         return redirect()->route('seller.products.index')
-            ->with('success', 'Your deal has been submitted for approval.');
+            ->with('success', "Surplus Stock '{$product->name}' listed successfully and submitted for approval.");
     }
 
     public function show(Product $product)
@@ -104,11 +105,13 @@ class ProductController extends Controller
         $this->authorize('update', $product);
 
         $data = $request->validated();
+        $data['is_negotiable'] = $request->boolean('is_negotiable');
         $images = $request->file('images', []);
 
         $this->productService->update($product, $data, $images);
 
-        return back()->with('success', 'Product updated successfully.');
+        return redirect()->route('seller.products.index')
+            ->with('success', "Surplus Stock '{$product->name}' updated successfully.");
     }
 
     public function toggleStatus(Product $product)

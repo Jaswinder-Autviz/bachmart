@@ -5,10 +5,15 @@
 @section('content')
 <div class="row g-4">
     <div class="col-lg-8">
-        {{-- Header Intro --}}
-        <div class="mb-4">
-            <h4 class="fw-800 text-dark mb-1">List Your Surplus Stock</h4>
-            <p class="text-muted small mb-0">Sell your unsold inventory faster by offering a great local deal.</p>
+        {{-- Top Navigation & Header Intro --}}
+        <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+            <a href="{{ route('seller.products.index') }}" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
+                <i class="bi bi-arrow-left me-1"></i> Back to Surplus Stock
+            </a>
+            <div class="flex-grow-1">
+                <h4 class="fw-800 text-dark mb-0">List New Surplus Stock</h4>
+                <p class="text-muted small mb-0">Sell your unsold inventory faster by offering an attractive local clearance deal.</p>
+            </div>
         </div>
 
         @if($errors->any())
@@ -146,14 +151,14 @@
             {{-- 3. Product Images --}}
             <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
                 <h6 class="fw-800 text-dark mb-3 pb-2 border-bottom d-flex align-items-center gap-2">
-                    <i class="bi bi-camera-fill text-primary-bm"></i> Product Photos <span class="text-danger">*</span>
+                    <i class="bi bi-camera-fill text-primary-bm"></i> Product Photos <span class="badge bg-light text-muted border ms-2" style="font-size:0.75rem;font-weight:500">Optional</span>
                 </h6>
                 <div class="mb-3">
-                    <label class="form-label fw-700 small">Upload Real Photos of Your Stock (1–5 photos)</label>
+                    <label class="form-label fw-700 small">Upload Real Photos of Your Stock (Optional, 1–5 photos)</label>
                     <input type="file" name="images[]" class="form-control @error('images') is-invalid @enderror"
                            multiple accept="image/jpeg,image/png,image/webp" id="imageInput" onchange="previewStockImages(this)">
                     @error('images')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    <div class="form-text">Accepted: JPEG, PNG, WebP. First photo is used as the cover photo. Real photos sell 3x faster than stock mockups!</div>
+                    <div class="form-text">Accepted: JPEG, PNG, WebP. If you don't upload photos now, curated category imagery is automatically assigned!</div>
                 </div>
                 <div id="imagePreview" class="d-flex gap-2 flex-wrap mt-3"></div>
             </div>

@@ -36,8 +36,8 @@
             <input type="text" name="search" class="form-control form-control-sm" placeholder="Search Surplus Stock..." value="{{ request('search') }}" style="max-width:180px">
             <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="bi bi-search"></i></button>
         </form>
-        <a href="{{ route('seller.products.create') }}" class="btn btn-sm btn-primary-bm px-3">
-            <i class="bi bi-plus-circle-fill me-1"></i>+ List Surplus Stock
+        <a href="{{ route('seller.products.create') }}" class="btn btn-sm btn-primary-bm px-3 rounded-pill">
+            <i class="bi bi-plus-circle-fill me-1"></i>+ Add Surplus Stock
         </a>
     </div>
 </div>

@@ -3,6 +3,21 @@
 @section('page-title', 'Edit Product')
 
 @section('content')
+{{-- Top Navigation Bar --}}
+<div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-3">
+        <a href="{{ route('seller.products.index') }}" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">
+            <i class="bi bi-arrow-left me-1"></i> Back to Surplus Stock
+        </a>
+        <h4 class="fw-800 text-dark mb-0">Edit Surplus Stock</h4>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ route('seller.products.show', $product) }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+            <i class="bi bi-eye me-1"></i> View Stats & Details
+        </a>
+    </div>
+</div>
+
 <div class="row">
 <div class="col-lg-8">
 
@@ -146,9 +161,9 @@
     </div>
 </div>
 
-<div class="d-flex gap-3 justify-content-end">
-    <a href="{{ route('seller.products.index') }}" class="btn btn-outline-secondary px-4">Cancel</a>
-    <button type="submit" class="btn btn-primary-bm px-5">
+<div class="d-flex gap-3 justify-content-end mb-5">
+    <a href="{{ route('seller.products.index') }}" class="btn btn-outline-secondary px-4 rounded-pill">Cancel</a>
+    <button type="submit" class="btn btn-primary-bm px-5 py-2 rounded-pill">
         <i class="bi bi-check2-circle me-2"></i>Save Changes
     </button>
 </div>
