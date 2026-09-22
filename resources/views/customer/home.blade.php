@@ -3,150 +3,124 @@
 @section('title', 'BachatMart - Turn Surplus Stock Into Great Deals')
 @section('meta_description', 'Discover heavily discounted products and Surplus Stock clearance deals from local shops near you.')
 
-@push('styles')
-<link href="{{ asset('css/home-3d.css') }}?v={{ file_exists(public_path('css/home-3d.css')) ? filemtime(public_path('css/home-3d.css')) : '1.0' }}" rel="stylesheet">
-@endpush
-
 @section('content')
 
-{{-- ── 1. 3D HERO SECTION ── --}}
-<section class="hero-marketplace hero-marketplace-3d spatial-scene-wrapper">
-    {{-- Floating 3D Ambient Light Orbs --}}
-    <div class="orb-3d orb-3d-1"></div>
-    <div class="orb-3d orb-3d-2"></div>
-
-    <div class="container position-relative" style="z-index: 2;">
+{{-- ── 1. HERO SECTION (Clean, Simple & Sober) ── --}}
+<section class="py-5" style="background:#FFFFFF; border-bottom: 1px solid #E2E8F0;">
+    <div class="container">
         <div class="row align-items-center g-4 g-lg-5">
             <div class="col-lg-7">
-                {{-- 3D Pill Badge --}}
-                <div class="hero-badge-pill-3d">
-                    <span class="hero-badge-pulse-dot"></span>
-                    <span>LOCAL CLEARANCE DEALS MARKETPLACE</span>
+                {{-- Simple Tag Badge --}}
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 mb-3 text-primary-bm border"
+                     style="background:#FFF9F6; border-color:#FFD3C4 !important; border-radius:4px; font-size:0.75rem; font-weight:700; letter-spacing:0.5px;">
+                    <i class="bi bi-patch-check-fill"></i> LOCAL CLEARANCE DEALS MARKETPLACE
                 </div>
 
-                {{-- 3D Hero Title --}}
-                <h1 class="hero-title-3d">
-                    Turn Surplus Stock Into <span class="text-gradient-3d">Great Deals</span>
+                {{-- Hero Title --}}
+                <h1 class="fw-800 text-dark mb-3" style="font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.2; letter-spacing: -0.03em;">
+                    Turn Surplus Stock Into <span class="text-primary-bm">Great Deals</span>
                 </h1>
 
-                <p class="hero-subtitle-3d">
+                <p class="text-muted mb-4 fs-6" style="max-width: 540px; line-height: 1.6;">
                     Discover heavily discounted products from local shops near you. Browse verified clearance items, contact shopkeepers directly, and buy in-store.
                 </p>
 
-                {{-- 3D Pushable Action Buttons --}}
-                <div class="d-flex flex-wrap gap-3 mt-4 pt-2">
-                    <a href="{{ route('deals') }}" class="btn-3d-primary">
+                {{-- Action Buttons --}}
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ route('deals') }}" class="btn btn-primary-bm px-4 py-2 fs-6" style="border-radius:4px;">
                         <i class="bi bi-lightning-charge-fill me-1"></i>Explore Deals
                     </a>
-                    <a href="{{ route('register.seller') }}" class="btn-3d-secondary">
+                    <a href="{{ route('register.seller') }}" class="btn btn-outline-secondary px-4 py-2 fs-6" style="border-radius:4px;">
                         <i class="bi bi-tag-fill me-1 text-primary-bm"></i>Sell Your Surplus Stock
                     </a>
                 </div>
 
-                {{-- Marketplace 3D Extruded Stats Pods --}}
-                <div class="row g-3 mt-4 pt-3">
+                {{-- Clean Stats Pods --}}
+                <div class="row g-3 mt-3 pt-2">
                     <div class="col-4">
-                        <div class="stats-pod-3d">
-                            <div class="stats-pod-number">
+                        <div class="p-3 bg-white border text-center" style="border-color:#E2E8F0 !important; border-radius:4px;">
+                            <div class="fw-800 fs-4 text-dark mb-0">
                                 {{ number_format(\App\Models\Product::approved()->count()) }}+
                             </div>
-                            <div class="stats-pod-label">Live Deals</div>
+                            <div class="text-muted small fw-600">Live Deals</div>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="stats-pod-3d">
-                            <div class="stats-pod-number">
+                        <div class="p-3 bg-white border text-center" style="border-color:#E2E8F0 !important; border-radius:4px;">
+                            <div class="fw-800 fs-4 text-dark mb-0">
                                 {{ \App\Models\Shop::active()->count() }}+
                             </div>
-                            <div class="stats-pod-label">Local Shops</div>
+                            <div class="text-muted small fw-600">Local Shops</div>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="stats-pod-3d">
-                            <div class="stats-pod-number text-primary-bm">
+                        <div class="p-3 bg-white border text-center" style="border-color:#E2E8F0 !important; border-radius:4px;">
+                            <div class="fw-800 fs-4 text-primary-bm mb-0">
                                 Up to 70%
                             </div>
-                            <div class="stats-pod-label">Direct Savings</div>
+                            <div class="text-muted small fw-600">Direct Savings</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- 3D Hero Stage (Interactive WebGL Canvas & Tilted Deal Showcase) --}}
+            {{-- Hero Deal Showcase Card (Clean, Sharp, No Tilt/Shadows) --}}
             <div class="col-lg-5">
-                <div class="hero-stage-3d-container">
-                    {{-- Three.js Interactive 3D WebGL Canvas --}}
-                    <div id="heroThreeCanvas"></div>
-
-                    {{-- Floating 3D Holographic Badges --}}
-                    <div class="floating-3d-tag floating-3d-tag--deal">
-                        <i class="bi bi-fire text-primary-bm fs-5"></i>
-                        <span>Surplus Lots Clearance</span>
+                <div class="card border p-3 bg-white" style="border-color:#E2E8F0 !important; border-radius:6px; box-shadow:none;">
+                    <div class="position-relative overflow-hidden mb-3" style="height:230px; background:#F8FAFC; border-radius:4px;">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80"
+                             alt="Clearance Deal Preview" style="width:100%; height:100%; object-fit:cover; transform:none !important; transition:none !important;">
+                        <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1 fw-700" style="border-radius:4px;">
+                            🔥 50% OFF
+                        </span>
                     </div>
 
-                    <div class="floating-3d-tag floating-3d-tag--live">
-                        <i class="bi bi-patch-check-fill text-success fs-5"></i>
-                        <span>100% In-Store Verified</span>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="text-muted small fw-700 text-uppercase" style="letter-spacing:0.5px">SPORTING GOODS</span>
+                        <span class="text-success small fw-700"><i class="bi bi-geo-alt-fill me-1"></i>Direct In-Store</span>
                     </div>
 
-                    {{-- 3D Interactive Tilt Showcase Card --}}
-                    <div class="showcase-3d-card" data-3d-tilt data-tilt-max="11">
-                        <div class="card-3d-glare"></div>
+                    <h5 class="fw-700 text-dark fs-6 mb-2">Original Athletic Shoes (Unsold Lot)</h5>
 
-                        <div class="showcase-3d-media">
-                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80"
-                                 alt="Clearance Deal Preview">
-                            <span class="showcase-badge-discount">
-                                🔥 50% OFF
-                            </span>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mt-3 mb-1">
-                            <span class="text-muted fw-700 small" style="letter-spacing:0.5px">SPORTING GOODS</span>
-                            <span class="text-success small fw-700"><i class="bi bi-geo-alt-fill me-1"></i>Direct In-Store</span>
-                        </div>
-
-                        <h5 class="fw-800 fs-5 mb-2 text-dark">Original Athletic Shoes (Unsold Lot)</h5>
-
-                        <div class="d-flex align-items-baseline gap-2 mb-3">
-                            <span class="fs-4 fw-800 text-dark">₹1,499</span>
-                            <span class="fs-6 text-muted text-decoration-line-through">₹2,999</span>
-                            <span class="badge bg-success-subtle text-success fw-700 ms-auto px-2 py-1 rounded-pill">Save ₹1,500</span>
-                        </div>
-
-                        <div class="d-flex gap-2">
-                            <a href="{{ route('deals') }}" class="btn-3d-primary w-100 py-2" style="border-radius:12px; font-size:0.95rem;">
-                                Explore Live Deals <i class="bi bi-arrow-right-short ms-1"></i>
-                            </a>
-                        </div>
+                    <div class="d-flex align-items-baseline gap-2 mb-3">
+                        <span class="fs-5 fw-800 text-dark">₹1,499</span>
+                        <span class="text-muted text-decoration-line-through small">₹2,999</span>
+                        <span class="badge bg-success-subtle text-success fw-700 ms-auto" style="border-radius:4px;">Save ₹1,500</span>
                     </div>
+
+                    <a href="{{ route('deals') }}" class="btn btn-primary-bm w-100 py-2 fw-600" style="font-size:0.92rem; border-radius:4px;">
+                        Explore Live Deals <i class="bi bi-arrow-right-short ms-1"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-{{-- ── 2. BROWSE CATEGORIES (3D TACTILE PODS) ── --}}
-<section class="py-5" style="background:#FFFFFF;">
+{{-- ── 2. BROWSE CATEGORIES (Clean & Flat) ── --}}
+<section class="py-5" style="background:#FAFAFB; border-bottom:1px solid #E2E8F0;">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header mb-4">
             <div>
-                <span class="section-badge-3d"><i class="bi bi-grid-fill"></i> Categories</span>
-                <h2 class="section-title">Shop by <span>Category</span></h2>
+                <span class="badge bg-white text-secondary border px-2 py-1 mb-1" style="border-radius:4px;"><i class="bi bi-grid-fill me-1"></i> Categories</span>
+                <h2 class="section-title mb-0">Shop by <span class="text-primary-bm">Category</span></h2>
                 <p class="section-subtitle">Find clearance discounts across popular retail categories</p>
             </div>
-            <a href="{{ route('deals') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <a href="{{ route('deals') }}" class="btn btn-outline-secondary btn-sm px-3" style="border-radius:4px;">
                 All Categories &rarr;
             </a>
         </div>
 
-        <div class="row g-3 g-md-4">
+        <div class="row g-3 g-md-3">
             @foreach($categories as $cat)
             <div class="col-4 col-md-3 col-lg-2">
-                <a href="{{ route('category.show', $cat->slug) }}" class="category-card-3d">
-                    <div class="cat-icon-3d">{{ $cat->icon ?? '•' }}</div>
-                    <div class="cat-name-3d">{{ $cat->name }}</div>
-                    <div class="cat-count-3d">{{ $cat->approved_products_count }} deals</div>
+                <a href="{{ route('category.show', $cat->slug) }}" class="card border p-3 text-center text-decoration-none h-100 bg-white" style="border-color:#E2E8F0 !important; border-radius:6px; box-shadow:none;">
+                    <div class="d-inline-flex align-items-center justify-content-center mx-auto mb-2"
+                         style="width:48px; height:48px; background:#FFF3E0; color:#FF5722; font-size:1.5rem; border-radius:4px;">
+                        {{ $cat->icon ?? '•' }}
+                    </div>
+                    <div class="fw-700 text-dark text-truncate" style="font-size:0.88rem;">{{ $cat->name }}</div>
+                    <div class="text-muted small" style="font-size:0.75rem;">{{ $cat->approved_products_count }} deals</div>
                 </a>
             </div>
             @endforeach
@@ -156,15 +130,15 @@
 
 {{-- ── 3. FEATURED CLEARANCE DEALS ── --}}
 @if($featuredProducts->count())
-<section class="py-5" style="background:#F8FAFC">
+<section class="py-5" style="background:#FFFFFF; border-bottom:1px solid #E2E8F0;">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header mb-4">
             <div>
-                <span class="section-badge-3d"><i class="bi bi-stars"></i> Curated</span>
-                <h2 class="section-title">Featured <span>Clearance Deals</span></h2>
+                <span class="badge bg-light text-warning-emphasis border px-2 py-1 mb-1" style="border-radius:4px;"><i class="bi bi-stars me-1 text-warning"></i> Curated</span>
+                <h2 class="section-title mb-0">Featured <span class="text-primary-bm">Clearance Deals</span></h2>
                 <p class="section-subtitle">Hand-picked surplus stock from top local retailers</p>
             </div>
-            <a href="{{ route('deals') }}?featured=1" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <a href="{{ route('deals') }}?featured=1" class="btn btn-outline-secondary btn-sm px-3" style="border-radius:4px;">
                 View All &rarr;
             </a>
         </div>
@@ -182,15 +156,15 @@
 
 {{-- ── 4. BIGGEST DISCOUNTS ── --}}
 @if($topDeals->count())
-<section class="py-5" style="background:#FFFFFF">
+<section class="py-5" style="background:#FAFAFB; border-bottom:1px solid #E2E8F0;">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header mb-4">
             <div>
-                <span class="section-badge-3d"><i class="bi bi-fire"></i> Mega Discounts</span>
-                <h2 class="section-title">Top <span>Discounts</span></h2>
+                <span class="badge bg-white text-danger border px-2 py-1 mb-1" style="border-radius:4px;"><i class="bi bi-fire me-1"></i> Mega Discounts</span>
+                <h2 class="section-title mb-0">Top <span class="text-primary-bm">Discounts</span></h2>
                 <p class="section-subtitle">Highest price reductions available right now</p>
             </div>
-            <a href="{{ route('deals') }}?sort=discount" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <a href="{{ route('deals') }}?sort=discount" class="btn btn-outline-secondary btn-sm px-3" style="border-radius:4px;">
                 View All &rarr;
             </a>
         </div>
@@ -208,20 +182,20 @@
 
 {{-- ── 5. DEALS NEAR YOU ── --}}
 @if($dealsNearYou->count())
-<section class="py-5" style="background:#F8FAFC">
+<section class="py-5" style="background:#FFFFFF; border-bottom:1px solid #E2E8F0;">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header mb-4">
             <div>
-                <span class="section-badge-3d"><i class="bi bi-geo-alt-fill"></i> Location</span>
-                <h2 class="section-title">Deals in <span>{{ $selectedCity ?? 'Your Area' }}</span></h2>
+                <span class="badge bg-light text-primary-bm border px-2 py-1 mb-1" style="border-radius:4px;"><i class="bi bi-geo-alt-fill me-1"></i> Location</span>
+                <h2 class="section-title mb-0">Deals in <span class="text-primary-bm">{{ $selectedCity ?? 'Your Area' }}</span></h2>
                 <p class="section-subtitle">Local stores in {{ $selectedCity ?? 'your city' }} with active clearance stock</p>
             </div>
 
             <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle btn-sm rounded-pill px-3" type="button" data-bs-toggle="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle btn-sm px-3" type="button" data-bs-toggle="dropdown" style="border-radius:4px;">
                     <i class="bi bi-geo-alt me-1 text-muted"></i>{{ $selectedCity ?? 'Select City' }}
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-sm border rounded-3">
+                <ul class="dropdown-menu dropdown-menu-end border shadow-none" style="border-color:#E2E8F0 !important; border-radius:4px;">
                     @foreach($availableCities as $city)
                     <li>
                         <a class="dropdown-item py-2 {{ $selectedCity === $city ? 'active' : '' }}" href="{{ route('set-city', ['city' => $city]) }}">
@@ -245,15 +219,15 @@
 @endif
 
 {{-- ── 6. LATEST ARRIVALS ── --}}
-<section class="py-5" style="background:#FFFFFF">
+<section class="py-5" style="background:#FAFAFB; border-bottom:1px solid #E2E8F0;">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header mb-4">
             <div>
-                <span class="section-badge-3d"><i class="bi bi-clock-history"></i> Fresh Surplus</span>
-                <h2 class="section-title">Recently <span>Added Deals</span></h2>
+                <span class="badge bg-white text-secondary border px-2 py-1 mb-1" style="border-radius:4px;"><i class="bi bi-clock-history me-1"></i> Fresh Surplus</span>
+                <h2 class="section-title mb-0">Recently <span class="text-primary-bm">Added Deals</span></h2>
                 <p class="section-subtitle">Newly listed surplus inventory from local sellers</p>
             </div>
-            <a href="{{ route('deals') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <a href="{{ route('deals') }}" class="btn btn-outline-secondary btn-sm px-3" style="border-radius:4px;">
                 Browse All &rarr;
             </a>
         </div>
@@ -267,77 +241,86 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href="{{ route('deals') }}" class="btn-3d-primary px-5 py-3">
+            <a href="{{ route('deals') }}" class="btn btn-primary-bm px-4 py-2 fs-6 fw-700" style="border-radius:4px;">
                 <i class="bi bi-grid-3x3-gap-fill me-2"></i>Explore All Clearance Deals
             </a>
         </div>
     </div>
 </section>
 
-{{-- ── 7. 3D ISOMETRIC "HOW IT WORKS" ── --}}
-<section class="py-5" style="background:#F8FAFC" id="how-it-works">
+{{-- ── 7. HOW IT WORKS (Simple & Clean) ── --}}
+<section class="py-5" style="background:#FFFFFF; border-bottom:1px solid #E2E8F0;" id="how-it-works">
     <div class="container">
         <div class="text-center mb-5" style="max-width: 620px; margin: 0 auto;">
-            <span class="section-badge-3d"><i class="bi bi-lightbulb-fill"></i> Simple Workflow</span>
-            <h2 class="section-title">How <span>BachatMart</span> Works</h2>
-            <p class="text-muted small mt-2">
+            <span class="badge bg-light text-secondary border px-2 py-1 mb-2" style="border-radius:4px;"><i class="bi bi-lightbulb-fill me-1 text-warning"></i> Simple Workflow</span>
+            <h2 class="section-title mb-2">How <span class="text-primary-bm">BachatMart</span> Works</h2>
+            <p class="text-muted small mb-0">
                 A seamless 3-step bridge between local shopkeepers clearing unsold inventory and local bargain shoppers.
             </p>
         </div>
 
-        <div class="row g-4 pedestal-stage-row">
+        <div class="row g-4">
             <div class="col-md-4">
-                <div class="stage-pedestal-3d">
-                    <div class="pedestal-number-3d">01</div>
-                    <div class="pedestal-icon-wrapper">
-                        <i class="bi bi-shop"></i>
+                <div class="card border p-4 bg-white h-100" style="border-color:#E2E8F0 !important; border-radius:6px; box-shadow:none;">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-inline-flex align-items-center justify-content-center fw-800 text-white"
+                             style="width:36px; height:36px; background:#FF5722; font-size:0.95rem; border-radius:4px;">
+                            01
+                        </div>
+                        <i class="bi bi-shop text-muted fs-3"></i>
                     </div>
-                    <h5 class="fw-800 text-dark mb-2">Shopkeeper Lists Stock</h5>
-                    <p class="text-muted small mb-0">Local retailers list dead or excess inventory at steep clearance prices in under 2 minutes.</p>
+                    <h5 class="fw-700 text-dark fs-6 mb-2">Shopkeeper Lists Stock</h5>
+                    <p class="text-muted small mb-0" style="line-height:1.5;">Local retailers list dead or excess inventory at steep clearance prices in under 2 minutes.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="stage-pedestal-3d">
-                    <div class="pedestal-number-3d">02</div>
-                    <div class="pedestal-icon-wrapper">
-                        <i class="bi bi-phone-vibrate"></i>
+                <div class="card border p-4 bg-white h-100" style="border-color:#E2E8F0 !important; border-radius:6px; box-shadow:none;">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-inline-flex align-items-center justify-content-center fw-800 text-white"
+                             style="width:36px; height:36px; background:#FF5722; font-size:0.95rem; border-radius:4px;">
+                            02
+                        </div>
+                        <i class="bi bi-phone-vibrate text-muted fs-3"></i>
                     </div>
-                    <h5 class="fw-800 text-dark mb-2">Shopper Discovers Deal</h5>
-                    <p class="text-muted small mb-0">Local buyers browse verified deals nearby, check pricing, and message the store directly on WhatsApp.</p>
+                    <h5 class="fw-700 text-dark fs-6 mb-2">Shopper Discovers Deal</h5>
+                    <p class="text-muted small mb-0" style="line-height:1.5;">Local buyers browse verified deals nearby, check pricing, and message the store directly on WhatsApp.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="stage-pedestal-3d">
-                    <div class="pedestal-number-3d">03</div>
-                    <div class="pedestal-icon-wrapper">
-                        <i class="bi bi-bag-check-fill"></i>
+                <div class="card border p-4 bg-white h-100" style="border-color:#E2E8F0 !important; border-radius:6px; box-shadow:none;">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-inline-flex align-items-center justify-content-center fw-800 text-white"
+                             style="width:36px; height:36px; background:#FF5722; font-size:0.95rem; border-radius:4px;">
+                            03
+                        </div>
+                        <i class="bi bi-bag-check-fill text-muted fs-3"></i>
                     </div>
-                    <h5 class="fw-800 text-dark mb-2">Inspect & Buy In-Store</h5>
-                    <p class="text-muted small mb-0">The customer visits the neighborhood shop, checks the product quality in person, and pays directly.</p>
+                    <h5 class="fw-700 text-dark fs-6 mb-2">Inspect & Buy In-Store</h5>
+                    <p class="text-muted small mb-0" style="line-height:1.5;">The customer visits the neighborhood shop, checks the product quality in person, and pays directly.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-{{-- ── 8. 3D SELLER CALL-TO-ACTION BANNER ── --}}
-<section class="py-5" style="background:#FFFFFF">
+{{-- ── 8. SELLER CALL-TO-ACTION BANNER (Clean & Sober) ── --}}
+<section class="py-5" style="background:#FAFAFB;">
     <div class="container">
-        <div class="seller-banner-3d">
-            <div class="row align-items-center justify-content-between g-4 position-relative" style="z-index: 2;">
-                <div class="col-lg-7 text-white">
-                    <div class="seller-badge-3d">
+        <div class="p-4 p-md-5 text-white" style="background:#0F172A; border:1px solid #1E293B; border-radius:6px;">
+            <div class="row align-items-center justify-content-between g-4">
+                <div class="col-lg-7">
+                    <div class="d-inline-flex align-items-center gap-1 px-2 py-1 mb-2 text-warning small fw-700" style="background:rgba(245,158,11,0.15); border-radius:4px;">
                         <i class="bi bi-graph-up-arrow"></i> Retailers & Wholesalers
                     </div>
-                    <h2 class="fw-800 text-white mb-2" style="font-size: clamp(1.8rem, 2.6vw, 2.5rem);">
+                    <h2 class="fw-800 text-white mb-2" style="font-size: clamp(1.6rem, 2.4vw, 2.2rem);">
                         Have Unsold Stock in Your Shop?
                     </h2>
-                    <p class="text-secondary mb-0" style="max-width: 520px; font-size:1.05rem;">
+                    <p class="text-light text-opacity-75 mb-0" style="max-width: 520px; font-size:0.95rem;">
                         Join hundreds of local retailers clearing excess inventory. Zero commission, no shipping delays, direct store footfall.
                     </p>
                 </div>
                 <div class="col-lg-5 text-lg-end">
-                    <a href="{{ route('register.seller') }}" class="btn-3d-primary px-4 py-3" style="background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%); color:#0F172A !important; box-shadow: 0 6px 0 #94A3B8, 0 16px 28px rgba(0,0,0,0.3);">
+                    <a href="{{ route('register.seller') }}" class="btn btn-light px-4 py-2 fw-700 text-dark" style="border-radius:4px;">
                         <i class="bi bi-shop-window me-1 text-primary-bm"></i> Register Shop for Free &rarr;
                     </a>
                 </div>
@@ -348,9 +331,49 @@
 
 @endsection
 
-@push('scripts')
-{{-- Three.js WebGL Library for 3D Hero Scene --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-{{-- BachatMart 3D Engine & Physics --}}
-<script src="{{ asset('js/home-3d.js') }}?v={{ file_exists(public_path('js/home-3d.js')) ? filemtime(public_path('js/home-3d.js')) : '1.0' }}"></script>
+@push('styles')
+<style>
+/* Pure Flat & Sober Overrides for Homepage & Product Cards */
+*, *::before, *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+.product-card, .card, .btn, .badge, .form-control, .dropdown-menu {
+    box-shadow: none !important;
+    transition: none !important;
+    transform: none !important;
+}
+
+.product-card {
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+}
+
+.product-card:hover {
+    border-color: #CBD5E1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.product-card-img-wrapper img,
+.product-card:hover .product-card-img-wrapper img {
+    transform: none !important;
+    transition: none !important;
+}
+
+.btn:hover, a:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.rounded-pill, .rounded-3, .rounded-4, .rounded-5 {
+    border-radius: 6px !important;
+}
+
+.rounded-2 {
+    border-radius: 4px !important;
+}
+</style>
 @endpush
