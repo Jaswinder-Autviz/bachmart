@@ -8,13 +8,18 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Services\PaymentService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function __construct(private ProductService $productService) {}
+    public function __construct(
+        private ProductService $productService,
+        private PaymentService $paymentService
+    ) {}
 
     public function index(Request $request)
     {
@@ -22,7 +27,7 @@ class ProductController extends Controller
         $shop = $user->shop;
 
         $query = Product::where('shop_id', $shop->id)
-            ->with(['primaryImage', 'category'])
+            ->with(['primaryImage', 'category', 'listingPayment'])
             ->latest();
 
         if ($request->status) {
@@ -43,22 +48,20 @@ class ProductController extends Controller
             'draft' => Product::where('shop_id', $shop->id)->where('status', 'draft')->count(),
         ];
 
-        $maxProducts = $user->max_products;
-        $activeCount = Product::where('shop_id', $shop->id)->whereIn('status', ['approved', 'pending'])->count();
+        $hasUnusedPayment = $this->paymentService->hasUnusedListingPayment($user);
 
-        return view('seller.products.index', compact('products', 'counts', 'maxProducts', 'activeCount', 'shop'));
+        return view('seller.products.index', compact('products', 'counts', 'shop', 'hasUnusedPayment'));
     }
 
     public function create()
     {
         $user = auth()->user();
         $shop = $user->shop;
-        $maxProducts = $user->max_products;
-        $activeCount = Product::where('shop_id', $shop->id)->whereIn('status', ['approved', 'pending'])->count();
 
-        if ($maxProducts !== -1 && $activeCount >= $maxProducts) {
-            return redirect()->route('seller.subscription.index')
-                ->with('error', "You've reached your product limit ({$maxProducts}). Upgrade your plan to add more products.");
+        // Security check: Must have a verified unused ₹12 listing payment
+        if (!$this->paymentService->hasUnusedListingPayment($user)) {
+            return redirect()->route('seller.products.payment')
+                ->with('info', 'Please complete the ₹12 listing payment to create a new product.');
         }
 
         $categories = Category::active()->orderBy('name')->get();
@@ -67,20 +70,36 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        $user = auth()->user();
+
+        // Server-side security verification: Ensure valid unused payment exists
+        if (!$this->paymentService->hasUnusedListingPayment($user)) {
+            return redirect()->route('seller.products.payment')
+                ->with('error', 'A valid ₹12 listing payment is required before creating a product.');
+        }
+
         $data = $request->validated();
         $data['is_negotiable'] = $request->boolean('is_negotiable');
         $images = $request->file('images', []);
 
-        $product = $this->productService->create(auth()->user(), $data, $images);
+        $product = DB::transaction(function () use ($user, $data, $images) {
+            // 1. Create product (edit_count = 0, status = pending)
+            $newProduct = $this->productService->create($user, $data, $images);
+
+            // 2. Consume the listing payment authorization for this product
+            $this->paymentService->consumeListingPayment($user, $newProduct);
+
+            return $newProduct;
+        });
 
         return redirect()->route('seller.products.index')
-            ->with('success', "Surplus Stock '{$product->name}' listed successfully and submitted for approval.");
+            ->with('success', "Surplus Stock '{$product->name}' listed successfully and submitted for Admin approval.");
     }
 
     public function show(Product $product)
     {
         $this->authorize('update', $product);
-        $product->load(['images', 'category', 'leads']);
+        $product->load(['images', 'category', 'leads', 'listingPayment']);
 
         $leadStats = [
             'views' => $product->leads()->byType('view')->count(),
@@ -95,6 +114,13 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $this->authorize('update', $product);
+
+        // Enforce 2-Edit limit for shop owners
+        if (!$product->canSellerEdit()) {
+            return redirect()->route('seller.products.index')
+                ->with('error', "Edit limit reached. You have used all 2 edits for this product.");
+        }
+
         $product->load('images');
         $categories = Category::active()->orderBy('name')->get();
         return view('seller.products.edit', compact('product', 'categories'));
@@ -104,14 +130,22 @@ class ProductController extends Controller
     {
         $this->authorize('update', $product);
 
+        // Enforce 2-Edit limit for shop owners
+        if (!$product->canSellerEdit()) {
+            return redirect()->route('seller.products.index')
+                ->with('error', "Edit limit reached. You have used all 2 edits for this product.");
+        }
+
         $data = $request->validated();
         $data['is_negotiable'] = $request->boolean('is_negotiable');
         $images = $request->file('images', []);
 
-        $this->productService->update($product, $data, $images);
+        $updatedProduct = $this->productService->update($product, $data, $images);
 
-        return redirect()->route('seller.products.index')
-            ->with('success', "Surplus Stock '{$product->name}' updated successfully.");
+        $editsUsed = $updatedProduct->edit_count;
+        $msg = "Surplus Stock '{$product->name}' updated successfully (Edits used: {$editsUsed}/2). Resubmitted for admin review.";
+
+        return redirect()->route('seller.products.index')->with('success', $msg);
     }
 
     public function toggleStatus(Product $product)

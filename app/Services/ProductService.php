@@ -34,9 +34,16 @@ class ProductService
     public function update(Product $product, array $data, array $newImages = []): Product
     {
         return DB::transaction(function () use ($product, $data, $newImages) {
-            // If seller edits an approved product, re-submit for review
-            if ($product->status === 'approved' && !auth()->user()->isAdmin()) {
-                $data['status'] = 'pending';
+            $isSeller = !auth()->user()->isAdmin();
+
+            if ($isSeller) {
+                // Increment seller edit counter
+                $product->increment('edit_count');
+
+                // If seller edits an already approved or live product, re-submit for admin review
+                if ($product->status === 'approved') {
+                    $data['status'] = 'pending';
+                }
             }
 
             $product->update($data);
@@ -45,7 +52,7 @@ class ProductService
                 $this->saveImages($product, $newImages);
             }
 
-            ActivityLog::log('product_updated', "Product '{$product->name}' updated.", $product);
+            ActivityLog::log('product_updated', "Product '{$product->name}' updated." . ($isSeller ? " (Edit #{$product->edit_count})" : " (Admin edit)"), $product);
 
             return $product->fresh();
         });

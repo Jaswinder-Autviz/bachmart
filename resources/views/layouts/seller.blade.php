@@ -214,9 +214,9 @@
                 <span class="badge ms-auto rounded-pill" style="background:#2d3748;color:#a0aec0;font-size:0.75rem">{{ auth()->user()->shop->products()->count() }}</span>
             @endif
         </a>
-        <a href="{{ route('seller.products.create') }}" class="nav-link {{ request()->routeIs('seller.products.create') ? 'active' : '' }}">
-            <i class="bi bi-plus-circle-fill text-warning"></i> <span>List Surplus Stock</span>
-            <span class="badge bg-warning text-dark ms-auto" style="font-size:0.65rem;font-weight:700">NEW</span>
+        <a href="{{ route('seller.products.create') }}" class="nav-link {{ (request()->routeIs('seller.products.create') || request()->routeIs('seller.products.payment')) ? 'active' : '' }}">
+            <i class="bi bi-plus-circle-fill text-warning"></i> <span>List Stock (₹12)</span>
+            <span class="badge bg-warning text-dark ms-auto" style="font-size:0.65rem;font-weight:700">₹12/Item</span>
         </a>
 
         <div class="nav-section">Insights</div>
@@ -227,9 +227,9 @@
             <i class="bi bi-bar-chart"></i> Analytics
         </a>
 
-        <div class="nav-section">Account</div>
-        <a href="{{ route('seller.subscription.index') }}" class="nav-link {{ request()->routeIs('seller.subscription.*') ? 'active' : '' }}">
-            <i class="bi bi-credit-card"></i> Subscription
+        <div class="nav-section">Billing & Account</div>
+        <a href="{{ route('seller.payments.index') }}" class="nav-link {{ request()->routeIs('seller.payments.*') ? 'active' : '' }}">
+            <i class="bi bi-receipt"></i> Payment History
         </a>
         <a href="{{ route('seller.notifications') }}" class="nav-link {{ request()->routeIs('seller.notifications') ? 'active' : '' }}">
             <i class="bi bi-bell"></i> Notifications
@@ -264,7 +264,7 @@
                 <i class="bi bi-box-arrow-up-right me-1"></i>View Site
             </a>
             <a href="{{ route('seller.products.create') }}" class="btn btn-primary-bm btn-sm px-3 rounded-pill">
-                <i class="bi bi-plus-circle-fill me-1"></i>+ Add Surplus Stock
+                <i class="bi bi-plus-circle-fill me-1"></i>+ List Stock — ₹12
             </a>
         </div>
     </div>

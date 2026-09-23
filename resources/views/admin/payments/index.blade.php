@@ -25,8 +25,8 @@
     </div>
     <div class="col-sm-6 col-xl-3">
         <div class="stat-card">
-            <div class="stat-value" style="color:#FF5722">₹{{ number_format(($stats['subscription_revenue'] ?? 0) + ($stats['featured_revenue'] ?? 0)) }}</div>
-            <div class="stat-label">Plan & Featured Sales</div>
+            <div class="stat-value" style="color:#FF5722">₹{{ number_format($stats['listing_revenue'] ?? 0) }}</div>
+            <div class="stat-label">Product Listing Fees (₹12)</div>
         </div>
     </div>
 </div>
@@ -63,7 +63,7 @@
                 <tr>
                     <th class="ps-3 py-3">Txn ID / Gateway</th>
                     <th>User / Seller</th>
-                    <th>Payable Item</th>
+                    <th>Payable Item / Purpose</th>
                     <th>Amount</th>
                     <th>Status</th>
                     <th>Date</th>
@@ -74,20 +74,22 @@
                 @forelse($payments as $payment)
                 <tr>
                     <td class="ps-3">
-                        <div class="fw-700 text-dark">{{ $payment->transaction_id ?? 'TXN-' . str_pad($payment->id, 6, '0', STR_PAD_LEFT) }}</div>
-                        <div class="text-muted small">{{ ucfirst($payment->payment_method ?? 'manual') }}</div>
+                        <div class="fw-700 text-dark">{{ $payment->transaction_id ?? $payment->payment_id ?? 'TXN-' . str_pad($payment->id, 6, '0', STR_PAD_LEFT) }}</div>
+                        <div class="text-muted small">{{ ucfirst($payment->payment_method ?? $payment->gateway ?? 'direct') }}</div>
                     </td>
                     <td>
                         <div class="fw-600">{{ $payment->user->name ?? 'User #' . $payment->user_id }}</div>
                         <div class="text-muted small">{{ $payment->user->email ?? 'N/A' }}</div>
                     </td>
                     <td>
-                        @if($payment->payable_type === \App\Models\Subscription::class)
-                            <span class="badge bg-primary-subtle text-primary fw-600">Subscription Plan</span>
-                        @elseif($payment->payable_type === \App\Models\FeaturedProduct::class)
+                        @if($payment->type === 'product_listing' || $payment->payable_type === \App\Models\Product::class)
+                            <span class="badge bg-primary-subtle text-primary fw-600">Product Listing (₹12)</span>
+                        @elseif($payment->payable_type === \App\Models\FeaturedProduct::class || $payment->type === 'featured')
                             <span class="badge bg-warning-subtle text-warning-emphasis fw-600">Featured Listing</span>
+                        @elseif($payment->payable_type === \App\Models\Subscription::class)
+                            <span class="badge bg-secondary-subtle text-secondary fw-600">Subscription (Legacy)</span>
                         @else
-                            <span class="badge bg-secondary-subtle text-secondary">{{ class_basename($payment->payable_type ?? 'Item') }}</span>
+                            <span class="badge bg-secondary-subtle text-secondary">{{ ucfirst($payment->type ?? class_basename($payment->payable_type ?? 'Payment')) }}</span>
                         @endif
                     </td>
                     <td>

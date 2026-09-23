@@ -26,7 +26,7 @@
         </div>
         @endif
 
-        <form action="{{ route('seller.products.store') }}" method="POST" enctype="multipart/form-data" id="deadStockForm">
+        <form action="{{ route('seller.products.store') }}" method="POST" enctype="multipart/form-data" id="surplusStockForm">
             @csrf
 
             {{-- 1. Product Identification --}}

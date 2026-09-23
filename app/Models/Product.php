@@ -12,7 +12,7 @@ class Product extends Model
     protected $fillable = [
         'user_id', 'shop_id', 'category_id', 'name', 'slug', 'description',
         'brand', 'sku', 'condition', 'original_price', 'offer_price',
-        'discount_percent', 'quantity', 'unit', 'status', 'rejection_reason',
+        'discount_percent', 'quantity', 'unit', 'status', 'edit_count', 'rejection_reason',
         'is_featured', 'featured_until', 'is_negotiable', 'expires_at',
         'views_count', 'calls_count', 'whatsapp_count', 'directions_count',
         'meta_title', 'meta_description',
@@ -22,6 +22,7 @@ class Product extends Model
         'original_price' => 'decimal:2',
         'offer_price' => 'decimal:2',
         'discount_percent' => 'decimal:2',
+        'edit_count' => 'integer',
         'is_featured' => 'boolean',
         'is_negotiable' => 'boolean',
         'featured_until' => 'datetime',
@@ -67,6 +68,21 @@ class Product extends Model
     public function primaryImage()
     {
         return $this->hasOne(ProductImage::class)->where('is_primary', true)->orderBy('sort_order');
+    }
+
+    public function listingPayment()
+    {
+        return $this->hasOne(Payment::class)->where('type', 'product_listing')->latest();
+    }
+
+    public function canSellerEdit(): bool
+    {
+        return $this->edit_count < 2;
+    }
+
+    public function getRemainingEditsAttribute(): int
+    {
+        return max(0, 2 - (int) $this->edit_count);
     }
 
     public function leads()

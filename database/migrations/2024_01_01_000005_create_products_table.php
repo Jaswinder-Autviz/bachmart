@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('quantity')->default(1);
             $table->string('unit')->default('piece');
             $table->enum('status', ['draft', 'pending', 'approved', 'rejected', 'expired', 'sold_out', 'inactive'])->default('pending');
+            $table->unsignedSmallInteger('edit_count')->default(0);
             $table->text('rejection_reason')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->timestamp('featured_until')->nullable();

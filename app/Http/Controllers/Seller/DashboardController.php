@@ -4,13 +4,19 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lead;
+use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Services\AnalyticsService;
+use App\Services\PaymentService;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function __construct(private AnalyticsService $analytics) {}
+    public function __construct(
+        private AnalyticsService $analytics,
+        private PaymentService $paymentService
+    ) {}
 
     public function index()
     {
@@ -41,9 +47,22 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
 
-        $subscription = $user->activeSubscription;
+        $listingPrice = (float) Setting::get('product_listing_price', 12);
+        $hasUnusedPayment = $this->paymentService->hasUnusedListingPayment($user);
+        $totalListingPayments = Payment::where('user_id', $user->id)
+            ->where('type', 'product_listing')
+            ->where('status', 'completed')
+            ->count();
 
-        return view('seller.dashboard', compact('stats', 'recentProducts', 'recentLeads', 'subscription', 'shop'));
+        return view('seller.dashboard', compact(
+            'stats',
+            'recentProducts',
+            'recentLeads',
+            'shop',
+            'listingPrice',
+            'hasUnusedPayment',
+            'totalListingPayments'
+        ));
     }
 
     public function leads(Request $request)

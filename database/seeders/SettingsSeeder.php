@@ -18,11 +18,12 @@ class SettingsSeeder extends Seeder
             ['key' => 'currency_symbol', 'value' => '₹', 'type' => 'string', 'group' => 'general', 'label' => 'Currency Symbol', 'is_public' => true],
             ['key' => 'contact_address', 'value' => '123 Market Street, Bazaar Road', 'type' => 'string', 'group' => 'general', 'label' => 'Address', 'is_public' => true],
             ['key' => 'contact_city', 'value' => 'Mumbai, Maharashtra 400001', 'type' => 'string', 'group' => 'general', 'label' => 'City', 'is_public' => true],
+            // Pricing & Listing
+            ['key' => 'product_listing_price', 'value' => '12', 'type' => 'integer', 'group' => 'pricing', 'label' => 'Product Listing Price (₹)', 'is_public' => true],
             // Featured prices
             ['key' => 'featured_price_3days', 'value' => '49', 'type' => 'integer', 'group' => 'featured', 'label' => 'Featured 3 Days Price (₹)', 'is_public' => true],
             ['key' => 'featured_price_7days', 'value' => '99', 'type' => 'integer', 'group' => 'featured', 'label' => 'Featured 7 Days Price (₹)', 'is_public' => true],
             ['key' => 'featured_price_15days', 'value' => '199', 'type' => 'integer', 'group' => 'featured', 'label' => 'Featured 15 Days Price (₹)', 'is_public' => true],
-            ['key' => 'max_free_products', 'value' => '5', 'type' => 'integer', 'group' => 'general', 'label' => 'Max Free Products', 'is_public' => false],
             // Social
             ['key' => 'facebook_url', 'value' => 'https://facebook.com/bachatmart', 'type' => 'string', 'group' => 'social', 'label' => 'Facebook URL', 'is_public' => true],
             ['key' => 'instagram_url', 'value' => 'https://instagram.com/bachatmart', 'type' => 'string', 'group' => 'social', 'label' => 'Instagram URL', 'is_public' => true],

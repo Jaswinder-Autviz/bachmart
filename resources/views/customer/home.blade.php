@@ -270,7 +270,7 @@
                         <i class="bi bi-shop text-muted fs-3"></i>
                     </div>
                     <h5 class="fw-700 text-dark fs-6 mb-2">Shopkeeper Lists Stock</h5>
-                    <p class="text-muted small mb-0" style="line-height:1.5;">Local retailers list dead or excess inventory at steep clearance prices in under 2 minutes.</p>
+                    <p class="text-muted small mb-0" style="line-height:1.5;">Local retailers list surplus or excess inventory at steep clearance prices in under 2 minutes.</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -303,25 +303,25 @@
     </div>
 </section>
 
-{{-- ── 8. SELLER CALL-TO-ACTION BANNER (Clean & Sober) ── --}}
-<section class="py-5" style="background:#FAFAFB;">
+{{-- ── 10. SELLER CALL-TO-ACTION BANNER ── --}}
+<section class="py-5" style="background: #FAF8F5;">
     <div class="container">
-        <div class="p-4 p-md-5 text-white" style="background:#0F172A; border:1px solid #1E293B; border-radius:6px;">
+        <div class="p-4 p-md-5 text-white" style="background: linear-gradient(135deg, #12291E 0%, #163628 100%); border: 1px solid #1E3D2C; border-radius: 20px; box-shadow: 0 14px 32px rgba(18,41,30,0.18);">
             <div class="row align-items-center justify-content-between g-4">
                 <div class="col-lg-7">
-                    <div class="d-inline-flex align-items-center gap-1 px-2 py-1 mb-2 text-warning small fw-700" style="background:rgba(245,158,11,0.15); border-radius:4px;">
-                        <i class="bi bi-graph-up-arrow"></i> Retailers & Wholesalers
+                    <div class="d-inline-flex align-items-center gap-1.5 px-3 py-1 mb-3 text-warning small fw-700" style="background: rgba(255, 100, 51, 0.2); border-radius: 30px; color: #FF8A65 !important;">
+                        <i class="bi bi-tag-fill"></i> Just ₹12 Per Product Listing &bull; 0% Commission
                     </div>
-                    <h2 class="fw-800 text-white mb-2" style="font-size: clamp(1.6rem, 2.4vw, 2.2rem);">
-                        Have Unsold Stock in Your Shop?
+                    <h2 class="fw-900 text-white mb-2" style="font-size: clamp(1.6rem, 2.5vw, 2.3rem); letter-spacing: -0.02em;">
+                        Have Unsold Surplus Stock in Your Shop?
                     </h2>
-                    <p class="text-light text-opacity-75 mb-0" style="max-width: 520px; font-size:0.95rem;">
-                        Join hundreds of local retailers clearing excess inventory. Zero commission, no shipping delays, direct store footfall.
+                    <p class="text-light text-opacity-75 mb-0" style="max-width: 520px; font-size: 0.95rem; line-height: 1.6;">
+                        Join hundreds of local retailers clearing excess inventory. List any surplus item for just ₹12. Direct WhatsApp leads, zero sales commission, and instant in-store walk-ins.
                     </p>
                 </div>
                 <div class="col-lg-5 text-lg-end">
-                    <a href="{{ route('register.seller') }}" class="btn btn-light px-4 py-2 fw-700 text-dark" style="border-radius:4px;">
-                        <i class="bi bi-shop-window me-1 text-primary-bm"></i> Register Shop for Free &rarr;
+                    <a href="{{ route('register.seller') }}" class="se-btn-orange px-4 py-3 fw-800 fs-6">
+                        <i class="bi bi-shop-window me-1"></i> Register Shop & Start Listing &rarr;
                     </a>
                 </div>
             </div>
@@ -331,49 +331,3 @@
 
 @endsection
 
-@push('styles')
-<style>
-/* Pure Flat & Sober Overrides for Homepage & Product Cards */
-*, *::before, *::after {
-    box-shadow: none !important;
-    text-shadow: none !important;
-}
-
-.product-card, .card, .btn, .badge, .form-control, .dropdown-menu {
-    box-shadow: none !important;
-    transition: none !important;
-    transform: none !important;
-}
-
-.product-card {
-    border: 1px solid #E2E8F0 !important;
-    border-radius: 6px !important;
-    background: #ffffff !important;
-}
-
-.product-card:hover {
-    border-color: #CBD5E1 !important;
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-.product-card-img-wrapper img,
-.product-card:hover .product-card-img-wrapper img {
-    transform: none !important;
-    transition: none !important;
-}
-
-.btn:hover, a:hover {
-    transform: none !important;
-    box-shadow: none !important;
-}
-
-.rounded-pill, .rounded-3, .rounded-4, .rounded-5 {
-    border-radius: 6px !important;
-}
-
-.rounded-2 {
-    border-radius: 4px !important;
-}
-</style>
-@endpush

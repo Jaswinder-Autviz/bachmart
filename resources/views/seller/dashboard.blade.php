@@ -9,66 +9,68 @@
 <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
     <div>
         <h4 class="fw-800 mb-1 text-dark">Welcome back, {{ Str::words(auth()->user()->name, 1, '') }}! 👋</h4>
-        <p class="text-muted small mb-0">Manage your Surplus Stock inventory, customer enquiries, and in-store leads.</p>
+        <p class="text-muted small mb-0">List surplus stock at ₹{{ number_format($listingPrice, 0) }}/product, manage customer enquiries, and track in-store leads.</p>
     </div>
     <a href="{{ route('seller.products.create') }}" class="btn btn-primary-bm px-4 py-2 fs-6 rounded-pill">
-        <i class="bi bi-plus-circle-fill me-1"></i>+ Add Surplus Stock
+        <i class="bi bi-plus-circle-fill me-1"></i>+ List Surplus Stock — ₹{{ number_format($listingPrice, 0) }}
     </a>
 </div>
 
-{{-- Subscription Status Banner --}}
-@if(!$subscription)
-<div class="card border-0 shadow-sm rounded-4 p-3 mb-4 d-flex flex-row align-items-center justify-content-between gap-3 flex-wrap"
-     style="background:linear-gradient(135deg,#FFF7ED 0%,#FFF0EB 100%);border:1px solid #FFD3C4 !important">
-    <div class="d-flex align-items-center gap-3">
-        <div class="rounded-circle bg-white text-warning fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width:44px;height:44px">
-            <i class="bi bi-star-fill"></i>
-        </div>
-        <div>
-            <div class="fw-700 text-dark">You are on the <span class="text-primary-bm">Free Basic Plan</span></div>
-            <div class="text-muted small">List up to 5 Surplus Stock items. Upgrade for unlimited inventory and featured homepage spots.</div>
-        </div>
-    </div>
-    <a href="{{ route('seller.subscription.index') }}" class="btn btn-primary-bm btn-sm px-3 rounded-pill">
-        Upgrade Plan <i class="bi bi-arrow-right ms-1"></i>
-    </a>
-</div>
-@else
+{{-- Pay-Per-Listing Status Banner --}}
+@if($hasUnusedPayment)
 <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 d-flex flex-row align-items-center justify-content-between gap-3 flex-wrap"
      style="background:#ECFDF5;border:1px solid #A7F3D0 !important">
     <div class="d-flex align-items-center gap-3">
         <div class="rounded-circle bg-white text-success fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width:44px;height:44px">
-            <i class="bi bi-patch-check-fill text-success"></i>
+            <i class="bi bi-check2-circle text-success"></i>
         </div>
         <div>
             <div class="fw-700 text-dark">
-                <strong>{{ $subscription->subscriptionPlan->name }} Plan</strong> is Active
+                You have an active Listing Credit ready!
             </div>
             <div class="text-muted small">
-                Valid until {{ $subscription->expires_at?->format('d M Y') }} ({{ $subscription->days_remaining }} days remaining)
+                Listing payment of ₹{{ number_format($listingPrice, 0) }} completed. Proceed directly to upload your surplus stock details.
             </div>
         </div>
     </div>
-    <a href="{{ route('seller.subscription.index') }}" class="btn btn-outline-success btn-sm px-3 rounded-pill">
-        Manage Subscription
+    <a href="{{ route('seller.products.create') }}" class="btn btn-success btn-sm px-4 rounded-pill fw-600">
+        Create Listing Now <i class="bi bi-arrow-right ms-1"></i>
     </a>
+</div>
+@else
+<div class="card border-0 shadow-sm rounded-4 p-3 mb-4 d-flex flex-row align-items-center justify-content-between gap-3 flex-wrap"
+     style="background:linear-gradient(135deg,#FFF7ED 0%,#FFF0EB 100%);border:1px solid #FFD3C4 !important">
+    <div class="d-flex align-items-center gap-3">
+        <div class="rounded-circle bg-white text-warning fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width:44px;height:44px">
+            <i class="bi bi-lightning-charge-fill text-primary-bm"></i>
+        </div>
+        <div>
+            <div class="fw-700 text-dark">Pay-Per-Listing Model: <span class="text-primary-bm">₹{{ number_format($listingPrice, 0) }} / Product</span></div>
+            <div class="text-muted small">No monthly subscriptions or recurring fees. Pay once per product listing with 2 free edits included. Zero commission on customer sales.</div>
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ route('seller.products.payment') }}" class="btn btn-primary-bm btn-sm px-4 rounded-pill fw-600">
+            Pay ₹{{ number_format($listingPrice, 0) }} & List <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+    </div>
 </div>
 @endif
 
-{{-- ── 10 KEY METRIC STAT CARDS (Requirement 7) ── --}}
+{{-- ── 10 KEY METRIC STAT CARDS ── --}}
 <div class="row g-3 mb-4">
     @php
     $statCards = [
-        ['label'=>'Total Products', 'value'=>$stats['total_products'], 'icon'=>'bi-box-seam', 'color'=>'#6366F1', 'bg'=>'#EEF2FF'],
-        ['label'=>'Live Products', 'value'=>$stats['active_products'], 'icon'=>'bi-check-circle-fill', 'color'=>'#10B981', 'bg'=>'#ECFDF5'],
-        ['label'=>'Pending Approval', 'value'=>$stats['pending_products'], 'icon'=>'bi-hourglass-split', 'color'=>'#F59E0B', 'bg'=>'#FFFBEB'],
+        ['label'=>'Total Listed', 'value'=>$stats['total_products'], 'icon'=>'bi-box-seam', 'color'=>'#6366F1', 'bg'=>'#EEF2FF'],
+        ['label'=>'Live & Approved', 'value'=>$stats['active_products'], 'icon'=>'bi-check-circle-fill', 'color'=>'#10B981', 'bg'=>'#ECFDF5'],
+        ['label'=>'Pending Review', 'value'=>$stats['pending_products'], 'icon'=>'bi-hourglass-split', 'color'=>'#F59E0B', 'bg'=>'#FFFBEB'],
         ['label'=>'Sold Out', 'value'=>$stats['sold_out'] ?? 0, 'icon'=>'bi-bag-check-fill', 'color'=>'#64748B', 'bg'=>'#F1F5F9'],
         ['label'=>'Product Views', 'value'=>number_format($stats['total_views']), 'icon'=>'bi-eye-fill', 'color'=>'#8B5CF6', 'bg'=>'#F5F3FF'],
-        ['label'=>'Call Clicks', 'value'=>$stats['total_calls'], 'icon'=>'bi-telephone-fill', 'color'=>'#059669', 'bg'=>'#ECFDF5'],
-        ['label'=>'WhatsApp Clicks', 'value'=>$stats['total_whatsapp'], 'icon'=>'bi-whatsapp', 'color'=>'#25D366', 'bg'=>'#F0FDF4'],
-        ['label'=>'Direction Requests', 'value'=>$stats['total_directions'], 'icon'=>'bi-map-fill', 'color'=>'#EF4444', 'bg'=>'#FEF2F2'],
-        ['label'=>'Featured Products', 'value'=>$stats['featured_products'], 'icon'=>'bi-star-fill', 'color'=>'#FF5722', 'bg'=>'#FFF0EB'],
-        ['label'=>'Current Plan', 'value'=>$subscription ? $subscription->subscriptionPlan->name : 'Free', 'icon'=>'bi-credit-card-2-front-fill', 'color'=>'#0EA5E9', 'bg'=>'#F0F9FF', 'is_text'=>true],
+        ['label'=>'Call Leads', 'value'=>$stats['total_calls'], 'icon'=>'bi-telephone-fill', 'color'=>'#059669', 'bg'=>'#ECFDF5'],
+        ['label'=>'WhatsApp Leads', 'value'=>$stats['total_whatsapp'], 'icon'=>'bi-whatsapp', 'color'=>'#25D366', 'bg'=>'#F0FDF4'],
+        ['label'=>'Map Clicks', 'value'=>$stats['total_directions'], 'icon'=>'bi-map-fill', 'color'=>'#EF4444', 'bg'=>'#FEF2F2'],
+        ['label'=>'Featured', 'value'=>$stats['featured_products'], 'icon'=>'bi-star-fill', 'color'=>'#FF5722', 'bg'=>'#FFF0EB'],
+        ['label'=>'Listing Price', 'value'=>'₹'.number_format($listingPrice, 0).'/item', 'icon'=>'bi-tag-fill', 'color'=>'#0EA5E9', 'bg'=>'#F0F9FF', 'is_text'=>true],
     ];
     @endphp
 

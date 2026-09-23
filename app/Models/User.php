@@ -115,14 +115,21 @@ class User extends Authenticatable
 
     public function getCurrentPlanAttribute()
     {
-        $sub = $this->activeSubscription;
-        return $sub ? $sub->subscriptionPlan : null;
+        return null;
     }
 
     public function getMaxProductsAttribute(): int
     {
-        $plan = $this->current_plan;
-        if (!$plan) return 25; // free default generous limit for testing & surplus listing
-        return $plan->max_products; // -1 = unlimited
+        return -1; // No subscription product limit
+    }
+
+    public function hasUnusedListingPayment(): bool
+    {
+        return $this->payments()
+            ->where('type', 'product_listing')
+            ->whereIn('status', ['completed', 'success'])
+            ->whereNull('product_id')
+            ->whereNull('used_at')
+            ->exists();
     }
 }

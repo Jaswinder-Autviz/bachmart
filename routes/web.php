@@ -12,7 +12,7 @@ use App\Http\Controllers\Seller\ShopController as SellerShop;
 use App\Http\Controllers\Seller\ProductController as SellerProduct;
 use App\Http\Controllers\Seller\AnalyticsController as SellerAnalytics;
 use App\Http\Controllers\Seller\FeaturedController as SellerFeatured;
-use App\Http\Controllers\Seller\SubscriptionController as SellerSubscription;
+use App\Http\Controllers\Seller\PaymentController as SellerPayment;
 use App\Http\Controllers\Seller\NotificationController as SellerNotification;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\UserController as AdminUser;
@@ -95,7 +95,12 @@ Route::prefix('seller')->name('seller.')->middleware(['auth', 'role:seller'])->g
         Route::get('/shop/edit', [SellerShop::class, 'edit'])->name('shop.edit');
         Route::put('/shop', [SellerShop::class, 'update'])->name('shop.update');
 
-        // Products
+        // Pay-Per-Product Listing Payment Flow (Must precede Route::resource to avoid {product} wildcard collision)
+        Route::get('/products/payment', [SellerPayment::class, 'showListingPayment'])->name('products.payment');
+        Route::post('/products/payment/process', [SellerPayment::class, 'processListingPayment'])->name('products.payment.process');
+        Route::get('/payments', [SellerPayment::class, 'history'])->name('payments.index');
+
+        // Products Resource & Management
         Route::resource('products', SellerProduct::class);
         Route::post('/products/{product}/toggle-status', [SellerProduct::class, 'toggleStatus'])->name('products.toggle-status');
         Route::delete('/products/{product}/images/{image}', [SellerProduct::class, 'destroyImage'])->name('products.images.destroy');
@@ -109,9 +114,8 @@ Route::prefix('seller')->name('seller.')->middleware(['auth', 'role:seller'])->g
         Route::get('/products/{product}/feature', [SellerFeatured::class, 'show'])->name('featured.show');
         Route::post('/products/{product}/feature', [SellerFeatured::class, 'store'])->name('featured.store');
 
-        // Subscription
-        Route::get('/subscription', [SellerSubscription::class, 'index'])->name('subscription.index');
-        Route::post('/subscription/{plan}', [SellerSubscription::class, 'subscribe'])->name('subscription.subscribe');
+        // Legacy Subscription Redirect (Safeguard)
+        Route::get('/subscription', fn () => redirect()->route('seller.products.payment'))->name('subscription.index');
 
         // Leads
         Route::get('/leads', [SellerDashboard::class, 'leads'])->name('leads');

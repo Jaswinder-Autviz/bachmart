@@ -33,11 +33,12 @@ class PaymentController extends Controller
             'total_revenue' => Payment::completed()->sum('amount'),
             'monthly_revenue' => Payment::completed()->thisMonth()->sum('amount'),
             'pending_count' => Payment::where('status', 'pending')->count(),
-            'subscription_revenue' => Payment::completed()
-                ->where('payable_type', \App\Models\Subscription::class)
+            'listing_revenue' => Payment::completed()
+                ->where('type', 'product_listing')
                 ->sum('amount'),
             'featured_revenue' => Payment::completed()
                 ->where('payable_type', \App\Models\FeaturedProduct::class)
+                ->orWhere('type', 'featured')
                 ->sum('amount'),
         ];
 

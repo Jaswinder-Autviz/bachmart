@@ -21,7 +21,7 @@ class SettingController extends Controller
             'site_name', 'site_tagline', 'site_phone', 'site_email',
             'currency', 'currency_symbol',
             'featured_price_3days', 'featured_price_7days', 'featured_price_15days',
-            'max_free_products',
+            'product_listing_price', 'max_free_products',
             'contact_address', 'contact_city',
             'facebook_url', 'instagram_url', 'twitter_url',
             'meta_title', 'meta_description', 'meta_keywords',

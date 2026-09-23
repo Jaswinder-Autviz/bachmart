@@ -53,10 +53,13 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label fw-600 small">Max Free Products (per seller)</label>
-                    <input type="number" name="max_free_products" class="form-control form-control-sm"
-                           value="{{ $settings['max_free_products']->value ?? '5' }}">
-                    <div class="form-text small">Number of live products allowed on free seller accounts.</div>
+                    <label class="form-label fw-600 small">Pay-Per-Product Listing Fee (₹)</label>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text">₹</span>
+                        <input type="number" name="product_listing_price" class="form-control form-control-sm"
+                               value="{{ $settings['product_listing_price']->value ?? '12' }}" min="0" step="1">
+                    </div>
+                    <div class="form-text small">Amount charged to sellers for each single product listing published.</div>
                 </div>
 
                 <div class="mb-3">
