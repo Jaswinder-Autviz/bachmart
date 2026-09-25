@@ -14,8 +14,14 @@
 </div>
 
 {{-- Payments Table Card --}}
-<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
-    <div class="table-responsive">
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white" style="border: 1px solid var(--bm-border) !important;">
+    <div class="p-3 px-md-4 border-bottom bg-light bg-opacity-50 d-flex align-items-center justify-content-between">
+        <h6 class="fw-800 mb-0 text-dark">Transaction Records</h6>
+        <span class="small text-muted">{{ $payments->total() }} payments found</span>
+    </div>
+
+    {{-- Desktop Table View --}}
+    <div class="table-responsive d-none d-lg-block">
         <table class="table table-hover align-middle mb-0">
             <thead class="bg-light">
                 <tr>
@@ -32,34 +38,34 @@
                 @forelse($payments as $payment)
                 <tr>
                     <td class="ps-4">
-                        <div class="fw-700 text-dark" style="font-family:monospace;font-size:0.85rem">
+                        <div class="fw-700 text-dark" style="font-size:0.85rem">
                             #{{ $payment->payment_id }}
                         </div>
                         @if($payment->notes)
-                            <div class="text-muted" style="font-size:0.75rem">{{ Str::limit($payment->notes, 30) }}</div>
+                            <div class="text-muted small" style="font-size:0.75rem">{{ Str::limit($payment->notes, 30) }}</div>
                         @endif
                     </td>
                     <td>
                         <div class="text-dark small fw-600">{{ $payment->created_at->format('d M Y') }}</div>
-                        <div class="text-muted" style="font-size:0.75rem">{{ $payment->created_at->format('h:i A') }}</div>
+                        <div class="text-muted small" style="font-size:0.75rem">{{ $payment->created_at->format('h:i A') }}</div>
                     </td>
                     <td>
                         @if($payment->type === 'product_listing')
-                            <span class="badge bg-primary bg-opacity-10 text-primary fw-700 px-2 py-1 rounded-pill" style="font-size:0.75rem">
-                                Product Listing (₹12)
+                            <span class="badge bg-primary-subtle text-primary fw-700 px-2.5 py-1 rounded-pill" style="font-size:0.75rem">
+                                Listing Fee (₹12)
                             </span>
                         @elseif($payment->type === 'featured')
-                            <span class="badge bg-warning bg-opacity-10 text-warning fw-700 px-2 py-1 rounded-pill" style="font-size:0.75rem">
+                            <span class="badge bg-warning-subtle text-warning-emphasis fw-700 px-2.5 py-1 rounded-pill" style="font-size:0.75rem">
                                 Featured Boost
                             </span>
                         @else
-                            <span class="badge bg-secondary bg-opacity-10 text-secondary fw-700 px-2 py-1 rounded-pill" style="font-size:0.75rem">
+                            <span class="badge bg-secondary-subtle text-secondary fw-700 px-2.5 py-1 rounded-pill" style="font-size:0.75rem">
                                 {{ ucfirst($payment->type) }}
                             </span>
                         @endif
                     </td>
                     <td>
-                        <span class="badge bg-light text-dark border text-uppercase" style="font-size:0.7rem">
+                        <span class="badge bg-light text-dark border text-uppercase rounded-pill px-2.5 py-1" style="font-size:0.7rem">
                             {{ $payment->gateway ?? 'Direct' }}
                         </span>
                     </td>
@@ -72,8 +78,8 @@
                                 {{ Str::limit($payment->product->name, 25) }} <i class="bi bi-box-arrow-up-right ms-1" style="font-size:0.7rem"></i>
                             </a>
                         @elseif($payment->status === 'completed' && !$payment->used_at)
-                            <span class="badge bg-success bg-opacity-15 text-success fw-700 px-2 py-1 rounded-pill" style="font-size:0.72rem">
-                                <i class="bi bi-star-fill me-1"></i>Ready for New Listing
+                            <span class="badge bg-success-subtle text-success fw-700 px-2.5 py-1 rounded-pill" style="font-size:0.72rem">
+                                <i class="bi bi-check2-circle me-1"></i>Active Credit Ready
                             </span>
                         @else
                             <span class="text-muted small">—</span>
@@ -81,15 +87,15 @@
                     </td>
                     <td class="pe-4 text-end">
                         @if($payment->status === 'completed')
-                            <span class="badge bg-success bg-opacity-10 text-success fw-700 px-2 py-1 rounded-pill" style="font-size:0.75rem">
+                            <span class="badge bg-success-subtle text-success fw-700 px-2.5 py-1 rounded-pill" style="font-size:0.75rem">
                                 <i class="bi bi-check-circle-fill me-1"></i>Completed
                             </span>
                         @elseif($payment->status === 'pending')
-                            <span class="badge bg-warning bg-opacity-10 text-warning fw-700 px-2 py-1 rounded-pill" style="font-size:0.75rem">
+                            <span class="badge bg-warning-subtle text-warning-emphasis fw-700 px-2.5 py-1 rounded-pill" style="font-size:0.75rem">
                                 <i class="bi bi-hourglass-split me-1"></i>Pending
                             </span>
                         @else
-                            <span class="badge bg-danger bg-opacity-10 text-danger fw-700 px-2 py-1 rounded-pill" style="font-size:0.75rem">
+                            <span class="badge bg-danger-subtle text-danger fw-700 px-2.5 py-1 rounded-pill" style="font-size:0.75rem">
                                 {{ ucfirst($payment->status) }}
                             </span>
                         @endif
@@ -98,12 +104,9 @@
                 @empty
                 <tr>
                     <td colspan="7" class="text-center py-5">
-                        <div class="fs-1 text-muted mb-2">💳</div>
-                        <h6 class="fw-700 text-dark">No Payment Transactions Yet</h6>
-                        <p class="text-muted small mb-3">Your ₹12 listing payments and receipts will appear here.</p>
-                        <a href="{{ route('seller.products.payment') }}" class="btn btn-primary-bm btn-sm rounded-pill px-4">
-                            + List Your First Stock (₹12)
-                        </a>
+                        <div class="fs-1">💳</div>
+                        <h6 class="fw-700 mt-2">No payment transactions yet</h6>
+                        <p class="text-muted small">Your listing transaction history will appear here once you pay and list items.</p>
                     </td>
                 </tr>
                 @endforelse
@@ -111,10 +114,36 @@
         </table>
     </div>
 
-    @if($payments->hasPages())
-    <div class="card-footer bg-white border-top p-3 d-flex justify-content-center">
-        {{ $payments->links() }}
+    {{-- Mobile Card View (No Overflow) --}}
+    <div class="d-lg-none p-3">
+        @forelse($payments as $payment)
+        <div class="p-3 rounded-4 border bg-white shadow-sm mb-3" style="border-color: var(--bm-border) !important;">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-800 text-dark" style="font-size: 0.88rem;">#{{ $payment->payment_id }}</span>
+                <span class="fw-800 text-primary-bm fs-6">₹{{ number_format($payment->amount, 2) }}</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-2 small text-muted">
+                <span>{{ $payment->created_at->format('d M Y, h:i A') }}</span>
+                <span class="badge bg-success-subtle text-success rounded-pill px-2.5 py-0.5 fw-700" style="font-size: 0.72rem;">{{ ucfirst($payment->status) }}</span>
+            </div>
+            @if($payment->product)
+            <div class="pt-2 border-top small">
+                <span class="text-muted">Item:</span>
+                <a href="{{ route('seller.products.edit', $payment->product->id) }}" class="fw-700 text-dark text-decoration-none ms-1">
+                    {{ $payment->product->name }}
+                </a>
+            </div>
+            @endif
+        </div>
+        @empty
+        <div class="text-center py-4 text-muted small">
+            No payments recorded yet.
+        </div>
+        @endforelse
     </div>
-    @endif
+</div>
+
+<div class="mt-4 d-flex justify-content-center">
+    {{ $payments->links() }}
 </div>
 @endsection

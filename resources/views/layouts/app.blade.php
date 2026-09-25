@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     {{-- Custom Marketplace Design System --}}
-    <link href="{{ asset('css/marketplace.css') }}?v={{ file_exists(public_path('css/marketplace.css')) ? filemtime(public_path('css/marketplace.css')) : '2.0' }}" rel="stylesheet">
+    <link href="{{ asset('css/marketplace.css') }}?v={{ file_exists(public_path('css/marketplace.css')) ? filemtime(public_path('css/marketplace.css')) : '2.1' }}" rel="stylesheet">
 
     @stack('styles')
 </head>
@@ -42,8 +42,14 @@
         ->pluck('city')
         ->sort()
         ->values();
+
+    $sellTarget = route('register.seller');
+    if (auth()->check() && auth()->user()->isSeller()) {
+        $sellTarget = route('seller.products.create');
+    }
 @endphp
 
+{{-- ── DESKTOP & MOBILE HEADER ── --}}
 <header class="market-header">
     <div class="container">
         <div class="market-header__main">
@@ -51,13 +57,14 @@
                 <span class="market-logo__text">Bachat<span>Mart</span></span>
             </a>
 
-            <div class="dropdown market-location d-none d-lg-block">
-                <button class="market-location__button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{-- Location Dropdown (Desktop & Mobile) --}}
+            <div class="dropdown market-location">
+                <button class="market-location__button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">
                     <i class="bi bi-geo-alt-fill"></i>
-                    <span>{{ $currentCity ? Str::limit($currentCity, 18) : 'All Locations' }}</span>
-                    <i class="bi bi-chevron-down ms-1 text-muted" style="font-size: 0.75rem;"></i>
+                    <span>{{ $currentCity ? Str::limit($currentCity, 12) : 'Location' }}</span>
+                    <i class="bi bi-chevron-down ms-1 text-muted" style="font-size: 0.7rem;"></i>
                 </button>
-                <ul class="dropdown-menu shadow-lg border-0 rounded-4 mt-2 p-2" style="min-width: 230px; max-height: 300px; overflow-y: auto;">
+                <ul class="dropdown-menu shadow-lg border-0 rounded-4 mt-2 p-2" style="min-width: 220px; max-height: 280px; overflow-y: auto;">
                     <li><h6 class="dropdown-header text-uppercase fw-700 px-3 py-2" style="font-size: 0.7rem; letter-spacing: 0.08em; color: var(--bm-muted);">Select City</h6></li>
                     <li>
                         <a class="dropdown-item py-2 px-3 rounded-3 {{ !$currentCity ? 'active fw-bold' : '' }}" href="{{ route('set-city', ['city' => 'all']) }}">
@@ -75,6 +82,7 @@
                 </ul>
             </div>
 
+            {{-- Desktop Search Bar --}}
             <form class="market-search d-none d-lg-flex" action="{{ route('search') }}" method="GET">
                 @if($currentCity)
                     <input type="hidden" name="city" value="{{ $currentCity }}">
@@ -85,6 +93,7 @@
                 </button>
             </form>
 
+            {{-- Desktop Actions --}}
             <div class="market-header__actions d-none d-lg-flex">
                 <a class="market-action" href="{{ route('deals') }}" aria-label="All Deals">
                     <i class="bi bi-lightning-charge-fill text-primary-bm"></i>
@@ -127,27 +136,15 @@
                     </a>
                 @endauth
 
-                @php
-                    $sellTarget = route('register.seller');
-                    if (auth()->check() && auth()->user()->isSeller()) {
-                        $sellTarget = route('seller.products.create');
-                    }
-                @endphp
-
                 <a class="market-sell-btn" href="{{ $sellTarget }}">
                     <i class="bi bi-plus-circle-fill"></i>
                     <span>SELL STOCK</span>
                 </a>
             </div>
 
+            {{-- Mobile Quick Sell Button in Header --}}
             <div class="market-header__mobile-tools d-lg-none ms-auto">
-                @php
-                    $sellTargetMobile = route('register.seller');
-                    if (auth()->check() && auth()->user()->isSeller()) {
-                        $sellTargetMobile = route('seller.products.create');
-                    }
-                @endphp
-                <a class="market-sell-btn py-2 px-3" href="{{ $sellTargetMobile }}" style="font-size: 0.82rem;">
+                <a class="market-sell-btn py-1 px-3" href="{{ $sellTarget }}" style="font-size: 0.78rem; padding: 0.45rem 0.85rem !important;">
                     <i class="bi bi-plus-lg"></i>
                     <span>SELL</span>
                 </a>
@@ -155,14 +152,14 @@
         </div>
     </div>
 
-    {{-- Mobile Search Bar --}}
+    {{-- Mobile Search Input Bar --}}
     <div class="market-header__search-mobile d-lg-none">
         <div class="container">
             <form action="{{ route('search') }}" method="GET" class="market-search">
                 @if($currentCity)
                     <input type="hidden" name="city" value="{{ $currentCity }}">
                 @endif
-                <input type="search" name="q" value="{{ request('q') }}" placeholder="Search products, shops or clearance..." aria-label="Search">
+                <input type="search" name="q" value="{{ request('q') }}" placeholder="Search products, shops or deals..." aria-label="Search">
                 <button type="submit" aria-label="Search">
                     <i class="bi bi-search"></i>
                 </button>
@@ -228,10 +225,66 @@
 @endif
 
 {{-- Main Body Content --}}
-@yield('content')
+<main class="main-body-content">
+    @yield('content')
+</main>
+
+{{-- ── 📱 NATIVE MOBILE APP BOTTOM NAVIGATION BAR ── --}}
+<nav class="mobile-app-bottom-nav d-lg-none" aria-label="Mobile Navigation">
+    <ul class="mobile-app-nav-list">
+        <li>
+            <a href="{{ route('home') }}" class="mobile-app-nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                <i class="bi bi-house-door{{ request()->routeIs('home') ? '-fill' : '' }}"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('deals') }}" class="mobile-app-nav-item {{ (request()->routeIs('deals') || request()->routeIs('category.show') || request()->routeIs('search')) ? 'active' : '' }}">
+                <i class="bi bi-lightning-charge{{ (request()->routeIs('deals') || request()->routeIs('category.show') || request()->routeIs('search')) ? '-fill' : '' }}"></i>
+                <span>Deals</span>
+            </a>
+        </li>
+        <li class="mobile-app-nav-sell">
+            <a href="{{ $sellTarget }}" class="mobile-app-nav-sell-btn" aria-label="Sell Stock">
+                <i class="bi bi-plus-lg"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('shops.index') }}" class="mobile-app-nav-item {{ request()->routeIs('shops.*') ? 'active' : '' }}">
+                <i class="bi bi-shop{{ request()->routeIs('shops.*') ? '-window' : '' }}"></i>
+                <span>Shops</span>
+            </a>
+        </li>
+        <li>
+            @auth
+                @if(auth()->user()->isSeller())
+                    <a href="{{ route('seller.dashboard') }}" class="mobile-app-nav-item {{ request()->routeIs('seller.*') ? 'active' : '' }}">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                @elseif(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="mobile-app-nav-item {{ request()->routeIs('admin.*') ? 'active' : '' }}">
+                        <i class="bi bi-shield-lock-fill"></i>
+                        <span>Admin</span>
+                    </a>
+                @else
+                    <a href="{{ route('home') }}" class="mobile-app-nav-item">
+                        <i class="bi bi-person-circle"></i>
+                        <span>Account</span>
+                    </a>
+                @endif
+            @else
+                <a href="{{ route('login') }}" class="mobile-app-nav-item {{ request()->routeIs('login') ? 'active' : '' }}">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Login</span>
+                </a>
+            @endauth
+        </li>
+    </ul>
+</nav>
 
 {{-- ── FOOTER ── --}}
-<footer class="footer-main" style="background:#0F172A;color:#94A3B8;padding:4.5rem 0 2.5rem;margin-top:5rem;border-top:1px solid #1E293B">
+<footer class="footer-main" style="background:#0F172A;color:#94A3B8;padding:4rem 0 2rem;margin-top:4rem;border-top:1px solid #1E293B">
     <div class="container">
         <div class="row g-4 mb-4">
             <div class="col-lg-4 col-md-6">
@@ -288,7 +341,7 @@
             </div>
         </div>
 
-        <hr style="border-color:#334155;margin:2.5rem 0 1.5rem">
+        <hr style="border-color:#334155;margin:2rem 0 1.5rem">
 
         <div class="row align-items-center">
             <div class="col-md-6 small text-muted">
