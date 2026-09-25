@@ -13,7 +13,7 @@
     </div>
     <div class="col-sm-6 col-xl-3">
         <div class="stat-card">
-            <div class="stat-value" style="color:#5a67d8">₹{{ number_format($stats['monthly_revenue'] ?? 0) }}</div>
+            <div class="stat-value" style="color:#4F46E5">₹{{ number_format($stats['monthly_revenue'] ?? 0) }}</div>
             <div class="stat-label">This Month's Revenue</div>
         </div>
     </div>
@@ -35,11 +35,11 @@
 <div class="card-admin p-3 mb-4">
     <form method="GET" action="{{ route('admin.payments.index') }}" class="row g-2 align-items-center">
         <div class="col-md-4">
-            <input type="text" name="search" class="form-control form-control-sm"
+            <input type="text" name="search" class="form-control form-control-sm rounded-pill"
                    placeholder="Search transaction ID, user or email..." value="{{ request('search') }}">
         </div>
         <div class="col-md-3">
-            <select name="status" class="form-select form-select-sm">
+            <select name="status" class="form-select form-select-sm rounded-pill">
                 <option value="">All Statuses</option>
                 <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completed</option>
                 <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
@@ -47,10 +47,10 @@
             </select>
         </div>
         <div class="col-md-3">
-            <button type="submit" class="btn btn-sm" style="background:#5a67d8;color:#fff">
+            <button type="submit" class="btn btn-sm rounded-pill text-white fw-600 px-3" style="background:#4F46E5;border:none">
                 <i class="bi bi-filter me-1"></i>Filter
             </button>
-            <a href="{{ route('admin.payments.index') }}" class="btn btn-sm btn-outline-secondary ms-1">Reset</a>
+            <a href="{{ route('admin.payments.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 ms-1">Reset</a>
         </div>
     </form>
 </div>

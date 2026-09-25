@@ -14,26 +14,26 @@
         </div>
 
         {{-- Main Payment Card --}}
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 bg-white">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 bg-white" style="border: 1px solid var(--bm-border) !important;">
             <div class="p-4 p-md-5 text-center text-white position-relative"
-                 style="background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);">
-                <div class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-700 text-uppercase letter-spacing-1 mb-3" style="font-size:0.75rem">
+                 style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);">
+                <div class="badge bg-warning text-dark px-3 py-1.5 rounded-pill fw-600 text-uppercase letter-spacing-1 mb-3" style="font-size:0.75rem">
                     Pay-Per-Product Listing
                 </div>
-                <h3 class="fw-800 text-white mb-2">Surplus Stock Listing Fee</h3>
+                <h4 class="fw-700 text-white mb-2">Surplus Stock Listing Fee</h4>
                 <p class="text-white-50 small mb-4 mx-auto" style="max-width:440px">
                     List any surplus stock or inventory item to reach thousands of local shoppers nearby.
                 </p>
                 <div class="d-inline-flex align-items-baseline gap-1 bg-white bg-opacity-10 px-4 py-2 rounded-4 border border-white border-opacity-20">
                     <span class="fs-4 fw-600 text-warning">₹</span>
-                    <span class="display-5 fw-900 text-white">{{ number_format($listingPrice, 0) }}</span>
+                    <span class="display-6 fw-800 text-white">{{ number_format($listingPrice, 0) }}</span>
                     <span class="text-white-50 small fw-500">/ single listing</span>
                 </div>
             </div>
 
             <div class="p-4 p-md-5">
                 {{-- Value Proposition / Inclusions --}}
-                <h6 class="fw-800 text-dark mb-3">What's included in this ₹{{ number_format($listingPrice, 0) }} fee:</h6>
+                <h6 class="fw-700 text-dark mb-3">What's included in this ₹{{ number_format($listingPrice, 0) }} fee:</h6>
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <div class="d-flex align-items-start gap-2">

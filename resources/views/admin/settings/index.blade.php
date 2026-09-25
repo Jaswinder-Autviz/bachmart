@@ -170,7 +170,7 @@
     </div>
 
     <div class="d-flex justify-content-end mt-4">
-        <button type="submit" class="btn px-5 py-2 fw-700" style="background:#5a67d8;color:#fff;border:none;border-radius:10px;">
+        <button type="submit" class="btn px-5 py-2.5 fw-600 rounded-pill text-white shadow-sm" style="background:#4F46E5;border:none;">
             <i class="bi bi-check2-circle me-1"></i>Save All Settings
         </button>
     </div>

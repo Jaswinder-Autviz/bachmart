@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row g-3 mb-4">
-    @foreach([['label'=>'Total','value'=>$stats['total'],'color'=>'#5a67d8'],['label'=>'Active','value'=>$stats['active'],'color'=>'#48BB78'],['label'=>'Pending','value'=>$stats['pending'],'color'=>'#ed8936'],['label'=>'Revenue','value'=>'₹'.number_format($stats['revenue']),'color'=>'#FF6B35']] as $s)
+    @foreach([['label'=>'Total Featured','value'=>$stats['total'],'color'=>'#4F46E5'],['label'=>'Active','value'=>$stats['active'],'color'=>'#10B981'],['label'=>'Pending','value'=>$stats['pending'],'color'=>'#F59E0B'],['label'=>'Revenue','value'=>'₹'.number_format($stats['revenue']),'color'=>'#FF5722']] as $s)
     <div class="col-6 col-md-3">
         <div class="stat-card text-center py-3">
             <div class="stat-value" style="color:{{ $s['color'] }}">{{ $s['value'] }}</div>
@@ -32,8 +32,8 @@
                     <td class="ps-3">
                         @if($f->product)
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ $f->product->primary_image_url }}" width="38" height="38" class="rounded" style="object-fit:cover">
-                            <div class="fw-600 small">{{ Str::limit($f->product->name,30) }}</div>
+                            <img src="{{ $f->product->primary_image_url }}" width="38" height="38" class="rounded-3 border" style="object-fit:cover">
+                            <div class="fw-600 text-dark small">{{ Str::limit($f->product->name,30) }}</div>
                         </div>
                         @else <span class="text-muted">Deleted</span>@endif
                     </td>
@@ -43,12 +43,12 @@
                     <td><span class="badge badge-{{ $f->status === 'active' ? 'approved' : ($f->status === 'pending' ? 'pending' : 'rejected') }} rounded-pill">{{ $f->status }}</span></td>
                     <td class="text-muted small">{{ $f->expires_at?->format('d M Y') ?? '—' }}</td>
                     <td class="text-end pe-3">
-                        <div class="d-flex gap-1 justify-content-end">
+                        <div class="d-flex gap-1 justify-content-end align-items-center">
                             @if($f->status === 'pending')
-                            <form action="{{ route('admin.featured.approve', $f) }}" method="POST">@csrf<button class="btn btn-xs py-1 px-2" style="background:#c6f6d5;color:#276749;border:none;border-radius:4px;font-size:.75rem">Approve</button></form>
+                            <form action="{{ route('admin.featured.approve', $f) }}" method="POST">@csrf<button class="btn btn-sm btn-success py-1 px-2.5 rounded-pill" style="font-size:.75rem">Approve</button></form>
                             @endif
                             @if($f->status !== 'cancelled')
-                            <form action="{{ route('admin.featured.cancel', $f) }}" method="POST" onsubmit="return confirm('Cancel featured listing?')">@csrf<button class="btn btn-xs py-1 px-2" style="background:#fed7d7;color:#9b2c2c;border:none;border-radius:4px;font-size:.75rem">Cancel</button></form>
+                            <form action="{{ route('admin.featured.cancel', $f) }}" method="POST" onsubmit="return confirm('Cancel featured listing?')">@csrf<button class="btn btn-sm btn-outline-danger py-1 px-2.5 rounded-pill" style="font-size:.75rem">Cancel</button></form>
                             @endif
                         </div>
                     </td>

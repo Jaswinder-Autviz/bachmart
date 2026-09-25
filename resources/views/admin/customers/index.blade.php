@@ -4,9 +4,12 @@
 
 @section('content')
 <div class="card-admin p-3 mb-4">
-    <form method="GET" action="{{ route('admin.customers.index') }}" class="d-flex gap-2">
-        <input type="text" name="search" class="form-control form-control-sm" placeholder="Name or email..." value="{{ request('search') }}" style="max-width:280px">
-        <button type="submit" class="btn btn-sm" style="background:#5a67d8;color:#fff;border:none">Search</button>
+    <form method="GET" action="{{ route('admin.customers.index') }}" class="d-flex gap-2 flex-wrap align-items-center">
+        <input type="text" name="search" class="form-control form-control-sm rounded-pill" placeholder="Name or email..." value="{{ request('search') }}" style="max-width:280px">
+        <button type="submit" class="btn btn-sm rounded-pill text-white fw-600 px-3" style="background:#4F46E5;border:none">Search</button>
+        @if(request('search'))
+            <a href="{{ route('admin.customers.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Clear</a>
+        @endif
     </form>
 </div>
 
@@ -26,9 +29,9 @@
                 <tr>
                     <td class="ps-3">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="{{ $customer->avatar_url }}" width="36" height="36" class="rounded-circle" style="object-fit:cover">
+                            <img src="{{ $customer->avatar_url }}" width="36" height="36" class="rounded-circle border" style="object-fit:cover">
                             <div>
-                                <div class="fw-600">{{ $customer->name }}</div>
+                                <div class="fw-600 text-dark">{{ $customer->name }}</div>
                                 <div class="text-muted" style="font-size:.75rem">{{ $customer->email }}</div>
                             </div>
                         </div>

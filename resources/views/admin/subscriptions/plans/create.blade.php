@@ -10,8 +10,8 @@
         @csrf
         @include('admin.subscriptions.plans._form')
         <div class="d-flex gap-2 justify-content-end mt-4">
-            <a href="{{ route('admin.subscriptions.index') }}" class="btn btn-outline-secondary">Cancel</a>
-            <button type="submit" class="btn px-4" style="background:#5a67d8;color:#fff;border:none">Create Plan</button>
+            <a href="{{ route('admin.subscriptions.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-4">Cancel</a>
+            <button type="submit" class="btn btn-sm px-4 rounded-pill text-white fw-600 shadow-sm" style="background:#4F46E5;border:none">Create Plan</button>
         </div>
     </form>
 </div>

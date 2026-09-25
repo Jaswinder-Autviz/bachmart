@@ -5,23 +5,21 @@
 @section('content')
 {{-- Filters --}}
 <div class="card-admin p-3 mb-4">
-    <form method="GET" action="{{ route('admin.sellers.index') }}" class="d-flex gap-2 flex-wrap align-items-end">
+    <form method="GET" action="{{ route('admin.sellers.index') }}" class="d-flex gap-2 flex-wrap align-items-center">
         <div>
-            <label class="form-label small fw-600 mb-1">Search</label>
-            <input type="text" name="search" class="form-control form-control-sm" placeholder="Name, email, phone..." value="{{ request('search') }}" style="min-width:220px">
+            <input type="text" name="search" class="form-control form-control-sm rounded-pill" placeholder="Name, email, phone..." value="{{ request('search') }}" style="min-width:220px">
         </div>
         <div>
-            <label class="form-label small fw-600 mb-1">Status</label>
-            <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
-                <option value="">All</option>
+            <select name="status" class="form-select form-select-sm rounded-pill" onchange="this.form.submit()">
+                <option value="">All Statuses</option>
                 <option value="active" {{ request('status')=='active'?'selected':'' }}>Active</option>
                 <option value="blocked" {{ request('status')=='blocked'?'selected':'' }}>Blocked</option>
                 <option value="inactive" {{ request('status')=='inactive'?'selected':'' }}>Inactive</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-sm" style="background:#5a67d8;color:#fff;border:none">Search</button>
+        <button type="submit" class="btn btn-sm rounded-pill text-white fw-600 px-3" style="background:#4F46E5;border:none">Search</button>
         @if(request('search') || request('status'))
-            <a href="{{ route('admin.sellers.index') }}" class="btn btn-sm btn-outline-secondary">Clear</a>
+            <a href="{{ route('admin.sellers.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Clear</a>
         @endif
     </form>
 </div>
@@ -45,16 +43,16 @@
                 <tr>
                     <td class="ps-3">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="{{ $seller->avatar_url }}" width="38" height="38" class="rounded-circle" style="object-fit:cover">
+                            <img src="{{ $seller->avatar_url }}" width="38" height="38" class="rounded-circle border" style="object-fit:cover">
                             <div>
-                                <div class="fw-600">{{ $seller->name }}</div>
+                                <div class="fw-600 text-dark">{{ $seller->name }}</div>
                                 <div class="text-muted" style="font-size:.75rem">{{ $seller->email }}</div>
                             </div>
                         </div>
                     </td>
                     <td>
                         @if($seller->shop)
-                            <a href="{{ route('admin.shops.show', $seller->shop) }}" class="text-decoration-none fw-600">
+                            <a href="{{ route('admin.shops.show', $seller->shop) }}" class="text-decoration-none fw-600 text-dark">
                                 {{ Str::limit($seller->shop->name, 25) }}
                             </a>
                             <div class="text-muted" style="font-size:.75rem">{{ $seller->shop->city }}</div>
@@ -66,7 +64,7 @@
                         @if($seller->activeSubscription)
                             <span class="badge badge-featured rounded-pill">{{ $seller->activeSubscription->subscriptionPlan->name }}</span>
                         @else
-                            <span class="text-muted small">FREE</span>
+                            <span class="badge bg-light text-muted border rounded-pill small">FREE</span>
                         @endif
                     </td>
                     <td class="fw-600">{{ $seller->shop?->products()->count() ?? 0 }}</td>
@@ -77,22 +75,21 @@
                     </td>
                     <td class="text-muted small">{{ $seller->created_at->format('d M Y') }}</td>
                     <td class="text-end pe-3">
-                        <div class="d-flex gap-1 justify-content-end">
-                            <a href="{{ route('admin.sellers.show', $seller) }}" class="btn btn-xs btn-outline-secondary py-1 px-2" title="View" style="font-size:.75rem"><i class="bi bi-eye"></i></a>
+                        <div class="d-flex gap-1 justify-content-end align-items-center">
+                            <a href="{{ route('admin.sellers.show', $seller) }}" class="btn btn-sm btn-outline-secondary py-1 px-2 rounded-pill" title="View" style="font-size:.75rem"><i class="bi bi-eye"></i></a>
                             @if($seller->status === 'blocked')
                                 <form action="{{ route('admin.sellers.unblock', $seller) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-xs py-1 px-2" style="background:#c6f6d5;color:#276749;border:none;border-radius:4px;font-size:.75rem" title="Unblock">Unblock</button>
+                                    <button type="submit" class="btn btn-sm btn-success py-1 px-2.5 rounded-pill" style="font-size:.75rem" title="Unblock">Unblock</button>
                                 </form>
                             @else
                                 <form action="{{ route('admin.sellers.block', $seller) }}" method="POST" onsubmit="return confirm('Block this seller?')">
                                     @csrf
-                                    <button type="submit" class="btn btn-xs py-1 px-2" style="background:#fed7d7;color:#9b2c2c;border:none;border-radius:4px;font-size:.75rem" title="Block">Block</button>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger py-1 px-2.5 rounded-pill" style="font-size:.75rem" title="Block">Block</button>
                                 </form>
                             @endif
                             <form action="{{ route('admin.sellers.destroy', $seller) }}" method="POST" onsubmit="return confirm('Delete seller account? This cannot be undone.')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-xs btn-outline-danger py-1 px-2" title="Delete" style="font-size:.75rem"><i class="bi bi-trash"></i></button>
+                                <button type="submit" class="btn btn-sm btn-outline-danger py-1 px-2 rounded-pill" title="Delete" style="font-size:.75rem"><i class="bi bi-trash"></i></button>
                             </form>
                         </div>
                     </td>

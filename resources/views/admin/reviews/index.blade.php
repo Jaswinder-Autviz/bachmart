@@ -4,18 +4,18 @@
 
 @section('content')
 {{-- Filter Tabs --}}
-<div class="d-flex gap-2 mb-4">
+<div class="d-flex gap-2 mb-4 flex-wrap">
     <a href="{{ route('admin.reviews.index') }}"
-       class="btn btn-sm {{ !request('status') ? 'btn-primary' : 'btn-outline-secondary' }}"
-       style="{{ !request('status') ? 'background:#5a67d8;border:none;' : '' }}">
+       class="btn btn-sm rounded-pill px-3 fw-600 {{ !request('status') ? 'text-white' : 'btn-outline-secondary' }}"
+       style="{{ !request('status') ? 'background:#4F46E5;border:none;' : '' }}">
         All Reviews ({{ $counts['all'] ?? 0 }})
     </a>
     <a href="{{ route('admin.reviews.index', ['status' => 'pending']) }}"
-       class="btn btn-sm {{ request('status') === 'pending' ? 'btn-warning text-dark' : 'btn-outline-warning text-dark' }}">
+       class="btn btn-sm rounded-pill px-3 fw-600 {{ request('status') === 'pending' ? 'btn-warning text-dark' : 'btn-outline-warning text-dark' }}">
         Pending Approval ({{ $counts['pending'] ?? 0 }})
     </a>
     <a href="{{ route('admin.reviews.index', ['status' => 'approved']) }}"
-       class="btn btn-sm {{ request('status') === 'approved' ? 'btn-success' : 'btn-outline-success' }}">
+       class="btn btn-sm rounded-pill px-3 fw-600 {{ request('status') === 'approved' ? 'btn-success text-white' : 'btn-outline-success' }}">
         Approved ({{ $counts['approved'] ?? 0 }})
     </a>
 </div>

@@ -47,7 +47,7 @@
 <div class="card-admin p-3 mb-4">
     <form method="GET" action="{{ route('admin.leads.index') }}" class="row g-2 align-items-center">
         <div class="col-md-3">
-            <select name="type" class="form-select form-select-sm">
+            <select name="type" class="form-select form-select-sm rounded-pill">
                 <option value="">All Inquiry Types</option>
                 <option value="whatsapp" {{ request('type') === 'whatsapp' ? 'selected' : '' }}>WhatsApp</option>
                 <option value="call" {{ request('type') === 'call' ? 'selected' : '' }}>Phone Call</option>
@@ -56,7 +56,7 @@
             </select>
         </div>
         <div class="col-md-3">
-            <select name="period" class="form-select form-select-sm">
+            <select name="period" class="form-select form-select-sm rounded-pill">
                 <option value="">All Time</option>
                 <option value="today" {{ request('period') === 'today' ? 'selected' : '' }}>Today</option>
                 <option value="week" {{ request('period') === 'week' ? 'selected' : '' }}>This Week</option>
@@ -64,10 +64,10 @@
             </select>
         </div>
         <div class="col-md-3">
-            <button type="submit" class="btn btn-sm" style="background:#5a67d8;color:#fff">
+            <button type="submit" class="btn btn-sm rounded-pill text-white fw-600 px-3" style="background:#4F46E5;border:none">
                 <i class="bi bi-filter me-1"></i>Filter
             </button>
-            <a href="{{ route('admin.leads.index') }}" class="btn btn-sm btn-outline-secondary ms-1">Reset</a>
+            <a href="{{ route('admin.leads.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 ms-1">Reset</a>
         </div>
     </form>
 </div>

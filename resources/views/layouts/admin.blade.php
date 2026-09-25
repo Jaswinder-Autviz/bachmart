@@ -20,12 +20,14 @@
             --admin-primary: #4F46E5;
             --admin-primary-hover: #4338CA;
             --sidebar-bg: #0F172A;
-            --sidebar-width: 260px;
+            --sidebar-width: 250px;
         }
         body { 
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; 
             background: #F8FAFC; 
-            color: #0F172A;
+            color: #1E293B;
+            font-size: 14px;
+            font-weight: 400;
         }
         .admin-sidebar {
             width: var(--sidebar-width);
@@ -38,43 +40,46 @@
             z-index: 100;
             border-right: 1px solid #1E293B;
             transition: transform 0.3s ease;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
+        .admin-sidebar::-webkit-scrollbar { display: none; }
         .admin-sidebar .brand {
-            padding: 1.5rem 1.5rem 1rem;
-            font-weight: 900;
-            font-size: 1.35rem;
+            padding: 1.25rem 1.25rem 0.9rem;
+            font-weight: 700;
+            font-size: 1.15rem;
             color: #FFFFFF;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.02em;
             border-bottom: 1px solid #1E293B;
         }
         .admin-sidebar .brand .badge-admin {
-            font-size: 0.65rem;
-            font-weight: 800;
+            font-size: 0.6rem;
+            font-weight: 600;
             background: var(--admin-primary);
             color: #FFFFFF;
-            padding: 3px 8px;
+            padding: 2px 7px;
             border-radius: 6px;
             vertical-align: middle;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.04em;
         }
         .admin-sidebar .nav-section {
-            padding: 1.1rem 1rem 0.35rem;
-            font-size: 0.68rem;
+            padding: 1rem 0.85rem 0.3rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: #64748B;
-            font-weight: 700;
+            font-weight: 600;
         }
         .admin-sidebar .nav-link {
             color: #94A3B8;
-            padding: 0.62rem 1rem;
-            border-radius: 12px;
-            margin: 3px 0.65rem;
-            font-size: 0.88rem;
-            font-weight: 600;
+            padding: 0.55rem 0.85rem;
+            border-radius: 10px;
+            margin: 2px 0.5rem;
+            font-size: 0.84rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.7rem;
             transition: all 0.2s ease;
         }
         .admin-sidebar .nav-link:hover { 
@@ -84,9 +89,9 @@
         .admin-sidebar .nav-link.active { 
             background: var(--admin-primary); 
             color: #FFFFFF; 
-            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
         }
-        .admin-sidebar .nav-link i { width: 18px; font-size: 1.05rem; }
+        .admin-sidebar .nav-link i { width: 18px; font-size: 1rem; }
         
         .main-content { 
             margin-left: var(--sidebar-width); 
@@ -96,7 +101,7 @@
         .top-bar {
             background: #FFFFFF;
             border-bottom: 1px solid #E2E8F0;
-            padding: 0.9rem 1.75rem;
+            padding: 0.75rem 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -104,57 +109,77 @@
             top: 0; z-index: 99;
         }
         .top-bar .page-title { 
-            font-size: 1.15rem; 
-            font-weight: 800; 
+            font-size: 1.05rem; 
+            font-weight: 600; 
             color: #0F172A;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
         }
-        .page-content { padding: 1.75rem; }
+        .page-content { padding: 1.5rem; }
         
         .stat-card {
             background: #FFFFFF;
-            border-radius: 16px;
-            padding: 1.25rem 1.5rem;
-            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+            border-radius: 14px;
+            padding: 1.1rem 1.25rem;
+            box-shadow: 0 1px 4px rgba(15, 23, 42, 0.03);
             border: 1px solid #E2E8F0;
             transition: all 0.2s ease;
         }
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
             border-color: #CBD5E1;
         }
         .stat-card .stat-value { 
-            font-size: 1.85rem; 
-            font-weight: 900; 
+            font-size: 1.55rem; 
+            font-weight: 700; 
             letter-spacing: -0.02em;
-            line-height: 1.1;
+            line-height: 1.15;
         }
         .stat-card .stat-label { 
-            font-size: 0.8rem; 
+            font-size: 0.78rem; 
             color: #64748B; 
-            font-weight: 600; 
+            font-weight: 500; 
             margin-top: 3px;
         }
         
         .card-admin {
             background: #FFFFFF;
-            border-radius: 16px;
-            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+            border-radius: 14px;
+            box-shadow: 0 1px 4px rgba(15, 23, 42, 0.03);
             border: 1px solid #E2E8F0;
         }
+        .form-label {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 0.35rem;
+        }
+        .form-control, .form-select {
+            font-size: 0.86rem;
+            font-weight: 400;
+            border-radius: 8px;
+            border: 1px solid #E2E8F0;
+            color: #1E293B;
+            padding: 0.5rem 0.75rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #6366F1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
         .table-admin thead th { 
-            font-size: 0.78rem; 
-            font-weight: 700; 
-            color: #475569; 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            color: #64748B; 
             text-transform: uppercase; 
-            letter-spacing: 0.05em; 
-            border-bottom: 2px solid #E2E8F0; 
-            padding: 0.85rem 1rem;
+            letter-spacing: 0.04em; 
+            border-bottom: 1.5px solid #E2E8F0; 
+            padding: 0.75rem 1rem;
         }
         .table-admin tbody td {
-            padding: 0.85rem 1rem;
+            padding: 0.75rem 1rem;
             vertical-align: middle;
+            font-size: 0.86rem;
+            font-weight: 400;
         }
 
         .badge-pending { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }

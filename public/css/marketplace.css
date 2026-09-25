@@ -99,12 +99,20 @@ body {
     }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
     font-family: 'Montserrat', sans-serif;
     color: var(--bm-dark);
     font-weight: 700;
     line-height: 1.25;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
+}
+
+h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--bm-dark);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
 }
 
 a {
@@ -117,16 +125,39 @@ a:hover {
     color: var(--bm-primary-hover);
 }
 
-/* ── Typography Helpers ── */
+/* ── Refined Typography Weight Helpers (Lighter & Cleaner) ── */
+.fw-300 { font-weight: 300 !important; }
 .fw-400 { font-weight: 400 !important; }
 .fw-500 { font-weight: 500 !important; }
 .fw-600 { font-weight: 600 !important; }
-.fw-700 { font-weight: 700 !important; }
-.fw-800 { font-weight: 800 !important; }
-.fw-900 { font-weight: 900 !important; }
+.fw-700 { font-weight: 600 !important; } /* Soft bold instead of chunky bold */
+.fw-800 { font-weight: 700 !important; } /* Clean bold */
+.fw-900 { font-weight: 700 !important; }
 
 .text-primary-bm { color: var(--bm-primary) !important; }
 .bg-primary-bm { background-color: var(--bm-primary) !important; color: #fff !important; }
+
+/* ── Form Controls & Labels ── */
+.form-label {
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--bm-secondary);
+    margin-bottom: 0.35rem;
+}
+
+.form-control, .form-select {
+    font-size: 0.88rem;
+    font-weight: 400;
+    border-radius: var(--bm-radius-sm);
+    border: 1px solid var(--bm-border);
+    color: var(--bm-dark);
+    padding: 0.55rem 0.85rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--bm-primary);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12);
+}
 
 /* ── Buttons ── */
 .btn-primary-bm {
@@ -134,14 +165,14 @@ a:hover {
     color: #ffffff !important;
     border: none;
     border-radius: var(--bm-radius-pill);
-    font-weight: 700;
-    font-size: 0.92rem;
-    padding: 0.65rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.55rem 1.25rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    box-shadow: 0 4px 14px rgba(255, 87, 34, 0.28);
+    gap: 0.45rem;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
     transition: var(--bm-transition);
     cursor: pointer;
     text-decoration: none;
@@ -938,18 +969,33 @@ a:hover {
 }
 
 /* ── Seller & Admin Dashboard Helpers ── */
-.card-bm {
-    background: #FFFFFF;
+.card-bm, .card-admin, .card {
+    background: #FFFFFF !important;
     border-radius: 16px;
-    border: 1px solid var(--bm-border);
+    border: 1px solid var(--bm-border) !important;
     box-shadow: var(--bm-shadow-subtle);
 }
 
+.stat-card {
+    background: #FFFFFF !important;
+    border-radius: 14px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: var(--bm-shadow-subtle);
+    border: 1px solid var(--bm-border) !important;
+    transition: var(--bm-transition);
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--bm-shadow);
+    border-color: #CBD5E1 !important;
+}
+
 .seller-stat-card {
-    background: #FFFFFF;
+    background: #FFFFFF !important;
     border-radius: 16px;
     padding: 1.15rem;
-    border: 1px solid var(--bm-border);
+    border: 1px solid var(--bm-border) !important;
     box-shadow: var(--bm-shadow-subtle);
     display: flex;
     align-items: center;

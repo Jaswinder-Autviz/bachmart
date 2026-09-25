@@ -92,22 +92,22 @@
                     <td class="text-muted small">{{ $product->created_at->format('d M Y') }}</td>
                     <td class="text-end pe-3">
                         <div class="d-flex gap-1 justify-content-end flex-wrap align-items-center">
-                            <a href="{{ route('admin.products.show', $product) }}" class="btn btn-sm btn-outline-secondary py-1 px-2" title="View details" style="font-size:.75rem">
+                            <a href="{{ route('admin.products.show', $product) }}" class="btn btn-sm btn-outline-secondary py-1 px-2 rounded-pill" title="View details" style="font-size:.75rem">
                                 <i class="bi bi-eye"></i>
                             </a>
 
-                            <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-sm btn-outline-primary py-1 px-2" title="Edit deal" style="font-size:.75rem">
+                            <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-sm btn-outline-primary py-1 px-2 rounded-pill" title="Edit deal" style="font-size:.75rem">
                                 <i class="bi bi-pencil"></i>
                             </a>
 
                             @if($product->status === 'pending')
                             <form action="{{ route('admin.products.approve', $product) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-sm py-1 px-2 fw-700" style="background:#c6f6d5;color:#276749;border:none;border-radius:4px;font-size:.75rem">
+                                <button type="submit" class="btn btn-sm btn-success py-1 px-2.5 rounded-pill fw-600" style="font-size:.75rem">
                                     ✓ Approve
                                 </button>
                             </form>
-                            <button type="button" class="btn btn-sm py-1 px-2 fw-700" style="background:#fed7d7;color:#9b2c2c;border:none;border-radius:4px;font-size:.75rem"
+                            <button type="button" class="btn btn-sm btn-outline-danger py-1 px-2.5 rounded-pill fw-600" style="font-size:.75rem"
                                     data-bs-toggle="modal" data-bs-target="#rejectModal{{ $product->id }}">
                                 ✗ Reject
                             </button>
@@ -116,14 +116,14 @@
                             @if(!$product->is_featured)
                             <form action="{{ route('admin.products.feature', $product) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-sm py-1 px-2" style="background:#fefcbf;color:#744210;border:1px solid #f6e05e;border-radius:4px;font-size:.75rem" title="Feature deal">
+                                <button type="submit" class="btn btn-sm btn-outline-warning text-dark py-1 px-2 rounded-pill" style="font-size:.75rem" title="Feature deal">
                                     ★
                                 </button>
                             </form>
                             @else
                             <form action="{{ route('admin.products.unfeature', $product) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-sm py-1 px-2" style="background:#e2e8f0;color:#4a5568;border:none;border-radius:4px;font-size:.75rem" title="Unfeature deal">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary py-1 px-2.5 rounded-pill" style="font-size:.75rem" title="Unfeature deal">
                                     Unfeature
                                 </button>
                             </form>
@@ -132,7 +132,7 @@
                             <form action="{{ route('admin.products.destroy', $product) }}" method="POST"
                                   onsubmit="return confirm('Delete this deal permanently?')">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-outline-danger py-1 px-2" style="font-size:.75rem">
+                                <button type="submit" class="btn btn-sm btn-outline-danger py-1 px-2 rounded-pill" style="font-size:.75rem">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </form>
