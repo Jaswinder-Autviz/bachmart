@@ -20,24 +20,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     {{-- Bootstrap Icons --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    {{-- Google Fonts --}}
+    
+    {{-- Google Fonts - Montserrat --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     {{-- Custom Marketplace Design System --}}
-    <link href="{{ asset('css/marketplace.css') }}?v={{ file_exists(public_path('css/marketplace.css')) ? filemtime(public_path('css/marketplace.css')) : '1.1' }}" rel="stylesheet">
-    <style>
-        .market-category-row {
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-        }
-        .market-category-row::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-        }
-    </style>
+    <link href="{{ asset('css/marketplace.css') }}?v={{ file_exists(public_path('css/marketplace.css')) ? filemtime(public_path('css/marketplace.css')) : '2.0' }}" rel="stylesheet">
 
     @stack('styles')
 </head>
@@ -64,20 +54,20 @@
             <div class="dropdown market-location d-none d-lg-block">
                 <button class="market-location__button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-geo-alt-fill"></i>
-                    <span>{{ $currentCity ? Str::limit($currentCity, 18) : 'India' }}</span>
-                    <i class="bi bi-chevron-down"></i>
+                    <span>{{ $currentCity ? Str::limit($currentCity, 18) : 'All Locations' }}</span>
+                    <i class="bi bi-chevron-down ms-1 text-muted" style="font-size: 0.75rem;"></i>
                 </button>
-                <ul class="dropdown-menu shadow border-0 rounded-3 mt-2" style="min-width: 220px; max-height: 280px; overflow-y: auto;">
-                    <li><h6 class="dropdown-header text-uppercase fw-700" style="font-size:.7rem;letter-spacing:1px">Choose Location</h6></li>
+                <ul class="dropdown-menu shadow-lg border-0 rounded-4 mt-2 p-2" style="min-width: 230px; max-height: 300px; overflow-y: auto;">
+                    <li><h6 class="dropdown-header text-uppercase fw-700 px-3 py-2" style="font-size: 0.7rem; letter-spacing: 0.08em; color: var(--bm-muted);">Select City</h6></li>
                     <li>
-                        <a class="dropdown-item py-2 {{ !$currentCity ? 'active fw-bold' : '' }}" href="{{ route('set-city', ['city' => 'all']) }}">
-                            <i class="bi bi-globe me-2 text-muted"></i>All Cities
+                        <a class="dropdown-item py-2 px-3 rounded-3 {{ !$currentCity ? 'active fw-bold' : '' }}" href="{{ route('set-city', ['city' => 'all']) }}">
+                            <i class="bi bi-globe me-2 text-muted"></i>All Cities (India)
                         </a>
                     </li>
                     <li><hr class="dropdown-divider my-1"></li>
                     @foreach($headerCities as $city)
                         <li>
-                            <a class="dropdown-item py-2 {{ $currentCity === $city ? 'active fw-bold' : '' }}" href="{{ route('set-city', ['city' => $city]) }}">
+                            <a class="dropdown-item py-2 px-3 rounded-3 {{ $currentCity === $city ? 'active fw-bold' : '' }}" href="{{ route('set-city', ['city' => $city]) }}">
                                 <i class="bi bi-geo-alt me-2 text-muted"></i>{{ $city }}
                             </a>
                         </li>
@@ -89,36 +79,41 @@
                 @if($currentCity)
                     <input type="hidden" name="city" value="{{ $currentCity }}">
                 @endif
-                <input type="search" name="q" value="{{ request('q') }}" placeholder="Search products, shops or deals" aria-label="Search products, shops or deals">
+                <input type="search" name="q" value="{{ request('q') }}" placeholder="Search products, brands, clearance lots..." aria-label="Search clearance stock">
                 <button type="submit" aria-label="Search">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
 
             <div class="market-header__actions d-none d-lg-flex">
-                <a class="market-action" href="{{ route('home') }}" aria-label="Wishlist">
-                    <i class="bi bi-heart"></i>
-                    <span>Wishlist</span>
+                <a class="market-action" href="{{ route('deals') }}" aria-label="All Deals">
+                    <i class="bi bi-lightning-charge-fill text-primary-bm"></i>
+                    <span>Deals</span>
+                </a>
+
+                <a class="market-action" href="{{ route('shops.index') }}" aria-label="Local Shops">
+                    <i class="bi bi-shop"></i>
+                    <span>Shops</span>
                 </a>
 
                 @auth
                     <div class="dropdown market-profile">
                         <button class="market-profile__button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person"></i>
-                            <span>{{ Str::limit(auth()->user()->name, 12) }}</span>
+                            <i class="bi bi-person-circle text-primary-bm"></i>
+                            <span>{{ Str::limit(auth()->user()->name, 14) }}</span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3">
-                            <li><a class="dropdown-item" href="{{ route('home') }}"><i class="bi bi-house me-2"></i>Home</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 mt-2 p-2">
+                            <li><a class="dropdown-item py-2 px-3 rounded-3" href="{{ route('home') }}"><i class="bi bi-house me-2"></i>Home</a></li>
                             @if(auth()->user()->isSeller())
-                                <li><a class="dropdown-item" href="{{ route('seller.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Seller Dashboard</a></li>
+                                <li><a class="dropdown-item py-2 px-3 rounded-3 fw-600 text-primary-bm" href="{{ route('seller.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Seller Dashboard</a></li>
                             @elseif(auth()->user()->isAdmin())
-                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}"><i class="bi bi-shield-lock me-2"></i>Admin Panel</a></li>
+                                <li><a class="dropdown-item py-2 px-3 rounded-3 fw-600 text-primary-bm" href="{{ route('admin.dashboard') }}"><i class="bi bi-shield-lock me-2"></i>Admin Panel</a></li>
                             @endif
-                            <li><hr class="dropdown-divider"></li>
+                            <li><hr class="dropdown-divider my-1"></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="dropdown-item text-danger">
+                                    <button type="submit" class="dropdown-item py-2 px-3 rounded-3 text-danger">
                                         <i class="bi bi-box-arrow-right me-2"></i>Logout
                                     </button>
                                 </form>
@@ -126,8 +121,8 @@
                         </ul>
                     </div>
                 @else
-                    <a class="market-action market-action--login" href="{{ route('login') }}">
-                        <i class="bi bi-person"></i>
+                    <a class="market-action" href="{{ route('login') }}">
+                        <i class="bi bi-person-circle"></i>
                         <span>Login</span>
                     </a>
                 @endauth
@@ -140,8 +135,8 @@
                 @endphp
 
                 <a class="market-sell-btn" href="{{ $sellTarget }}">
-                    <i class="bi bi-plus-lg"></i>
-                    <span>SELL</span>
+                    <i class="bi bi-plus-circle-fill"></i>
+                    <span>SELL STOCK</span>
                 </a>
             </div>
 
@@ -152,7 +147,7 @@
                         $sellTargetMobile = route('seller.products.create');
                     }
                 @endphp
-                <a class="market-sell-btn market-sell-btn--mobile" href="{{ $sellTargetMobile }}">
+                <a class="market-sell-btn py-2 px-3" href="{{ $sellTargetMobile }}" style="font-size: 0.82rem;">
                     <i class="bi bi-plus-lg"></i>
                     <span>SELL</span>
                 </a>
@@ -160,13 +155,14 @@
         </div>
     </div>
 
+    {{-- Mobile Search Bar --}}
     <div class="market-header__search-mobile d-lg-none">
         <div class="container">
-            <form action="{{ route('search') }}" method="GET" class="market-search market-search--mobile">
+            <form action="{{ route('search') }}" method="GET" class="market-search">
                 @if($currentCity)
                     <input type="hidden" name="city" value="{{ $currentCity }}">
                 @endif
-                <input type="search" name="q" value="{{ request('q') }}" placeholder="Search products, shops or deals" aria-label="Search products, shops or deals">
+                <input type="search" name="q" value="{{ request('q') }}" placeholder="Search products, shops or clearance..." aria-label="Search">
                 <button type="submit" aria-label="Search">
                     <i class="bi bi-search"></i>
                 </button>
@@ -174,17 +170,14 @@
         </div>
     </div>
 
+    {{-- Horizontal Category Carousel Bar --}}
     <div class="market-category-strip">
         <div class="container position-relative">
             <div class="market-category-wrapper" id="marketCategoryWrapper">
-                <button type="button" class="market-category-nav-btn market-category-nav-btn--prev d-none d-md-flex" id="catScrollPrev" aria-label="Previous categories">
-                    <i class="bi bi-chevron-left"></i>
-                </button>
-
                 <div class="market-category-row" id="marketCategoryRow">
                     <a class="market-all-category" href="{{ route('deals') }}">
-                        <i class="bi bi-list"></i>
-                        <span>All Categories</span>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>All Deals</span>
                     </a>
 
                     @php $categoryList = \App\Models\Category::active()->orderBy('sort_order')->get(); @endphp
@@ -195,10 +188,6 @@
                         </a>
                     @endforeach
                 </div>
-
-                <button type="button" class="market-category-nav-btn market-category-nav-btn--next d-none d-md-flex" id="catScrollNext" aria-label="Next categories">
-                    <i class="bi bi-chevron-right"></i>
-                </button>
             </div>
         </div>
     </div>
@@ -208,28 +197,28 @@
 @if(session('success') || session('error') || session('info') || session('warning'))
 <div class="container mt-3">
     @if(session('success'))
-        <div class="alert alert-success d-flex align-items-center alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert">
+        <div class="alert alert-success d-flex align-items-center alert-dismissible fade show rounded-4 shadow-sm border-0" role="alert">
             <i class="bi bi-check-circle-fill me-2 fs-5"></i>
             <div>{{ session('success') }}</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
     @if(session('error'))
-        <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert">
+        <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show rounded-4 shadow-sm border-0" role="alert">
             <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
             <div>{{ session('error') }}</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
     @if(session('info'))
-        <div class="alert alert-info d-flex align-items-center alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert">
+        <div class="alert alert-info d-flex align-items-center alert-dismissible fade show rounded-4 shadow-sm border-0" role="alert">
             <i class="bi bi-info-circle-fill me-2 fs-5"></i>
             <div>{{ session('info') }}</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
     @if(session('warning'))
-        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert">
+        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show rounded-4 shadow-sm border-0" role="alert">
             <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
             <div>{{ session('warning') }}</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -242,71 +231,71 @@
 @yield('content')
 
 {{-- ── FOOTER ── --}}
-<footer class="footer-main" style="background:#0F172A;color:#94A3B8;padding:4rem 0 2rem;margin-top:4rem;border-top:1px solid #1E293B">
+<footer class="footer-main" style="background:#0F172A;color:#94A3B8;padding:4.5rem 0 2.5rem;margin-top:5rem;border-top:1px solid #1E293B">
     <div class="container">
         <div class="row g-4 mb-4">
             <div class="col-lg-4 col-md-6">
-                <div class="d-flex align-items-center gap-2 mb-2">
-                    <span class="fs-4 fw-800 text-white">Bachat<span style="color:var(--bm-primary)">Mart</span></span>
-                    <span class="badge-clearance-nav">LOCAL DEALS</span>
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span class="fs-4 fw-900 text-white">Bachat<span style="color:var(--bm-primary)">Mart</span></span>
+                    <span class="badge rounded-pill" style="background: rgba(255,87,34,0.15); color: #FF7A45; font-size: 0.72rem; font-weight: 700; border: 1px solid rgba(255,87,34,0.3);">LOCAL CLEARANCE</span>
                 </div>
-                <p class="small mt-2" style="color:#94A3B8;max-width:340px;line-height:1.6">
-                    The local Surplus Stock clearance platform. Helping shopkeepers turn unsold stock into quick cash while local shoppers discover massive in-store bargains.
+                <p class="small" style="color:#94A3B8;max-width:340px;line-height:1.7">
+                    The hyper-local clearance marketplace. Helping neighborhood shopkeepers liquidate surplus inventory while empowering local shoppers with massive direct savings.
                 </p>
-                <div class="d-flex gap-3 mt-3">
-                    <a href="#" class="text-white fs-5"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="bi bi-whatsapp"></i></a>
+                <div class="d-flex gap-3 mt-4">
+                    <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;color:#CBD5E1;border-color:#334155;"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;color:#CBD5E1;border-color:#334155;"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;color:#CBD5E1;border-color:#334155;"><i class="bi bi-whatsapp"></i></a>
                 </div>
             </div>
 
             <div class="col-lg-2 col-6">
-                <div class="fw-700 text-white mb-3" style="font-size:.95rem">Explore Deals</div>
+                <div class="fw-700 text-white mb-3" style="font-size:0.95rem">Explore Deals</div>
                 <ul class="list-unstyled small d-flex flex-column gap-2">
                     <li><a href="{{ route('home') }}" class="text-secondary text-decoration-none hover-primary">Home</a></li>
                     <li><a href="{{ route('deals') }}" class="text-secondary text-decoration-none hover-primary">All Clearance Deals</a></li>
-                    <li><a href="{{ route('deals') }}?sort=discount" class="text-secondary text-decoration-none hover-primary">Biggest Discounts</a></li>
-                    <li><a href="{{ route('shops.index') }}" class="text-secondary text-decoration-none hover-primary">Local Shops</a></li>
+                    <li><a href="{{ route('deals') }}?sort=discount" class="text-secondary text-decoration-none hover-primary">Top Discounts</a></li>
+                    <li><a href="{{ route('shops.index') }}" class="text-secondary text-decoration-none hover-primary">Browse Shops</a></li>
                     <li><a href="{{ route('search') }}" class="text-secondary text-decoration-none hover-primary">Search Catalog</a></li>
                 </ul>
             </div>
 
             <div class="col-lg-2 col-6">
-                <div class="fw-700 text-white mb-3" style="font-size:.95rem">For Shopkeepers</div>
+                <div class="fw-700 text-white mb-3" style="font-size:0.95rem">For Retailers</div>
                 <ul class="list-unstyled small d-flex flex-column gap-2">
-                    <li><a href="{{ route('register.seller') }}" class="text-secondary text-decoration-none hover-primary">Sell Your Surplus Stock</a></li>
+                    <li><a href="{{ route('register.seller') }}" class="text-secondary text-decoration-none hover-primary">Sell Surplus Stock</a></li>
                     <li><a href="{{ route('login') }}" class="text-secondary text-decoration-none hover-primary">Seller Login</a></li>
-                    <li><a href="{{ route('register.seller') }}" class="text-secondary text-decoration-none hover-primary">Free Shop Registration</a></li>
-                    <li><a href="{{ route('home') }}#how-it-works" class="text-secondary text-decoration-none hover-primary">How Listing Works</a></li>
+                    <li><a href="{{ route('register.seller') }}" class="text-secondary text-decoration-none hover-primary">List Products for ₹12</a></li>
+                    <li><a href="{{ route('home') }}#how-it-works" class="text-secondary text-decoration-none hover-primary">How It Works</a></li>
                 </ul>
             </div>
 
             <div class="col-lg-4 col-md-6">
-                <div class="fw-700 text-white mb-3" style="font-size:.95rem">How BachatMart Works</div>
-                <div class="p-3 rounded-3" style="background:#1E293B;border:1px solid #334155">
+                <div class="fw-700 text-white mb-3" style="font-size:0.95rem">Direct In-Store Model</div>
+                <div class="p-3 rounded-4" style="background:#1E293B;border:1px solid #334155">
                     <div class="d-flex align-items-start gap-2 mb-2">
-                        <i class="bi bi-info-circle text-warning fs-5 flex-shrink-0"></i>
+                        <i class="bi bi-shield-check text-success fs-5 flex-shrink-0"></i>
                         <span class="small text-light">
-                            <strong>Direct In-Store Pickup:</strong> BachatMart is not an online e-commerce shop. Customers contact local shopkeepers and purchase items in-store.
+                            <strong>Inspect Before You Pay:</strong> Connect directly with local store owners on WhatsApp or Call, inspect the product in person, and complete your purchase in-store.
                         </span>
                     </div>
-                    <div class="d-flex gap-2 flex-wrap mt-2">
-                        <span class="badge bg-secondary text-light">No online delivery</span>
-                        <span class="badge bg-secondary text-light">Direct shop payment</span>
-                        <span class="badge bg-secondary text-light">Instant in-person deals</span>
+                    <div class="d-flex gap-2 flex-wrap mt-3">
+                        <span class="badge rounded-pill bg-dark text-light border border-secondary px-3 py-1">0% Commission</span>
+                        <span class="badge rounded-pill bg-dark text-light border border-secondary px-3 py-1">Direct Store Payment</span>
+                        <span class="badge rounded-pill bg-dark text-light border border-secondary px-3 py-1">100% Genuine</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <hr style="border-color:#334155;margin:2rem 0">
+        <hr style="border-color:#334155;margin:2.5rem 0 1.5rem">
 
         <div class="row align-items-center">
             <div class="col-md-6 small text-muted">
-                © {{ date('Y') }} BachatMart Inc. All rights reserved.
+                © {{ date('Y') }} BachatMart. Crafted with care for local businesses and bargain shoppers.
             </div>
-            <div class="col-md-6 text-md-end small text-muted">
-                Local Surplus Stock Deals & In-Store Inventory Clearance
+            <div class="col-md-6 text-md-end small text-muted mt-2 mt-md-0">
+                Local Clearance Deals & Surplus Stock Liquidation Platform
             </div>
         </div>
     </div>
@@ -334,120 +323,9 @@ function trackLead(type, shopId, productId = null) {
             product_id: productId
         })
     }).catch(err => {
-        // silent fail - non-blocking
+        // silent fail
     });
 }
-
-// Category Strip Horizontal Scroll & Drag Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryRow = document.getElementById('marketCategoryRow');
-    const categoryWrapper = document.getElementById('marketCategoryWrapper');
-    const prevBtn = document.getElementById('catScrollPrev');
-    const nextBtn = document.getElementById('catScrollNext');
-
-    if (!categoryRow) return;
-
-    // Update scroll buttons and edge fades
-    function updateScrollIndicators() {
-        const maxScroll = categoryRow.scrollWidth - categoryRow.clientWidth;
-        const currentScroll = categoryRow.scrollLeft;
-        const hasScrollLeft = currentScroll > 8;
-        const hasScrollRight = currentScroll < (maxScroll - 8);
-
-        if (categoryWrapper) {
-            categoryWrapper.classList.toggle('has-scroll-left', hasScrollLeft);
-            categoryWrapper.classList.toggle('has-scroll-right', hasScrollRight && maxScroll > 8);
-        }
-
-        if (prevBtn) {
-            prevBtn.classList.toggle('is-visible', hasScrollLeft);
-        }
-        if (nextBtn) {
-            nextBtn.classList.toggle('is-visible', hasScrollRight && maxScroll > 8);
-        }
-    }
-
-    // Scroll button click listeners
-    if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
-            categoryRow.scrollBy({ left: -260, behavior: 'smooth' });
-        });
-    }
-    if (nextBtn) {
-        nextBtn.addEventListener('click', function() {
-            categoryRow.scrollBy({ left: 260, behavior: 'smooth' });
-        });
-    }
-
-    // Mouse wheel horizontal scroll without Shift key
-    categoryRow.addEventListener('wheel', function(e) {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && e.deltaY !== 0) {
-            e.preventDefault();
-            categoryRow.scrollLeft += e.deltaY;
-        }
-    }, { passive: false });
-
-    // Click & Drag to scroll for desktop mouse users
-    let isDown = false;
-    let startX = 0;
-    let scrollStart = 0;
-    let isDragging = false;
-
-    categoryRow.addEventListener('mousedown', function(e) {
-        if (e.button !== 0) return;
-        isDown = true;
-        isDragging = false;
-        startX = e.pageX - categoryRow.offsetLeft;
-        scrollStart = categoryRow.scrollLeft;
-    });
-
-    window.addEventListener('mouseup', function() {
-        if (isDown) {
-            isDown = false;
-            categoryRow.classList.remove('is-dragging');
-            setTimeout(function() { isDragging = false; }, 50);
-        }
-    });
-
-    categoryRow.addEventListener('mousemove', function(e) {
-        if (!isDown) return;
-        const x = e.pageX - categoryRow.offsetLeft;
-        const walk = (x - startX);
-        if (Math.abs(walk) > 5) {
-            isDragging = true;
-            categoryRow.classList.add('is-dragging');
-            e.preventDefault();
-            categoryRow.scrollLeft = scrollStart - walk;
-        }
-    });
-
-    // Prevent accidental link navigation when dragging
-    categoryRow.addEventListener('click', function(e) {
-        if (isDragging) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-    }, true);
-
-    // Auto-scroll active category into view smoothly
-    const activePill = categoryRow.querySelector('.market-category-pill.active');
-    if (activePill) {
-        setTimeout(function() {
-            const offsetLeft = activePill.offsetLeft;
-            const pillWidth = activePill.offsetWidth;
-            const rowWidth = categoryRow.offsetWidth;
-            categoryRow.scrollTo({
-                left: offsetLeft - (rowWidth / 2) + (pillWidth / 2),
-                behavior: 'smooth'
-            });
-            setTimeout(updateScrollIndicators, 300);
-        }, 120);
-    }
-
-    categoryRow.addEventListener('scroll', updateScrollIndicators, { passive: true });
-    window.addEventListener('resize', updateScrollIndicators);
-    setTimeout(updateScrollIndicators, 150);
-});
 </script>
 
 @stack('scripts')

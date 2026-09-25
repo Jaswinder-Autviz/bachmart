@@ -1,6 +1,6 @@
 @extends('layouts.seller')
 @section('title', 'Seller Dashboard')
-@section('page-title', 'Seller Dashboard')
+@section('page-title', 'Dashboard')
 
 @section('content')
 @php $shop = auth()->user()->shop; @endphp
@@ -8,10 +8,10 @@
 {{-- Header Banner & Action --}}
 <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
     <div>
-        <h4 class="fw-800 mb-1 text-dark">Welcome back, {{ Str::words(auth()->user()->name, 1, '') }}! 👋</h4>
-        <p class="text-muted small mb-0">List surplus stock at ₹{{ number_format($listingPrice, 0) }}/product, manage customer enquiries, and track in-store leads.</p>
+        <h4 class="fw-900 mb-1 text-dark" style="letter-spacing: -0.025em;">Welcome back, {{ Str::words(auth()->user()->name, 1, '') }}! 👋</h4>
+        <p class="text-muted small mb-0">List surplus inventory at ₹{{ number_format($listingPrice, 0) }}/product, manage leads, and connect with in-store buyers.</p>
     </div>
-    <a href="{{ route('seller.products.create') }}" class="btn btn-primary-bm px-4 py-2 fs-6 rounded-pill">
+    <a href="{{ route('seller.products.create') }}" class="btn btn-primary-bm px-4 py-2 fs-6">
         <i class="bi bi-plus-circle-fill me-1"></i>+ List Surplus Stock — ₹{{ number_format($listingPrice, 0) }}
     </a>
 </div>
@@ -19,13 +19,13 @@
 {{-- Pay-Per-Listing Status Banner --}}
 @if($hasUnusedPayment)
 <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 d-flex flex-row align-items-center justify-content-between gap-3 flex-wrap"
-     style="background:#ECFDF5;border:1px solid #A7F3D0 !important">
+     style="background: #ECFDF5; border: 1.5px solid #A7F3D0 !important;">
     <div class="d-flex align-items-center gap-3">
-        <div class="rounded-circle bg-white text-success fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width:44px;height:44px">
+        <div class="rounded-circle bg-white text-success fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
             <i class="bi bi-check2-circle text-success"></i>
         </div>
         <div>
-            <div class="fw-700 text-dark">
+            <div class="fw-800 text-dark">
                 You have an active Listing Credit ready!
             </div>
             <div class="text-muted small">
@@ -33,24 +33,24 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('seller.products.create') }}" class="btn btn-success btn-sm px-4 rounded-pill fw-600">
+    <a href="{{ route('seller.products.create') }}" class="btn btn-success btn-sm px-4 rounded-pill fw-700">
         Create Listing Now <i class="bi bi-arrow-right ms-1"></i>
     </a>
 </div>
 @else
 <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 d-flex flex-row align-items-center justify-content-between gap-3 flex-wrap"
-     style="background:linear-gradient(135deg,#FFF7ED 0%,#FFF0EB 100%);border:1px solid #FFD3C4 !important">
+     style="background: linear-gradient(135deg, #FFF7ED 0%, #FFF0EB 100%); border: 1.5px solid #FFD3C4 !important;">
     <div class="d-flex align-items-center gap-3">
-        <div class="rounded-circle bg-white text-warning fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width:44px;height:44px">
+        <div class="rounded-circle bg-white text-warning fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
             <i class="bi bi-lightning-charge-fill text-primary-bm"></i>
         </div>
         <div>
-            <div class="fw-700 text-dark">Pay-Per-Listing Model: <span class="text-primary-bm">₹{{ number_format($listingPrice, 0) }} / Product</span></div>
-            <div class="text-muted small">No monthly subscriptions or recurring fees. Pay once per product listing with 2 free edits included. Zero commission on customer sales.</div>
+            <div class="fw-800 text-dark">Pay-Per-Listing Model: <span class="text-primary-bm">₹{{ number_format($listingPrice, 0) }} / Product</span></div>
+            <div class="text-muted small">No monthly subscriptions or recurring fees. Pay once per product listing with 2 free edits included. Zero commission on sales.</div>
         </div>
     </div>
     <div class="d-flex gap-2">
-        <a href="{{ route('seller.products.payment') }}" class="btn btn-primary-bm btn-sm px-4 rounded-pill fw-600">
+        <a href="{{ route('seller.products.payment') }}" class="btn btn-primary-bm btn-sm px-4 rounded-pill fw-700">
             Pay ₹{{ number_format($listingPrice, 0) }} & List <i class="bi bi-arrow-right ms-1"></i>
         </a>
     </div>
@@ -61,27 +61,27 @@
 <div class="row g-3 mb-4">
     @php
     $statCards = [
-        ['label'=>'Total Listed', 'value'=>$stats['total_products'], 'icon'=>'bi-box-seam', 'color'=>'#6366F1', 'bg'=>'#EEF2FF'],
+        ['label'=>'Total Listed', 'value'=>$stats['total_products'], 'icon'=>'bi-box-seam-fill', 'color'=>'#6366F1', 'bg'=>'#EEF2FF'],
         ['label'=>'Live & Approved', 'value'=>$stats['active_products'], 'icon'=>'bi-check-circle-fill', 'color'=>'#10B981', 'bg'=>'#ECFDF5'],
         ['label'=>'Pending Review', 'value'=>$stats['pending_products'], 'icon'=>'bi-hourglass-split', 'color'=>'#F59E0B', 'bg'=>'#FFFBEB'],
         ['label'=>'Sold Out', 'value'=>$stats['sold_out'] ?? 0, 'icon'=>'bi-bag-check-fill', 'color'=>'#64748B', 'bg'=>'#F1F5F9'],
         ['label'=>'Product Views', 'value'=>number_format($stats['total_views']), 'icon'=>'bi-eye-fill', 'color'=>'#8B5CF6', 'bg'=>'#F5F3FF'],
         ['label'=>'Call Leads', 'value'=>$stats['total_calls'], 'icon'=>'bi-telephone-fill', 'color'=>'#059669', 'bg'=>'#ECFDF5'],
         ['label'=>'WhatsApp Leads', 'value'=>$stats['total_whatsapp'], 'icon'=>'bi-whatsapp', 'color'=>'#25D366', 'bg'=>'#F0FDF4'],
-        ['label'=>'Map Clicks', 'value'=>$stats['total_directions'], 'icon'=>'bi-map-fill', 'color'=>'#EF4444', 'bg'=>'#FEF2F2'],
-        ['label'=>'Featured', 'value'=>$stats['featured_products'], 'icon'=>'bi-star-fill', 'color'=>'#FF5722', 'bg'=>'#FFF0EB'],
+        ['label'=>'Map Clicks', 'value'=>$stats['total_directions'], 'icon'=>'bi-geo-alt-fill', 'color'=>'#EF4444', 'bg'=>'#FEF2F2'],
+        ['label'=>'Featured Deals', 'value'=>$stats['featured_products'], 'icon'=>'bi-star-fill', 'color'=>'#FF5722', 'bg'=>'#FFF0EB'],
         ['label'=>'Listing Price', 'value'=>'₹'.number_format($listingPrice, 0).'/item', 'icon'=>'bi-tag-fill', 'color'=>'#0EA5E9', 'bg'=>'#F0F9FF', 'is_text'=>true],
     ];
     @endphp
 
     @foreach($statCards as $card)
-    <div class="col-6 col-md-4 col-lg-2-4" style="flex: 0 0 auto; width: 20%;">
+    <div class="col-6 col-md-4 col-lg-2-4">
         <div class="seller-stat-card">
-            <div class="seller-stat-icon" style="background:{{ $card['bg'] }};color:{{ $card['color'] }}">
+            <div class="seller-stat-icon" style="background:{{ $card['bg'] }}; color:{{ $card['color'] }};">
                 <i class="bi {{ $card['icon'] }}"></i>
             </div>
             <div class="min-w-0">
-                <div class="seller-stat-value text-truncate" style="{{ isset($card['is_text']) ? 'font-size:1.2rem;font-weight:700;' : '' }}">
+                <div class="seller-stat-value text-truncate" style="{{ isset($card['is_text']) ? 'font-size:1.15rem;font-weight:800;' : '' }}">
                     {{ $card['value'] }}
                 </div>
                 <div class="seller-stat-label text-truncate">{{ $card['label'] }}</div>
@@ -94,10 +94,10 @@
 <div class="row g-4">
     {{-- Recent Surplus Stock Listings --}}
     <div class="col-lg-7">
-        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100" style="border: 1px solid var(--bm-border) !important;">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="fw-800 mb-0 text-dark">Recent Surplus Stock Deals</h6>
-                <a href="{{ route('seller.products.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                <h6 class="fw-900 mb-0 text-dark">Recent Surplus Stock Deals</h6>
+                <a href="{{ route('seller.products.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-600">
                     View All
                 </a>
             </div>
@@ -108,19 +108,19 @@
                      class="rounded-3 flex-shrink-0 border" style="object-fit:cover"
                      onerror="this.onerror=null; this.src='{{ asset('images/product-placeholder.svg') }}';">
                 <div class="flex-grow-1 min-w-0">
-                    <div class="fw-700 text-dark text-truncate">{{ $product->name }}</div>
+                    <div class="fw-800 text-dark text-truncate">{{ $product->name }}</div>
                     <div class="text-muted small mt-1">
-                        <span class="text-primary-bm fw-700">₹{{ number_format($product->offer_price) }}</span>
+                        <span class="text-primary-bm fw-800">₹{{ number_format($product->offer_price) }}</span>
                         <span class="text-decoration-line-through ms-1">₹{{ number_format($product->original_price) }}</span>
                         · {{ $product->category->name ?? '' }}
                     </div>
                 </div>
                 <div class="text-end flex-shrink-0">
-                    <span class="badge badge-status-{{ $product->status }} rounded-pill text-capitalize px-2 py-1"
-                          style="font-size:0.75rem">
+                    <span class="badge badge-status-{{ $product->status }} rounded-pill text-capitalize px-3 py-1 fw-700"
+                          style="font-size: 0.75rem;">
                         {{ str_replace('_', ' ', $product->status) }}
                     </span>
-                    <div class="text-muted mt-1" style="font-size:0.75rem">
+                    <div class="text-muted mt-1" style="font-size: 0.75rem;">
                         {{ $product->views_count }} views
                     </div>
                 </div>
@@ -139,36 +139,36 @@
 
     {{-- Recent Customer Leads & Contacts --}}
     <div class="col-lg-5">
-        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100" style="border: 1px solid var(--bm-border) !important;">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h6 class="fw-800 mb-0 text-dark">Recent In-Store Leads</h6>
-                <a href="{{ route('seller.leads') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                <h6 class="fw-900 mb-0 text-dark">Recent In-Store Leads</h6>
+                <a href="{{ route('seller.leads') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-600">
                     All Leads
                 </a>
             </div>
 
             @forelse($recentLeads as $lead)
             <div class="d-flex align-items-center gap-3 py-3 border-bottom">
-                <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 fs-5"
-                     style="width:40px;height:40px;background:{{ $lead->type==='call'?'#ECFDF5':($lead->type==='whatsapp'?'#F0FDF4':($lead->type==='direction'?'#FEF2F2':'#EEF2FF')) }}">
+                <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 fs-5 shadow-sm"
+                     style="width: 42px; height: 42px; background: {{ $lead->type==='call'?'#ECFDF5':($lead->type==='whatsapp'?'#F0FDF4':($lead->type==='direction'?'#FEF2F2':'#EEF2FF')) }}">
                     {{ $lead->type==='call'?'📞':($lead->type==='whatsapp'?'💬':($lead->type==='direction'?'📍':'👁')) }}
                 </div>
                 <div class="flex-grow-1 min-w-0">
-                    <div class="small fw-700 text-dark text-capitalize">
+                    <div class="small fw-800 text-dark text-capitalize">
                         {{ $lead->type }} Lead
                     </div>
-                    <div class="text-muted text-truncate" style="font-size:0.8rem">
+                    <div class="text-muted text-truncate" style="font-size: 0.82rem;">
                         {{ $lead->product?->name ?? 'Direct Shop Enquiry' }}
                     </div>
                 </div>
-                <div class="text-muted small text-end" style="font-size:0.75rem">
+                <div class="text-muted small text-end" style="font-size: 0.75rem;">
                     {{ $lead->created_at->diffForHumans() }}
                 </div>
             </div>
             @empty
             <div class="text-center py-5 text-muted small">
                 <i class="bi bi-bell-slash fs-2 mb-2 d-block text-secondary"></i>
-                No leads recorded yet. Once your Surplus Stock is approved, customers will call and message you!
+                No leads recorded yet. Once your deals are active, customer calls and WhatsApp chats will appear here!
             </div>
             @endforelse
         </div>
@@ -176,21 +176,21 @@
 </div>
 
 {{-- Quick Navigation Bar --}}
-<div class="card border-0 shadow-sm rounded-4 p-3 mt-4 bg-white">
+<div class="card border-0 shadow-sm rounded-4 p-3 mt-4 bg-white" style="border: 1px solid var(--bm-border) !important;">
     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
-        <span class="small fw-700 text-dark">Quick Navigation:</span>
+        <span class="small fw-800 text-dark">Quick Navigation:</span>
         <div class="d-flex gap-2 flex-wrap">
             <a href="{{ route('seller.products.create') }}" class="btn btn-primary-bm btn-sm rounded-pill px-3">
                 <i class="bi bi-plus-circle me-1"></i>List Surplus Stock
             </a>
-            <a href="{{ route('seller.shop.edit') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                <i class="bi bi-pencil-square me-1"></i>Edit Shop Info
+            <a href="{{ route('seller.shop.edit') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-600">
+                <i class="bi bi-pencil-square me-1"></i>Edit Shop Profile
             </a>
-            <a href="{{ route('seller.leads') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+            <a href="{{ route('seller.leads') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-600">
                 <i class="bi bi-telephone-outbound me-1"></i>Lead Analytics
             </a>
-            <a href="{{ route('shop.show', $shop->slug) }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                <i class="bi bi-box-arrow-up-right me-1"></i>View Live Public Shop
+            <a href="{{ route('shop.show', $shop->slug) }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-600">
+                <i class="bi bi-box-arrow-up-right me-1"></i>View Live Public Store
             </a>
         </div>
     </div>
@@ -199,6 +199,10 @@
 
 @push('styles')
 <style>
+.col-lg-2-4 {
+    flex: 0 0 auto;
+    width: 20%;
+}
 @media (max-width: 1199.98px) {
     .col-lg-2-4 {
         width: 33.333% !important;

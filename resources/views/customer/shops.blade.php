@@ -1,21 +1,22 @@
 @extends('layouts.app')
-@section('title', 'Browse Shops - BachatMart')
+@section('title', 'Browse Local Shops - BachatMart')
 
 @section('content')
-<div class="container py-5">
+<div class="container py-4 py-lg-5">
     <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
         <div>
-            <h1 class="section-title mb-1">Local <span>Shops</span></h1>
-            <p class="text-muted small mb-0">{{ $shops->total() }} shops found</p>
+            <span class="section-tag mb-2"><i class="bi bi-shop"></i> Merchant Directory</span>
+            <h1 class="section-title mb-1">Local <span>Shops & Retailers</span></h1>
+            <p class="section-subtitle">{{ $shops->total() }} verified local shops clearing surplus stock</p>
         </div>
-        <form class="d-flex gap-2" method="GET" action="{{ route('shops.index') }}">
-            <input type="text" name="search" class="form-control form-control-sm" style="max-width:200px"
-                   placeholder="Search shops..." value="{{ request('search') }}">
-            <input type="text" name="city" class="form-control form-control-sm" style="max-width:150px"
-                   placeholder="City..." value="{{ request('city') }}">
-            <button type="submit" class="btn btn-primary-bm btn-sm px-3">Go</button>
+        <form class="d-flex gap-2 flex-wrap" method="GET" action="{{ route('shops.index') }}">
+            <input type="text" name="search" class="form-control form-control-sm rounded-pill px-3" style="min-width: 180px;"
+                   placeholder="Search shop name..." value="{{ request('search') }}">
+            <input type="text" name="city" class="form-control form-control-sm rounded-pill px-3" style="min-width: 140px;"
+                   placeholder="City / Area..." value="{{ request('city') }}">
+            <button type="submit" class="btn btn-primary-bm btn-sm px-4">Search</button>
             @if(request('search') || request('city'))
-                <a href="{{ route('shops.index') }}" class="btn btn-outline-secondary btn-sm">Clear</a>
+                <a href="{{ route('shops.index') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">Clear</a>
             @endif
         </form>
     </div>
@@ -30,11 +31,13 @@
     </div>
     <div class="mt-5 d-flex justify-content-center">{{ $shops->links() }}</div>
     @else
-    <div class="text-center py-5">
-        <div style="font-size:4rem">🏪</div>
-        <h5 class="fw-700 mt-3">No shops found</h5>
-        <p class="text-muted">Try a different search or city</p>
-        <a href="{{ route('shops.index') }}" class="btn btn-primary-bm">Browse All Shops</a>
+    <div class="text-center py-5 card border-0 shadow-sm rounded-4 p-5 bg-white">
+        <div style="font-size: 4rem">🏪</div>
+        <h5 class="fw-800 text-dark mt-3">No local shops found</h5>
+        <p class="text-muted small mb-3">Try adjusting your search criteria or city location.</p>
+        <div>
+            <a href="{{ route('shops.index') }}" class="btn btn-primary-bm px-4">Browse All Shops</a>
+        </div>
     </div>
     @endif
 </div>
