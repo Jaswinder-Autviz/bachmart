@@ -879,6 +879,52 @@ a:hover {
     transform: scale(1.08);
 }
 
+/* ── Section Headers & Title System ── */
+.section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+}
+
+.section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--bm-primary);
+    background: #FFF0EB;
+    border: 1px solid #FFD3C4;
+    padding: 0.22rem 0.75rem;
+    border-radius: var(--bm-radius-pill);
+    margin-bottom: 0.45rem;
+}
+
+.section-title {
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    font-weight: 800;
+    color: var(--bm-dark);
+    margin-bottom: 0.25rem;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+}
+
+.section-title span {
+    color: var(--bm-primary);
+}
+
+.section-subtitle {
+    font-size: 0.86rem;
+    color: var(--bm-muted);
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
 /* ── Category Cards Grid ── */
 .category-card {
     background: #FFFFFF;
@@ -895,39 +941,59 @@ a:hover {
     transition: var(--bm-transition);
     height: 100%;
     box-shadow: var(--bm-shadow-subtle);
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--bm-primary-gradient);
+    opacity: 0;
+    transition: var(--bm-transition);
 }
 
 .category-card:hover {
-    border-color: var(--bm-primary);
-    transform: translateY(-3px);
-    box-shadow: var(--bm-shadow-hover);
+    border-color: #FFD3C4;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px -4px rgba(255, 87, 34, 0.14);
     color: var(--bm-dark);
 }
 
+.category-card:hover::after {
+    opacity: 1;
+}
+
 .category-card .cat-icon {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: 14px;
-    background: var(--bm-primary-light);
+    background: #FFF5F0;
     color: var(--bm-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 0.55rem;
+    font-size: 1.6rem;
+    margin-bottom: 0.65rem;
     transition: var(--bm-transition);
+    border: 1px solid #FFE4D6;
 }
 
 .category-card:hover .cat-icon {
-    transform: scale(1.08);
+    transform: scale(1.1);
     background: var(--bm-primary-gradient);
-    color: #FFFFFF;
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(255, 87, 34, 0.28);
 }
 
 .category-card .cat-name {
     font-size: 0.88rem;
     font-weight: 700;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.25rem;
     color: var(--bm-dark);
     white-space: nowrap;
     overflow: hidden;
@@ -936,9 +1002,119 @@ a:hover {
 }
 
 .category-card .cat-count {
-    font-size: 0.75rem;
+    font-size: 0.73rem;
     color: var(--bm-muted);
-    font-weight: 500;
+    font-weight: 600;
+    background: #F1F5F9;
+    padding: 0.15rem 0.55rem;
+    border-radius: var(--bm-radius-pill);
+    display: inline-block;
+    transition: var(--bm-transition);
+}
+
+.category-card:hover .cat-count {
+    background: #FFF0EB;
+    color: var(--bm-primary);
+}
+
+/* ── Hero Deal Spotlight Card ── */
+.hero-deal-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    border: 1.5px solid var(--bm-border);
+    padding: 1.25rem;
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(15, 23, 42, 0.05);
+    position: relative;
+    transition: var(--bm-transition);
+}
+
+.hero-deal-card:hover {
+    border-color: #CBD5E1;
+    transform: translateY(-3px);
+    box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.16);
+}
+
+.hero-deal-card__img-box {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    height: 240px;
+    background: #F8FAFC;
+    margin-bottom: 1.15rem;
+}
+
+.hero-deal-card__img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.hero-deal-card:hover .hero-deal-card__img-box img {
+    transform: scale(1.04);
+}
+
+/* ── Trust & Value Prop Cards ── */
+.bm-trust-card {
+    background: #FFFFFF;
+    border: 1px solid var(--bm-border);
+    border-radius: 18px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: var(--bm-transition);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--bm-shadow-subtle);
+}
+
+.bm-trust-card:hover {
+    border-color: #CBD5E1;
+    transform: translateY(-3px);
+    box-shadow: var(--bm-shadow-hover);
+}
+
+.bm-trust-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+/* ── How It Works Step Cards ── */
+.bm-step-card {
+    background: #FFFFFF;
+    border: 1px solid var(--bm-border);
+    border-radius: 18px;
+    padding: 1.6rem 1.4rem;
+    height: 100%;
+    position: relative;
+    transition: var(--bm-transition);
+    box-shadow: var(--bm-shadow-subtle);
+}
+
+.bm-step-card:hover {
+    border-color: #FFD3C4;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -4px rgba(255, 87, 34, 0.12);
+}
+
+.bm-step-number {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: var(--bm-primary-gradient);
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.28);
 }
 
 /* ── Shop Cards ── */

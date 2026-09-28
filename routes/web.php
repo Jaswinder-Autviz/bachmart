@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/deals', [HomeController::class, 'deals'])->name('deals');
 Route::get('/shops', [ShopController::class, 'index'])->name('shops.index');
+Route::get('/stores', [ShopController::class, 'index'])->name('shops');
 Route::get('/set-city', [HomeController::class, 'setCity'])->name('set-city');
 
 // Category

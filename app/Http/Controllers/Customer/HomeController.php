@@ -33,7 +33,8 @@ class HomeController extends Controller
             ->get();
 
         $featuredShops = Shop::active()
-            ->where('is_featured', true)
+            ->orderByDesc('is_featured')
+            ->orderByDesc('rating')
             ->with(['products' => fn($q) => $q->approved()->take(3)])
             ->take(6)
             ->get();
