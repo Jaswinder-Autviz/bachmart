@@ -1133,6 +1133,49 @@ a:hover {
     box-shadow: var(--bm-shadow-hover);
 }
 
+/* ── Pagination Styling ── */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-bottom: 0;
+    list-style: none;
+    padding-left: 0;
+}
+
+.page-item .page-link {
+    border-radius: 10px !important;
+    border: 1px solid var(--bm-border);
+    color: var(--bm-dark);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.45rem 0.85rem;
+    background: #FFFFFF;
+    transition: var(--bm-transition);
+    text-decoration: none;
+}
+
+.page-item.active .page-link {
+    background: var(--bm-primary-gradient) !important;
+    border-color: transparent !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.28);
+}
+
+.page-item .page-link:hover {
+    background: #FFF5F0;
+    color: var(--bm-primary);
+    border-color: #FFD3C4;
+}
+
+.page-item.disabled .page-link {
+    background: #F8FAFC;
+    color: var(--bm-muted);
+    border-color: var(--bm-border-light);
+    opacity: 0.6;
+}
+
 /* ── 📱 NATIVE MOBILE APP BOTTOM NAVIGATION BAR ── */
 .mobile-app-bottom-nav {
     position: fixed;

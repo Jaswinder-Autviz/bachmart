@@ -14,48 +14,45 @@ class HomeController extends Controller
     {
         $selectedCity = session('selected_city') ?? $request->city;
 
-        $featuredProducts = Product::approved()
-            ->featured()
-            ->with(['shop', 'primaryImage', 'category'])
-            ->latest()
-            ->take(8)
-            ->get();
-
-        $latestProducts = Product::approved()
-            ->with(['shop', 'primaryImage', 'category'])
-            ->latest()
-            ->take(12)
-            ->get();
-
+        // Categories
         $categories = Category::active()
             ->withCount(['approvedProducts'])
             ->orderBy('sort_order')
             ->get();
 
-        $featuredShops = Shop::active()
-            ->orderByDesc('is_featured')
-            ->orderByDesc('rating')
+        // Verified Shops (Prioritize verified shops, then featured/rating)
+        $verifiedShops = Shop::active()
+            ->where('is_verified', true)
             ->with(['products' => fn($q) => $q->approved()->take(3)])
+            ->latest()
             ->take(6)
             ->get();
 
-        $topDeals = Product::approved()
+        if ($verifiedShops->count() < 3) {
+            $verifiedShops = Shop::active()
+                ->orderByDesc('is_verified')
+                ->orderByDesc('is_featured')
+                ->orderByDesc('rating')
+                ->with(['products' => fn($q) => $q->approved()->take(3)])
+                ->take(6)
+                ->get();
+        }
+
+        // All Products Query (No separate featured/top discounts, all products together)
+        $productsQuery = Product::approved()
+            ->with(['shop', 'primaryImage', 'category']);
+
+        if ($selectedCity) {
+            $productsQuery->inCity($selectedCity);
+        }
+
+        $products = $productsQuery->latest()->paginate(16)->withQueryString();
+
+        // Hero Spotlight Deal
+        $heroDeal = Product::approved()
             ->orderByDesc('discount_percent')
             ->with(['shop', 'primaryImage', 'category'])
-            ->take(8)
-            ->get();
-
-        // Deals Near You (by shop location/city)
-        $nearQuery = Product::approved()->with(['shop', 'primaryImage', 'category']);
-        if ($selectedCity) {
-            $nearQuery->inCity($selectedCity);
-        } else {
-            // Default to Delhi or Mumbai or top active shop city if no city explicitly selected
-            $firstShopCity = Shop::active()->whereNotNull('city')->value('city') ?? 'Delhi';
-            $nearQuery->inCity($firstShopCity);
-            $selectedCity = $firstShopCity;
-        }
-        $dealsNearYou = $nearQuery->latest()->take(8)->get();
+            ->first();
 
         // List of all active shop cities for location selector
         $availableCities = Shop::active()
@@ -66,13 +63,14 @@ class HomeController extends Controller
             ->sort()
             ->values();
 
+        $featuredShops = $verifiedShops;
+
         return view('customer.home', compact(
-            'featuredProducts',
-            'latestProducts',
+            'products',
             'categories',
+            'verifiedShops',
             'featuredShops',
-            'topDeals',
-            'dealsNearYou',
+            'heroDeal',
             'availableCities',
             'selectedCity'
         ));

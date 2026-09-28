@@ -97,10 +97,6 @@
 
             {{-- Right Column: Live Featured Deal Spotlight Card --}}
             <div class="col-lg-5">
-                @php
-                    $heroDeal = $topDeals->first() ?? $featuredProducts->first();
-                @endphp
-
                 @if($heroDeal)
                 <div class="hero-deal-card">
                     <div class="hero-deal-card__img-box">
@@ -197,7 +193,7 @@
             <div>
                 <span class="section-tag"><i class="bi bi-grid-fill"></i> Departments</span>
                 <h2 class="section-title">Shop by <span>Category</span></h2>
-                <p class="section-subtitle">Find clearance discounts across popular retail categories</p>
+                <p class="section-subtitle">Find clearance discounts across popular retail departments</p>
             </div>
             <a href="{{ route('deals') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-600">
                 All Categories &rarr;
@@ -220,67 +216,13 @@
     </div>
 </section>
 
-{{-- ── 3. MEGA MARKDOWNS / BIGGEST DISCOUNTS ── --}}
-@if($topDeals->count())
+{{-- ── 3. VERIFIED LOCAL SHOPS SECTION ── --}}
+@if($verifiedShops->count())
 <section class="py-5" style="background: #F8FAFC; border-bottom: 1px solid var(--bm-border-light);">
     <div class="container">
         <div class="section-header">
             <div>
-                <span class="section-tag" style="background: #FEF2F2; border-color: #FECACA; color: var(--bm-danger);">
-                    <i class="bi bi-fire text-danger"></i> Mega Markdowns
-                </span>
-                <h2 class="section-title">Top <span>Discounts</span></h2>
-                <p class="section-subtitle">Highest price reductions and clearance markdowns available right now</p>
-            </div>
-            <a href="{{ route('deals') }}?sort=discount" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-600">
-                View All Discounts &rarr;
-            </a>
-        </div>
-
-        <div class="row g-3 g-md-4 mobile-2-col">
-            @foreach($topDeals as $product)
-            <div class="col-6 col-md-4 col-lg-3">
-                @include('components.product-card', ['product' => $product])
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
-
-{{-- ── 4. FEATURED CLEARANCE DEALS ── --}}
-@if($featuredProducts->count())
-<section class="py-5" style="background: #FFFFFF; border-bottom: 1px solid var(--bm-border-light);">
-    <div class="container">
-        <div class="section-header">
-            <div>
-                <span class="section-tag"><i class="bi bi-stars text-primary-bm"></i> Curated Picks</span>
-                <h2 class="section-title">Featured <span>Clearance Deals</span></h2>
-                <p class="section-subtitle">Hand-picked surplus stock from top local retailers</p>
-            </div>
-            <a href="{{ route('deals') }}?featured=1" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-600">
-                View All Featured &rarr;
-            </a>
-        </div>
-
-        <div class="row g-3 g-md-4 mobile-2-col">
-            @foreach($featuredProducts as $product)
-            <div class="col-6 col-md-4 col-lg-3">
-                @include('components.product-card', ['product' => $product])
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
-
-{{-- ── 5. FEATURED NEIGHBORHOOD MERCHANTS / SHOPS ── --}}
-@if($featuredShops->count())
-<section class="py-5" style="background: #F8FAFC; border-bottom: 1px solid var(--bm-border-light);">
-    <div class="container">
-        <div class="section-header">
-            <div>
-                <span class="section-tag"><i class="bi bi-shop-window text-primary-bm"></i> Neighborhood Merchants</span>
+                <span class="section-tag"><i class="bi bi-patch-check-fill text-success"></i> Verified Merchants</span>
                 <h2 class="section-title">Verified Local <span>Stores</span></h2>
                 <p class="section-subtitle">Connect directly with trusted shops clearing inventory in your city</p>
             </div>
@@ -290,7 +232,7 @@
         </div>
 
         <div class="row g-3 g-md-4">
-            @foreach($featuredShops as $shop)
+            @foreach($verifiedShops as $shop)
             <div class="col-12 col-md-6 col-lg-4">
                 @include('components.shop-card', ['shop' => $shop])
             </div>
@@ -300,80 +242,84 @@
 </section>
 @endif
 
-{{-- ── 6. DEALS IN YOUR CITY ── --}}
-@if($dealsNearYou->count())
-<section class="py-5" style="background: #FFFFFF; border-bottom: 1px solid var(--bm-border-light);">
+{{-- ── 4. ALL PRODUCTS (CLEARANCE DEALS) ── --}}
+<section class="py-5" style="background: #FFFFFF; border-bottom: 1px solid var(--bm-border-light);" id="all-products">
     <div class="container">
         <div class="section-header">
             <div>
-                <span class="section-tag"><i class="bi bi-geo-alt-fill text-primary-bm"></i> Hyper-Local</span>
-                <h2 class="section-title">Deals in <span>{{ $selectedCity ?? 'Your Area' }}</span></h2>
-                <p class="section-subtitle">Local stores in {{ $selectedCity ?? 'your city' }} with active clearance stock</p>
+                <span class="section-tag"><i class="bi bi-box-seam-fill text-primary-bm"></i> Live Inventory</span>
+                @if($selectedCity)
+                    <h2 class="section-title">Clearance Deals in <span>{{ $selectedCity }}</span></h2>
+                    <p class="section-subtitle">Showing active surplus products available at stores in {{ $selectedCity }}</p>
+                @else
+                    <h2 class="section-title">All <span>Clearance Deals</span></h2>
+                    <p class="section-subtitle">Explore all available surplus stock and direct store discounts</p>
+                @endif
             </div>
 
-            @if($availableCities->count())
-            <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle btn-sm rounded-pill px-3 fw-600" type="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-geo-alt me-1 text-primary-bm"></i>{{ $selectedCity ?? 'Select City' }}
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2">
-                    @foreach($availableCities as $city)
-                    <li>
-                        <a class="dropdown-item py-2 px-3 rounded-3 {{ $selectedCity === $city ? 'active fw-bold' : '' }}" href="{{ route('set-city', ['city' => $city]) }}">
-                            {{ $city }}
-                        </a>
-                    </li>
-                    @endforeach
-                </ul>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                @if($availableCities->count())
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle btn-sm rounded-pill px-3 fw-600" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-geo-alt me-1 text-primary-bm"></i>{{ $selectedCity ?? 'All Cities' }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2">
+                        <li>
+                            <a class="dropdown-item py-2 px-3 rounded-3 {{ !$selectedCity ? 'active fw-bold' : '' }}" href="{{ route('set-city', ['city' => 'all']) }}">
+                                All Cities (Show Everything)
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        @foreach($availableCities as $city)
+                        <li>
+                            <a class="dropdown-item py-2 px-3 rounded-3 {{ $selectedCity === $city ? 'active fw-bold' : '' }}" href="{{ route('set-city', ['city' => $city]) }}">
+                                {{ $city }}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                @if($selectedCity)
+                    <a href="{{ route('set-city', ['city' => 'all']) }}" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-600">
+                        <i class="bi bi-x-circle me-1"></i>Clear City
+                    </a>
+                @endif
             </div>
+        </div>
+
+        @if($products->count())
+            <div class="row g-3 g-md-4 mobile-2-col">
+                @foreach($products as $product)
+                <div class="col-6 col-md-4 col-lg-3">
+                    @include('components.product-card', ['product' => $product])
+                </div>
+                @endforeach
+            </div>
+
+            @if($products->hasPages())
+                <div class="mt-5 d-flex justify-content-center">
+                    {{ $products->links() }}
+                </div>
             @endif
-        </div>
-
-        <div class="row g-3 g-md-4 mobile-2-col">
-            @foreach($dealsNearYou as $product)
-            <div class="col-6 col-md-4 col-lg-3">
-                @include('components.product-card', ['product' => $product])
+        @else
+            <div class="card border-0 shadow-sm rounded-4 p-5 text-center bg-white my-3" style="border: 1px solid var(--bm-border) !important;">
+                <div class="fs-1 mb-2">📦</div>
+                <h5 class="fw-800 text-dark mb-1">No products found in this selection</h5>
+                <p class="text-muted small mb-4">Try clearing the city filter to see all clearance deals from nearby cities.</p>
+                <div>
+                    <a href="{{ route('set-city', ['city' => 'all']) }}" class="btn btn-primary-bm px-4">
+                        View All Cities Deals
+                    </a>
+                </div>
             </div>
-            @endforeach
-        </div>
+        @endif
     </div>
 </section>
-@endif
 
-{{-- ── 7. LATEST ARRIVALS ── --}}
-@if($latestProducts->count())
+{{-- ── 5. WHY BACHATMART (TRUST & VALUE PROPOSITIONS) ── --}}
 <section class="py-5" style="background: #F8FAFC; border-bottom: 1px solid var(--bm-border-light);">
-    <div class="container">
-        <div class="section-header">
-            <div>
-                <span class="section-tag"><i class="bi bi-clock-history text-primary-bm"></i> Fresh Inventory</span>
-                <h2 class="section-title">Recently <span>Added Deals</span></h2>
-                <p class="section-subtitle">Newly listed surplus items from verified local sellers</p>
-            </div>
-            <a href="{{ route('deals') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-600">
-                Browse All &rarr;
-            </a>
-        </div>
-
-        <div class="row g-3 g-md-4 mobile-2-col">
-            @foreach($latestProducts as $product)
-            <div class="col-6 col-md-4 col-lg-3">
-                @include('components.product-card', ['product' => $product])
-            </div>
-            @endforeach
-        </div>
-
-        <div class="text-center mt-5">
-            <a href="{{ route('deals') }}" class="btn btn-primary-bm px-5 py-3 fs-6 fw-800">
-                <i class="bi bi-grid-3x3-gap-fill me-2"></i>Explore All Clearance Deals
-            </a>
-        </div>
-    </div>
-</section>
-@endif
-
-{{-- ── 8. WHY BACHATMART (TRUST & VALUE PROPOSITIONS) ── --}}
-<section class="py-5" style="background: #FFFFFF; border-bottom: 1px solid var(--bm-border-light);">
     <div class="container py-2">
         <div class="text-center mb-5" style="max-width: 620px; margin: 0 auto;">
             <span class="section-tag"><i class="bi bi-shield-check"></i> Buyer & Seller Protection</span>
@@ -435,8 +381,8 @@
     </div>
 </section>
 
-{{-- ── 9. HOW IT WORKS ── --}}
-<section class="py-5" style="background: #F8FAFC; border-bottom: 1px solid var(--bm-border-light);" id="how-it-works">
+{{-- ── 6. HOW IT WORKS ── --}}
+<section class="py-5" style="background: #FFFFFF; border-bottom: 1px solid var(--bm-border-light);" id="how-it-works">
     <div class="container py-2">
         <div class="text-center mb-5" style="max-width: 620px; margin: 0 auto;">
             <span class="section-tag"><i class="bi bi-lightning-charge-fill"></i> Simple 3-Step Process</span>
@@ -489,8 +435,8 @@
     </div>
 </section>
 
-{{-- ── 10. SELLER CALL-TO-ACTION BANNER ── --}}
-<section class="py-5" style="background: #FFFFFF;">
+{{-- ── 7. SELLER CALL-TO-ACTION BANNER ── --}}
+<section class="py-5" style="background: #F8FAFC;">
     <div class="container">
         <div class="p-4 p-md-5 text-white rounded-4 shadow-lg position-relative overflow-hidden"
              style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); border: 1px solid #334155;">
