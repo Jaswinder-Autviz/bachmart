@@ -110,30 +110,35 @@
                     @csrf
                     <div class="mb-3">
                         <label class="form-label fw-700 small text-dark">Full Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Shopkeeper / Owner Name"
-                               value="{{ old('name') }}" required>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Shopkeeper / Owner Name"
+                               value="{{ old('name', session('pending_registration.name')) }}" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-700 small text-dark">Email Address</label>
-                        <input type="email" name="email" class="form-control" placeholder="business@example.com"
-                               value="{{ old('email') }}" required>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="business@example.com"
+                               value="{{ old('email', session('pending_registration.email')) }}" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-700 small text-dark">Mobile Number <span class="text-danger">*</span></label>
-                        <input type="tel" name="phone" class="form-control" placeholder="+91 98765 43210"
-                               value="{{ old('phone') }}" required>
-                        <div class="form-text small" style="font-size: 0.78rem;">Customers will call and WhatsApp you on this number.</div>
+                        <div class="input-group">
+                            <span class="input-group-text" style="border-radius: 12px 0 0 12px; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-right: none; font-weight: 700; color: #475569; font-size: 0.92rem;">+91</span>
+                            <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
+                                   style="border-radius: 0 12px 12px 0; border-left: none;"
+                                   placeholder="9876543210"
+                                   value="{{ old('phone', session('pending_registration.phone')) }}" required>
+                        </div>
+                        <div class="form-text small" style="font-size: 0.78rem;">We will verify this number via MSG91 OTP SMS before creating your shop.</div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-700 small text-dark">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Minimum 8 characters" required>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Minimum 8 characters" required>
                     </div>
                     <div class="mb-4">
                         <label class="form-label fw-700 small text-dark">Confirm Password</label>
                         <input type="password" name="password_confirmation" class="form-control" placeholder="Repeat password" required>
                     </div>
                     <button type="submit" class="btn btn-primary-bm w-100">
-                        <i class="bi bi-shop me-2"></i>Create Seller Account
+                        <i class="bi bi-shield-check me-2"></i>Verify Mobile & Create Shop Account
                     </button>
                 </form>
 

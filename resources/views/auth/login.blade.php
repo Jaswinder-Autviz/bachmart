@@ -66,6 +66,32 @@
         }
         .divider { display: flex; align-items: center; gap: .75rem; color: #94A3B8; font-size: .85rem; font-weight: 600; }
         .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #E2E8F0; }
+        .auth-tab-group {
+            display: flex;
+            background: #F1F5F9;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 1.5rem;
+        }
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 9px;
+            text-decoration: none;
+            color: #64748B;
+            transition: all 0.2s;
+        }
+        .auth-tab.active {
+            background: #FFFFFF;
+            color: #FF5722;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+        }
+        .auth-tab:hover:not(.active) {
+            color: #0F172A;
+        }
     </style>
 </head>
 <body>
@@ -76,6 +102,16 @@
                 <div class="brand-text">Bachat<span>Mart</span></div>
             </a>
             <p class="text-muted mt-1 mb-0" style="font-size: 0.88rem; font-weight: 500;">Welcome back! Please sign in to your account.</p>
+        </div>
+
+        {{-- Switcher Tabs --}}
+        <div class="auth-tab-group">
+            <a href="{{ route('login') }}" class="auth-tab active">
+                <i class="bi bi-key me-1"></i> Password
+            </a>
+            <a href="{{ route('login.otp') }}" class="auth-tab">
+                <i class="bi bi-phone me-1"></i> Mobile OTP
+            </a>
         </div>
 
         @if($errors->any())
@@ -98,7 +134,7 @@
                            class="form-control @error('password') is-invalid @enderror"
                            placeholder="Enter your password" required>
                     <button type="button" class="btn btn-outline-secondary" onclick="togglePwd()"
-                            style="border-radius: 0 12px 12px 0; border: 1.5px solid #E2E8F0; border-left: none;">
+                             style="border-radius: 0 12px 12px 0; border: 1.5px solid #E2E8F0; border-left: none;">
                         <i class="bi bi-eye" id="eyeIcon"></i>
                     </button>
                 </div>
@@ -114,6 +150,10 @@
 
         <div class="divider my-4">OR</div>
 
+        <a href="{{ route('login.otp') }}" class="btn btn-outline-secondary w-100 mb-3 fw-700 rounded-pill py-2" style="font-size: 0.88rem; border-color: #E2E8F0; color: #334155;">
+            <i class="bi bi-phone text-warning me-2"></i>Sign In with Mobile OTP (MSG91)
+        </a>
+
         <div class="text-center">
             <p class="small mb-2 fw-500">New customer? <a href="{{ route('register') }}" style="color: #FF5722; font-weight: 700;">Create Free Account</a></p>
             <p class="small mb-0 fw-500">Want to sell surplus stock? <a href="{{ route('register.seller') }}" style="color: #FF5722; font-weight: 700;">Register Your Shop</a></p>
@@ -121,22 +161,25 @@
 
         {{-- Demo Credentials --}}
         <div class="mt-4 p-3 rounded-4" style="background: #F8FAFC; border: 1px solid #E2E8F0; font-size: 0.8rem;">
-            <div class="fw-700 mb-2 text-muted text-uppercase" style="font-size: 0.7rem; letter-spacing: 0.05em;">Demo Logins</div>
+            <div class="fw-700 mb-2 text-muted text-uppercase" style="font-size: 0.7rem; letter-spacing: 0.05em;">Demo Logins (Password or OTP)</div>
             <div class="row g-2">
                 <div class="col-6">
                     <div class="p-2 bg-white rounded-3 border">
                         <div class="fw-800 text-primary" style="font-size: 0.72rem;">ADMIN</div>
-                        <div class="text-dark fw-600" style="font-size: 0.75rem;">admin@bachatmart.com</div>
-                        <div class="text-muted" style="font-size: 0.72rem;">admin@123</div>
+                        <div class="text-dark fw-600 text-truncate" style="font-size: 0.73rem;">admin@bachatmart.com</div>
+                        <div class="text-muted" style="font-size: 0.7rem;"><i class="bi bi-phone"></i> 9800000000</div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="p-2 bg-white rounded-3 border">
                         <div class="fw-800 text-primary-bm" style="font-size: 0.72rem;">SELLER</div>
-                        <div class="text-dark fw-600" style="font-size: 0.75rem;">rajesh@example.com</div>
-                        <div class="text-muted" style="font-size: 0.72rem;">seller@123</div>
+                        <div class="text-dark fw-600 text-truncate" style="font-size: 0.73rem;">rajesh@example.com</div>
+                        <div class="text-muted" style="font-size: 0.7rem;"><i class="bi bi-phone"></i> 9811111111</div>
                     </div>
                 </div>
+            </div>
+            <div class="mt-2 text-center text-muted" style="font-size: 0.72rem;">
+                <i class="bi bi-info-circle me-1"></i> Demo OTP: <strong>1234</strong> | Password: <strong>seller@123</strong>
             </div>
         </div>
     </div>

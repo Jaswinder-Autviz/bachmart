@@ -31,4 +31,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'msg91' => [
+        'auth_key' => env('MSG91_AUTH_KEY'),
+        'template_id' => env('MSG91_TEMPLATE_ID'),
+        'otp_length' => (int) env('MSG91_OTP_LENGTH', 4),
+        'otp_expiry' => (int) env('MSG91_OTP_EXPIRY', 5), // minutes
+        'mock' => (bool) env('MSG91_MOCK', true),
+        'test_otp' => env('MSG91_TEST_OTP', '1234'),
+    ],
+
 ];

@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'role', 'status', 'avatar', 'city', 'state',
+        'name', 'email', 'phone', 'password', 'role', 'status', 'avatar', 'city', 'state', 'phone_verified_at',
     ];
 
     protected $hidden = [
@@ -22,6 +22,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -50,6 +51,29 @@ class User extends Authenticatable
     public function isBlocked(): bool
     {
         return $this->status === 'blocked';
+    }
+
+    /**
+     * Find a user by phone number flexibly matching 10-digit formats.
+     */
+    public static function findByPhone(?string $phone): ?self
+    {
+        if (empty($phone)) {
+            return null;
+        }
+
+        $digits = preg_replace('/[^0-9]/', '', $phone);
+        if (strlen($digits) < 7) {
+            return null;
+        }
+
+        $last10 = strlen($digits) >= 10 ? substr($digits, -10) : $digits;
+
+        return self::where(function ($query) use ($phone, $digits, $last10) {
+            $query->where('phone', $phone)
+                ->orWhere('phone', $digits)
+                ->orWhere('phone', 'LIKE', '%' . $last10);
+        })->first();
     }
 
     // ─── Relationships ───────────────────────────────────────────────────────────

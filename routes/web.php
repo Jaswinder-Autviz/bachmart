@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\OtpLoginController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\ShopController;
@@ -71,6 +72,18 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register/seller', [AuthController::class, 'showSellerRegister'])->name('register.seller');
     Route::post('/register/seller', [AuthController::class, 'registerSeller'])->name('register.seller.submit');
+
+    // Registration Mobile OTP Verification (MSG91)
+    Route::get('/register/verify-otp', [AuthController::class, 'showRegisterVerifyOtp'])->name('register.otp.verify.show');
+    Route::post('/register/verify-otp', [AuthController::class, 'verifyRegisterOtp'])->name('register.otp.verify');
+    Route::post('/register/resend-otp', [AuthController::class, 'resendRegisterOtp'])->name('register.otp.resend');
+
+    // Passwordless Mobile OTP Login (MSG91)
+    Route::get('/login/otp', [OtpLoginController::class, 'showSendForm'])->name('login.otp');
+    Route::post('/login/otp/send', [OtpLoginController::class, 'sendOtp'])->name('login.otp.send');
+    Route::get('/login/otp/verify', [OtpLoginController::class, 'showVerifyForm'])->name('login.otp.verify.show');
+    Route::post('/login/otp/verify', [OtpLoginController::class, 'verifyOtp'])->name('login.otp.verify');
+    Route::post('/login/otp/resend', [OtpLoginController::class, 'resendOtp'])->name('login.otp.resend');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
