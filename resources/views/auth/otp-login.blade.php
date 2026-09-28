@@ -9,34 +9,35 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     
-    {{-- Google Fonts - Montserrat --}}
+    {{-- Google Fonts - Nunito --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     <style>
         body { 
-            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             background: radial-gradient(100% 100% at 50% 0%, #FFF5F0 0%, #F8FAFC 100%); 
             min-height: 100vh; 
             display: flex; 
             align-items: center; 
             color: #0F172A;
+            font-size: 13.5px;
         }
         .auth-card { 
             background: #FFFFFF; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08); 
+            border-radius: 18px; 
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.07); 
             border: 1px solid #E2E8F0;
-            padding: 2.75rem 2.25rem; 
+            padding: 2.25rem 2rem; 
             width: 100%; 
-            max-width: 440px; 
+            max-width: 420px; 
         }
         .brand-text { 
-            font-size: 2rem; 
-            font-weight: 900; 
+            font-size: 1.65rem; 
+            font-weight: 800; 
             color: #FF5722; 
-            letter-spacing: -0.04em;
+            letter-spacing: -0.03em;
         }
         .brand-text span { color: #0F172A; }
         .auth-tab-group {

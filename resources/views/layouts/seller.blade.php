@@ -11,10 +11,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     
-    {{-- Google Fonts - Montserrat --}}
+    {{-- Google Fonts - Nunito --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap" rel="stylesheet">
 
     {{-- Marketplace CSS --}}
     <link href="{{ asset('css/marketplace.css') }}?v={{ file_exists(public_path('css/marketplace.css')) ? filemtime(public_path('css/marketplace.css')) : '2.2' }}" rel="stylesheet">
@@ -33,9 +33,10 @@
             max-width: 100vw;
         }
         body { 
-            font-family: 'Montserrat', sans-serif !important; 
+            font-family: 'Nunito', sans-serif !important; 
             background: #F8FAFC; 
             color: #0F172A;
+            font-size: 13.5px;
             margin: 0;
             padding: 0;
         }
@@ -162,8 +163,8 @@
         #toast-container > div {
             border-radius: 14px !important;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
-            font-family: 'Montserrat', sans-serif !important;
-            font-size: 0.88rem !important;
+            font-family: 'Nunito', sans-serif !important;
+            font-size: 0.84rem !important;
             font-weight: 600 !important;
         }
     </style>

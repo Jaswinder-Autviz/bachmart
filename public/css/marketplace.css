@@ -1,10 +1,9 @@
 /**
  * BachatMart - Local Surplus Stock & Clearance Deals Marketplace
- * Ultra-Premium Human-Crafted Design System & Mobile App Experience
- * Typography: Montserrat (300, 400, 500, 600, 700, 800, 900)
+ * Typography: Nunito (300, 400, 500, 600, 700, 800, 900)
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap');
 
 :root {
     /* Brand Colors */
@@ -71,12 +70,12 @@ html, body {
 }
 
 body {
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: #F8FAFC;
     color: var(--bm-dark);
-    font-size: 15px;
+    font-size: 13.5px;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.5;
     letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -100,20 +99,27 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Nunito', sans-serif;
     color: var(--bm-dark);
     font-weight: 700;
     line-height: 1.25;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
 }
 
 h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Nunito', sans-serif;
     color: var(--bm-dark);
     font-weight: 600;
     line-height: 1.3;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.01em;
 }
+
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.28rem; }
+h3 { font-size: 1.12rem; }
+h4 { font-size: 0.98rem; }
+h5 { font-size: 0.88rem; }
+h6 { font-size: 0.78rem; }
 
 a {
     color: var(--bm-primary);
@@ -272,8 +278,8 @@ a:hover {
 .market-header__main {
     display: flex;
     align-items: center;
-    min-height: 72px;
-    gap: 1.25rem;
+    min-height: 60px;
+    gap: 1rem;
 }
 
 .market-logo {
@@ -284,9 +290,9 @@ a:hover {
 }
 
 .market-logo__text {
-    font-size: 1.8rem;
-    font-weight: 900;
-    letter-spacing: -0.04em;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     color: var(--bm-primary);
     white-space: nowrap;
 }
@@ -300,11 +306,11 @@ a:hover {
     border: 1.5px solid var(--bm-border);
     color: var(--bm-dark);
     border-radius: var(--bm-radius-pill);
-    padding: 0.62rem 1.1rem;
+    padding: 0.42rem 0.85rem;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.88rem;
+    gap: 0.4rem;
+    font-size: 0.78rem;
     font-weight: 600;
     box-shadow: var(--bm-shadow-subtle);
     transition: var(--bm-transition);
@@ -319,7 +325,7 @@ a:hover {
 
 .market-location__button i.bi-geo-alt-fill {
     color: var(--bm-primary);
-    font-size: 1rem;
+    font-size: 0.88rem;
 }
 
 .market-search {
@@ -333,12 +339,12 @@ a:hover {
     overflow: hidden;
     box-shadow: var(--bm-shadow-subtle);
     transition: var(--bm-transition);
-    max-width: 680px;
+    max-width: 580px;
 }
 
 .market-search:focus-within {
     border-color: var(--bm-primary);
-    box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.12);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12);
 }
 
 .market-search input {
@@ -346,8 +352,8 @@ a:hover {
     min-width: 0;
     border: none;
     background: transparent;
-    padding: 0.75rem 1.2rem;
-    font-size: 0.92rem;
+    padding: 0.48rem 0.95rem;
+    font-size: 0.82rem;
     font-weight: 500;
     color: var(--bm-dark);
     outline: none;
@@ -362,13 +368,13 @@ a:hover {
     border: none;
     background: var(--bm-primary-gradient);
     color: #ffffff;
-    padding: 0.68rem 1.2rem;
-    font-size: 0.95rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.82rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 48px;
-    margin: 3px;
+    min-width: 38px;
+    margin: 2px;
     border-radius: var(--bm-radius-pill);
     transition: var(--bm-transition);
 }
@@ -381,18 +387,18 @@ a:hover {
 .market-header__actions {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     margin-left: auto;
 }
 
 .market-action {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.6rem 0.95rem;
+    gap: 0.35rem;
+    padding: 0.42rem 0.72rem;
     color: var(--bm-secondary);
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.8rem;
     border-radius: var(--bm-radius-pill);
     border: 1.5px solid transparent;
     transition: var(--bm-transition);
@@ -411,11 +417,11 @@ a:hover {
     border: 1.5px solid var(--bm-border);
     color: var(--bm-dark);
     border-radius: var(--bm-radius-pill);
-    padding: 0.6rem 1.1rem;
+    padding: 0.42rem 0.82rem;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.88rem;
+    gap: 0.4rem;
+    font-size: 0.8rem;
     font-weight: 600;
     box-shadow: var(--bm-shadow-subtle);
     transition: var(--bm-transition);
@@ -431,24 +437,24 @@ a:hover {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     background: var(--bm-primary-gradient);
     color: #ffffff !important;
     border: none;
     border-radius: var(--bm-radius-pill);
-    padding: 0.65rem 1.35rem;
-    font-weight: 800;
-    font-size: 0.88rem;
-    letter-spacing: 0.05em;
-    box-shadow: 0 4px 16px rgba(255, 87, 34, 0.35);
+    padding: 0.45rem 1rem;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    box-shadow: 0 3px 12px rgba(255, 87, 34, 0.3);
     transition: var(--bm-transition);
     text-decoration: none;
     white-space: nowrap;
 }
 
 .market-sell-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(255, 87, 34, 0.45);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(255, 87, 34, 0.4);
     color: #ffffff !important;
 }
 
@@ -476,7 +482,7 @@ a:hover {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 48px;
+    width: 44px;
     pointer-events: none;
     z-index: 4;
     opacity: 0;
@@ -506,17 +512,17 @@ a:hover {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: #FFFFFF;
     border: 1.5px solid var(--bm-border);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.1);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: var(--bm-dark);
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     cursor: pointer;
     z-index: 10;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -534,26 +540,26 @@ a:hover {
     background: var(--bm-primary);
     color: #FFFFFF;
     border-color: var(--bm-primary);
-    box-shadow: 0 6px 16px rgba(255, 87, 34, 0.35);
+    box-shadow: 0 4px 14px rgba(255, 87, 34, 0.35);
     transform: translateY(-50%) scale(1.08);
 }
 
 .market-category-nav.prev {
-    left: -8px;
+    left: -6px;
 }
 
 .market-category-nav.next {
-    right: -8px;
+    right: -6px;
 }
 
 .market-category-row {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     overflow-x: auto !important;
     overflow-y: hidden !important;
     white-space: nowrap;
-    padding: 0.65rem 0.25rem;
+    padding: 0.5rem 0.2rem;
     width: 100%;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
@@ -579,10 +585,10 @@ a:hover {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.45rem;
+    gap: 0.35rem;
     border-radius: var(--bm-radius-pill);
-    padding: 0.5rem 1rem;
-    font-size: 0.82rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.76rem;
     font-weight: 600;
     border: 1px solid var(--bm-border);
     background: #FFFFFF;
@@ -632,25 +638,25 @@ a:hover {
 .section-tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.35rem;
     background: var(--bm-primary-light);
     color: var(--bm-primary);
     border: 1px solid var(--bm-primary-border);
     border-radius: var(--bm-radius-pill);
-    padding: 0.28rem 0.8rem;
-    font-size: 0.72rem;
+    padding: 0.22rem 0.68rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
 }
 
 .section-title {
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
-    font-weight: 800;
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    font-weight: 700;
     color: var(--bm-dark);
-    margin-bottom: 0.2rem;
-    letter-spacing: -0.03em;
+    margin-bottom: 0.15rem;
+    letter-spacing: -0.02em;
 }
 
 .section-title span {
@@ -658,7 +664,7 @@ a:hover {
 }
 
 .section-subtitle {
-    font-size: 0.88rem;
+    font-size: 0.8rem;
     color: var(--bm-muted);
     margin-bottom: 0;
     font-weight: 400;
@@ -668,7 +674,7 @@ a:hover {
 .product-card {
     background: #FFFFFF;
     border: 1px solid var(--bm-border);
-    border-radius: 16px;
+    border-radius: 14px;
     overflow: hidden;
     height: 100%;
     display: flex;
@@ -680,7 +686,7 @@ a:hover {
 
 .product-card:hover {
     border-color: #CBD5E1;
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow: var(--bm-shadow-hover);
 }
 
@@ -718,32 +724,32 @@ a:hover {
 /* Badges */
 .product-card-badge {
     position: absolute;
-    top: 10px;
-    font-size: 0.72rem;
-    font-weight: 800;
+    top: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
     letter-spacing: 0.02em;
-    padding: 0.25rem 0.65rem;
+    padding: 0.2rem 0.55rem;
     border-radius: var(--bm-radius-pill);
     z-index: 2;
     line-height: 1.2;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .product-card-badge--discount {
-    left: 10px;
+    left: 8px;
     background: #0F172A;
     color: #FFFFFF;
 }
 
 .product-card-badge--featured {
-    right: 10px;
+    right: 8px;
     background: linear-gradient(135deg, #FFB703 0%, #FB8500 100%);
     color: #FFFFFF;
 }
 
 /* Card Body */
 .product-card-body {
-    padding: 0.95rem 1rem;
+    padding: 0.75rem 0.85rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -752,13 +758,13 @@ a:hover {
 .product-card-meta {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    font-size: 0.72rem;
+    gap: 0.3rem;
+    font-size: 0.68rem;
     color: var(--bm-muted);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 0.35rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.25rem;
 }
 
 .product-card-meta-dot {
@@ -774,16 +780,16 @@ a:hover {
 }
 
 .product-card-title {
-    font-size: 0.92rem;
+    font-size: 0.84rem;
     font-weight: 700;
     line-height: 1.35;
     color: var(--bm-dark);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    height: 2.5rem;
+    height: 2.3rem;
 }
 
 .product-card-title a {
@@ -799,20 +805,20 @@ a:hover {
 .product-card-pricing {
     display: flex;
     align-items: baseline;
-    gap: 0.45rem;
-    margin-bottom: 0.75rem;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
     flex-wrap: wrap;
 }
 
 .product-card-pricing .price-offer {
-    font-size: 1.28rem;
+    font-size: 1.08rem;
     font-weight: 800;
     color: var(--bm-dark);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
 }
 
 .product-card-pricing .price-original {
-    font-size: 0.85rem;
+    font-size: 0.76rem;
     color: var(--bm-light-muted);
     text-decoration: line-through;
     font-weight: 500;
@@ -821,11 +827,11 @@ a:hover {
 /* Card Footer */
 .product-card-footer {
     margin-top: auto;
-    padding-top: 0.75rem;
+    padding-top: 0.6rem;
     border-top: 1px solid var(--bm-border-light);
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.4rem;
 }
 
 .btn-card-primary {
@@ -833,9 +839,9 @@ a:hover {
     background: #F8FAFC;
     color: var(--bm-dark);
     border: 1.5px solid var(--bm-border);
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 0.5rem 0.75rem;
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 0.42rem 0.65rem;
     border-radius: var(--bm-radius-pill);
     text-align: center;
     text-decoration: none;
