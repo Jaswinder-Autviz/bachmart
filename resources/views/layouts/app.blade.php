@@ -171,6 +171,10 @@
     <div class="market-category-strip">
         <div class="container position-relative">
             <div class="market-category-wrapper" id="marketCategoryWrapper">
+                <button type="button" class="market-category-nav prev" id="catNavPrev" aria-label="Scroll categories left">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
                 <div class="market-category-row" id="marketCategoryRow">
                     <a class="market-all-category" href="{{ route('deals') }}">
                         <i class="bi bi-grid-fill"></i>
@@ -185,6 +189,10 @@
                         </a>
                     @endforeach
                 </div>
+
+                <button type="button" class="market-category-nav next" id="catNavNext" aria-label="Scroll categories right">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -379,6 +387,111 @@ function trackLead(type, shopId, productId = null) {
         // silent fail
     });
 }
+
+// ── Horizontal Category Strip Scroll Controller ──
+document.addEventListener('DOMContentLoaded', function () {
+    const row = document.getElementById('marketCategoryRow');
+    const wrapper = document.getElementById('marketCategoryWrapper');
+    const prevBtn = document.getElementById('catNavPrev');
+    const nextBtn = document.getElementById('catNavNext');
+
+    if (!row || !wrapper) return;
+
+    function updateNavState() {
+        const maxScroll = row.scrollWidth - row.clientWidth;
+        const currentScroll = row.scrollLeft;
+
+        if (maxScroll <= 4) {
+            prevBtn?.classList.remove('visible');
+            nextBtn?.classList.remove('visible');
+            wrapper.classList.remove('has-scroll-left', 'has-scroll-right');
+            return;
+        }
+
+        if (currentScroll > 8) {
+            prevBtn?.classList.add('visible');
+            wrapper.classList.add('has-scroll-left');
+        } else {
+            prevBtn?.classList.remove('visible');
+            wrapper.classList.remove('has-scroll-left');
+        }
+
+        if (currentScroll < maxScroll - 8) {
+            nextBtn?.classList.add('visible');
+            wrapper.classList.add('has-scroll-right');
+        } else {
+            nextBtn?.classList.remove('visible');
+            wrapper.classList.remove('has-scroll-right');
+        }
+    }
+
+    // Scroll on arrow button clicks
+    prevBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        row.scrollBy({ left: -260, behavior: 'smooth' });
+    });
+
+    nextBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        row.scrollBy({ left: 260, behavior: 'smooth' });
+    });
+
+    // Horizontal mouse wheel scrolling over category bar
+    row.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            e.preventDefault();
+            row.scrollLeft += e.deltaY;
+        }
+    }, { passive: false });
+
+    // Click & drag to scroll for desktop users
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let hasDragged = false;
+
+    row.addEventListener('mousedown', (e) => {
+        // Only left mouse click
+        if (e.button !== 0) return;
+        isDown = true;
+        hasDragged = false;
+        row.classList.add('is-dragging');
+        startX = e.pageX - row.offsetLeft;
+        scrollLeft = row.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        isDown = false;
+        row.classList.remove('is-dragging');
+    });
+
+    row.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - row.offsetLeft;
+        const walk = (x - startX) * 1.4;
+        if (Math.abs(walk) > 4) {
+            hasDragged = true;
+        }
+        row.scrollLeft = scrollLeft - walk;
+    });
+
+    // Prevent accidental navigation when dragging
+    row.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            if (hasDragged) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        });
+    });
+
+    row.addEventListener('scroll', updateNavState);
+    window.addEventListener('resize', updateNavState);
+
+    // Initial check
+    setTimeout(updateNavState, 150);
+});
 </script>
 
 @stack('scripts')

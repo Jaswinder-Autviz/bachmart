@@ -459,7 +459,6 @@ a:hover {
     border-bottom: 1px solid var(--bm-border);
     position: relative;
     width: 100%;
-    overflow: hidden;
 }
 
 .market-category-wrapper {
@@ -468,6 +467,83 @@ a:hover {
     align-items: center;
     width: 100%;
     max-width: 100%;
+}
+
+/* Side edge gradient fades */
+.market-category-wrapper::before,
+.market-category-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.market-category-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, #FFFFFF 30%, rgba(255, 255, 255, 0));
+}
+
+.market-category-wrapper.has-scroll-left::before {
+    opacity: 1;
+}
+
+.market-category-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, #FFFFFF 30%, rgba(255, 255, 255, 0));
+}
+
+.market-category-wrapper.has-scroll-right::after {
+    opacity: 1;
+}
+
+/* Left & Right Scroll Buttons */
+.market-category-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1.5px solid var(--bm-border);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bm-dark);
+    font-size: 0.85rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    pointer-events: none;
+    padding: 0;
+}
+
+.market-category-nav.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.market-category-nav:hover {
+    background: var(--bm-primary);
+    color: #FFFFFF;
+    border-color: var(--bm-primary);
+    box-shadow: 0 6px 16px rgba(255, 87, 34, 0.35);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.market-category-nav.prev {
+    left: -8px;
+}
+
+.market-category-nav.next {
+    right: -8px;
 }
 
 .market-category-row {
@@ -483,6 +559,13 @@ a:hover {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
+    cursor: grab;
+    user-select: none;
+}
+
+.market-category-row.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
 }
 
 .market-category-row::-webkit-scrollbar {
