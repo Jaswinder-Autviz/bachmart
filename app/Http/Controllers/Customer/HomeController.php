@@ -123,17 +123,145 @@ class HomeController extends Controller
         return view('customer.deals', compact('products', 'categories'));
     }
 
-    public function category(Category $category)
+    public function category(Request $request, Category $category)
     {
-        $products = Product::approved()
+        $selectedCity = session('selected_city') ?? $request->city;
+
+        $query = Product::approved()
             ->byCategory($category->id)
-            ->with(['shop', 'primaryImage'])
-            ->orderByDesc('is_featured')
-            ->latest()
-            ->paginate(20);
+            ->with(['shop', 'primaryImage', 'category']);
 
-        $categories = Category::active()->get();
+        // Search within category
+        if ($request->filled('q')) {
+            $query->search($request->q);
+        }
 
-        return view('customer.category', compact('category', 'products', 'categories'));
+        // City filter
+        if ($request->filled('city')) {
+            $query->inCity($request->city);
+        } elseif ($selectedCity) {
+            $query->inCity($selectedCity);
+        }
+
+        // Min Discount filter
+        if ($request->filled('min_discount')) {
+            $query->where('discount_percent', '>=', (float) $request->min_discount);
+        }
+
+        // Price range presets
+        if ($request->filled('price_range')) {
+            match($request->price_range) {
+                'under_500' => $query->where('offer_price', '<', 500),
+                '500_1000' => $query->whereBetween('offer_price', [500, 1000]),
+                '1000_2500' => $query->whereBetween('offer_price', [1000, 2500]),
+                'above_2500' => $query->where('offer_price', '>', 2500),
+                default => null,
+            };
+        }
+
+        // Custom min/max price
+        if ($request->filled('min_price')) {
+            $query->where('offer_price', '>=', (float) $request->min_price);
+        }
+        if ($request->filled('max_price')) {
+            $query->where('offer_price', '<=', (float) $request->max_price);
+        }
+
+        // Condition filter
+        if ($request->filled('condition')) {
+            $query->where('condition', $request->condition);
+        }
+
+        // Brand filter
+        if ($request->filled('brand')) {
+            $query->where('brand', $request->brand);
+        }
+
+        // Featured only
+        if ($request->boolean('featured')) {
+            $query->featured();
+        }
+
+        // Negotiable only
+        if ($request->boolean('negotiable')) {
+            $query->where('is_negotiable', true);
+        }
+
+        // Verified shops only
+        if ($request->boolean('verified_shop')) {
+            $query->whereHas('shop', fn($q) => $q->where('is_verified', true));
+        }
+
+        // Sort options
+        match($request->sort) {
+            'discount' => $query->orderByDesc('discount_percent'),
+            'price_low' => $query->orderBy('offer_price'),
+            'price_high' => $query->orderByDesc('offer_price'),
+            'popular' => $query->orderByDesc('views_count'),
+            'newest' => $query->latest(),
+            default => $query->orderByDesc('is_featured')->latest(),
+        };
+
+        $products = $query->paginate(20)->withQueryString();
+
+        // Spotlight / Hero deal in this category
+        $spotlightDeal = Product::approved()
+            ->byCategory($category->id)
+            ->with(['shop', 'primaryImage', 'category'])
+            ->orderByDesc('discount_percent')
+            ->first();
+
+        // Categories with approved products count
+        $categories = Category::active()
+            ->withCount(['approvedProducts'])
+            ->orderBy('sort_order')
+            ->get();
+
+        // Available cities with items in this category
+        $availableCities = Shop::active()
+            ->whereHas('products', fn($q) => $q->approved()->where('category_id', $category->id))
+            ->whereNotNull('city')
+            ->where('city', '!=', '')
+            ->distinct()
+            ->pluck('city')
+            ->sort()
+            ->values();
+
+        // Top brands in this category
+        $availableBrands = Product::approved()
+            ->byCategory($category->id)
+            ->whereNotNull('brand')
+            ->where('brand', '!=', '')
+            ->select('brand')
+            ->distinct()
+            ->pluck('brand')
+            ->take(12);
+
+        // Top verified local shops selling items in this category
+        $categoryShops = Shop::active()
+            ->whereHas('products', fn($q) => $q->approved()->where('category_id', $category->id))
+            ->withCount(['products' => fn($q) => $q->approved()->where('category_id', $category->id)])
+            ->orderByDesc('is_verified')
+            ->orderByDesc('rating')
+            ->take(4)
+            ->get();
+
+        // Price statistics
+        $stats = Product::approved()
+            ->byCategory($category->id)
+            ->selectRaw('MIN(offer_price) as min_price, MAX(offer_price) as max_price, MAX(discount_percent) as max_discount, COUNT(*) as total_count')
+            ->first();
+
+        return view('customer.category', compact(
+            'category',
+            'products',
+            'categories',
+            'spotlightDeal',
+            'availableCities',
+            'availableBrands',
+            'categoryShops',
+            'stats',
+            'selectedCity'
+        ));
     }
 }
