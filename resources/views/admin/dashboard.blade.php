@@ -18,7 +18,7 @@
         ['label'=>'Pending Approval','value'=>$stats['pending_products'],'icon'=>'bi-hourglass-split','color'=>'#F59E0B','bg'=>'#FEF3C7'],
         ['label'=>'Approved Products','value'=>$stats['approved_products'],'icon'=>'bi-check-circle-fill','color'=>'#10B981','bg'=>'#ECFDF5'],
         ['label'=>'Total Leads','value'=>$stats['total_leads'],'icon'=>'bi-graph-up','color'=>'#EF4444','bg'=>'#FEE2E2'],
-        ['label'=>'Monthly Revenue','value'=>'₹'.number_format($stats['monthly_revenue']),'icon'=>'bi-currency-rupee','color'=>'#FF5722','bg'=>'#FFF0EB'],
+        ['label'=>'Monthly Revenue','value'=>'₹'.number_format($stats['monthly_revenue']),'icon'=>'bi-currency-rupee','color'=>'#2563EB','bg'=>'#EFF6FF'],
     ];
     @endphp
     @foreach($cards as $card)
@@ -76,7 +76,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center p-3 rounded-3" style="background:#F8FAFC; border: 1px solid #E2E8F0;">
                     <span class="small fw-700 text-dark">Featured Products</span>
-                    <span class="fw-900" style="color:#FF5722">{{ $stats['featured_products'] }}</span>
+                    <span class="fw-900" style="color:#2563EB">{{ $stats['featured_products'] }}</span>
                 </div>
             </div>
             <div class="mt-4 d-flex flex-column gap-2">

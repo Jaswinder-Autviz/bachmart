@@ -37,7 +37,7 @@
     </div>
     <div class="col-6 col-md-4 col-xl-2">
         <div class="stat-card">
-            <div class="stat-value" style="color:#FF5722">{{ number_format($summary['today'] ?? 0) }}</div>
+            <div class="stat-value" style="color:#2563EB">{{ number_format($summary['today'] ?? 0) }}</div>
             <div class="stat-label">Today's Leads</div>
         </div>
     </div>

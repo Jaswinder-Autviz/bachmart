@@ -25,7 +25,7 @@
     </div>
     <div class="col-sm-6 col-xl-3">
         <div class="stat-card">
-            <div class="stat-value" style="color:#FF5722">₹{{ number_format($stats['listing_revenue'] ?? 0) }}</div>
+            <div class="stat-value" style="color:#2563EB">₹{{ number_format($stats['listing_revenue'] ?? 0) }}</div>
             <div class="stat-label">Product Listing Fees (₹12)</div>
         </div>
     </div>

@@ -36,7 +36,7 @@
         .brand-text { 
             font-size: 1.65rem; 
             font-weight: 800; 
-            color: #FF5722; 
+            color: #2563EB; 
             letter-spacing: -0.03em;
         }
         .brand-text span { color: #0F172A; }
@@ -60,25 +60,25 @@
         }
         .auth-tab.active {
             background: #FFFFFF;
-            color: #FF5722;
+            color: #2563EB;
             box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
         }
         .auth-tab:hover:not(.active) {
             color: #0F172A;
         }
         .btn-primary-bm { 
-            background: linear-gradient(135deg, #FF6B35 0%, #FF4500 100%); 
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%); 
             color: #fff !important; 
             border: none; 
             border-radius: 9999px; 
             font-weight: 700; 
             padding: 0.75rem; 
-            box-shadow: 0 4px 14px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
             transition: all .2s; 
         }
         .btn-primary-bm:hover { 
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
         .form-control { 
             border-radius: 12px; 
@@ -89,8 +89,8 @@
             letter-spacing: 0.02em;
         }
         .form-control:focus { 
-            border-color: #FF5722; 
-            box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12); 
+            border-color: #2563EB; 
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); 
         }
         .input-group-text {
             border-radius: 12px 0 0 12px;
@@ -106,9 +106,9 @@
             border-left: none;
         }
         .badge-demo {
-            background: #FFF5F0;
-            color: #FF5722;
-            border: 1px solid #FFD3C4;
+            background: #EFF6FF;
+            color: #2563EB;
+            border: 1px solid #BFDBFE;
             font-weight: 700;
             font-size: 0.75rem;
             border-radius: 6px;
@@ -125,8 +125,8 @@
             transition: all 0.15s;
         }
         .demo-chip:hover {
-            border-color: #FF5722;
-            background: #FFF5F0;
+            border-color: #2563EB;
+            background: #EFF6FF;
         }
     </style>
 </head>
@@ -193,8 +193,8 @@
         <div class="divider my-4">OR</div>
 
         <div class="text-center">
-            <p class="small mb-2 fw-500">Prefer password? <a href="{{ route('login') }}" style="color: #FF5722; font-weight: 700;">Sign In with Password</a></p>
-            <p class="small mb-0 fw-500">Don't have an account? <a href="{{ route('register') }}" style="color: #FF5722; font-weight: 700;">Create Free Account</a></p>
+            <p class="small mb-2 fw-500">Prefer password? <a href="{{ route('login') }}" style="color: #2563EB; font-weight: 700;">Sign In with Password</a></p>
+            <p class="small mb-0 fw-500">Don't have an account? <a href="{{ route('register') }}" style="color: #2563EB; font-weight: 700;">Create Free Account</a></p>
         </div>
 
         {{-- Quick Demo Numbers --}}

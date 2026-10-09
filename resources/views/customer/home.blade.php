@@ -6,14 +6,14 @@
 @section('content')
 
 {{-- ── 1. HERO SECTION ── --}}
-<section class="py-5" style="background: radial-gradient(120% 100% at 50% 0%, #FFF5F0 0%, #FFFFFF 100%); border-bottom: 1px solid var(--bm-border-light);">
+<section class="py-5" style="background: radial-gradient(120% 100% at 50% 0%, #EFF6FF 0%, #FFFFFF 100%); border-bottom: 1px solid var(--bm-border-light);">
     <div class="container py-2 py-lg-4">
         <div class="row align-items-center g-4 g-lg-5">
             {{-- Left Column: Value Prop & Actions --}}
             <div class="col-lg-7">
                 {{-- Clean Badge Tag --}}
                 <div class="d-inline-flex align-items-center gap-2 px-3 py-1 mb-3 rounded-pill"
-                     style="background: #FFF0EB; border: 1px solid #FFD3C4; font-size: 0.76rem; font-weight: 700; color: var(--bm-primary); letter-spacing: 0.04em;">
+                     style="background: #EFF6FF; border: 1px solid #BFDBFE; font-size: 0.76rem; font-weight: 700; color: var(--bm-primary); letter-spacing: 0.04em;">
                     <i class="bi bi-patch-check-fill text-primary-bm"></i> LOCAL SURPLUS STOCK & CLEARANCE NETWORK
                 </div>
 
@@ -332,7 +332,7 @@
         <div class="row g-4">
             <div class="col-md-6 col-lg-3">
                 <div class="bm-trust-card">
-                    <div class="bm-trust-icon" style="background: #FFF5F0; color: var(--bm-primary);">
+                    <div class="bm-trust-icon" style="background: #E0F2FE; color: var(--bm-primary);">
                         <i class="bi bi-eye-fill"></i>
                     </div>
                     <h5 class="fw-800 text-dark fs-6 mb-2">Inspect Before Paying</h5>

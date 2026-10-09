@@ -21,11 +21,11 @@
 
     <style>
         :root {
-            --primary: #FF5722;
-            --primary-dark: #E64A19;
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
             --sidebar-bg: #0F172A;
             --sidebar-text: #94A3B8;
-            --sidebar-active: #FF5722;
+            --sidebar-active: #2563EB;
             --sidebar-width: 260px;
         }
         html, body {
@@ -98,9 +98,9 @@
             color: #FFFFFF; 
         }
         .seller-sidebar .nav-link.active { 
-            background: var(--bm-primary-gradient, #FF5722); 
+            background: var(--bm-primary-gradient, #2563EB); 
             color: #FFFFFF; 
-            box-shadow: 0 4px 14px rgba(255, 87, 34, 0.35);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
         }
         .seller-sidebar .nav-link i { font-size: 1.05rem; width: 20px; }
         

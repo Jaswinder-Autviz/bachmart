@@ -39,7 +39,7 @@
 </div>
 @else
 <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 d-flex flex-row align-items-center justify-content-between gap-3 flex-wrap"
-     style="background: linear-gradient(135deg, #FFF7ED 0%, #FFF0EB 100%); border: 1.5px solid #FFD3C4 !important;">
+     style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border: 1.5px solid #BFDBFE !important;">
     <div class="d-flex align-items-center gap-3">
         <div class="rounded-circle bg-white text-warning fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
             <i class="bi bi-lightning-charge-fill text-primary-bm"></i>
@@ -69,8 +69,8 @@
         ['label'=>'Call Leads', 'value'=>$stats['total_calls'], 'icon'=>'bi-telephone-fill', 'color'=>'#059669', 'bg'=>'#ECFDF5'],
         ['label'=>'WhatsApp Leads', 'value'=>$stats['total_whatsapp'], 'icon'=>'bi-whatsapp', 'color'=>'#25D366', 'bg'=>'#F0FDF4'],
         ['label'=>'Map Clicks', 'value'=>$stats['total_directions'], 'icon'=>'bi-geo-alt-fill', 'color'=>'#EF4444', 'bg'=>'#FEF2F2'],
-        ['label'=>'Featured Deals', 'value'=>$stats['featured_products'], 'icon'=>'bi-star-fill', 'color'=>'#FF5722', 'bg'=>'#FFF0EB'],
-        ['label'=>'Listing Price', 'value'=>'₹'.number_format($listingPrice, 0).'/item', 'icon'=>'bi-tag-fill', 'color'=>'#0EA5E9', 'bg'=>'#F0F9FF', 'is_text'=>true],
+        ['label'=>'Featured Deals', 'value'=>$stats['featured_products'], 'icon'=>'bi-star-fill', 'color'=>'#2563EB', 'bg'=>'#EFF6FF'],
+        ['label'=>'Listing Price', 'value'=>'₹'.number_format($listingPrice, 0).'/item', 'icon'=>'bi-tag-fill', 'color'=>'#2563EB', 'bg'=>'#EFF6FF', 'is_text'=>true],
     ];
     @endphp
 

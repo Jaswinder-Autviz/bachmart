@@ -36,23 +36,23 @@
         .brand-text { 
             font-size: 1.65rem; 
             font-weight: 800; 
-            color: #FF5722; 
+            color: #2563EB; 
             letter-spacing: -0.03em;
         }
         .brand-text span { color: #0F172A; }
         .btn-primary-bm { 
-            background: linear-gradient(135deg, #FF6B35 0%, #FF4500 100%); 
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%); 
             color: #fff !important; 
             border: none; 
             border-radius: 9999px; 
             font-weight: 700; 
             padding: 0.75rem; 
-            box-shadow: 0 4px 14px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
             transition: all .2s; 
         }
         .btn-primary-bm:hover { 
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
         .form-control { 
             border-radius: 12px; 
@@ -62,8 +62,8 @@
             font-weight: 500;
         }
         .form-control:focus { 
-            border-color: #FF5722; 
-            box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12); 
+            border-color: #2563EB; 
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); 
         }
     </style>
 </head>
@@ -120,8 +120,8 @@
         </form>
 
         <div class="text-center mt-4">
-            <p class="small mb-1 fw-500">Already have an account? <a href="{{ route('login') }}" style="color: #FF5722; font-weight: 700;">Sign In</a></p>
-            <p class="small mb-0 fw-500">Want to sell surplus products? <a href="{{ route('register.seller') }}" style="color: #FF5722; font-weight: 700;">Register as Seller</a></p>
+            <p class="small mb-1 fw-500">Already have an account? <a href="{{ route('login') }}" style="color: #2563EB; font-weight: 700;">Sign In</a></p>
+            <p class="small mb-0 fw-500">Want to sell surplus products? <a href="{{ route('register.seller') }}" style="color: #2563EB; font-weight: 700;">Register as Seller</a></p>
         </div>
     </div>
 </div>

@@ -24,7 +24,7 @@
                 <a href="{{ route('seller.products.index') }}?status={{ $status }}"
                    class="btn btn-sm rounded-pill px-3 py-1.5 fw-700 d-inline-flex align-items-center gap-1.5 text-decoration-none transition-all"
                    style="{{ $isActive 
-                       ? 'background: var(--bm-primary-gradient, #FF5722); color: #FFFFFF; box-shadow: 0 4px 12px rgba(255,87,34,0.3);' 
+                       ? 'background: var(--bm-primary-gradient, #2563EB); color: #FFFFFF; box-shadow: 0 4px 12px rgba(37,99,235,0.3);' 
                        : 'background: transparent; color: #475569;' }}">
                     <span>{{ $tab['label'] }}</span>
                     <span class="badge rounded-pill" style="{{ $isActive ? 'background: rgba(255,255,255,0.25); color: #fff;' : 'background: #E2E8F0; color: #64748B;' }} font-size: 0.72rem;">

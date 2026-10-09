@@ -36,7 +36,7 @@
         .brand-text { 
             font-size: 1.65rem; 
             font-weight: 800; 
-            color: #FF5722; 
+            color: #2563EB; 
             letter-spacing: -0.03em;
         }
         .brand-text span { color: #0F172A; }
@@ -44,8 +44,8 @@
             width: 68px;
             height: 68px;
             border-radius: 50%;
-            background: #FFF5F0;
-            color: #FF5722;
+            background: #EFF6FF;
+            color: #2563EB;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -53,18 +53,18 @@
             margin-bottom: 1.25rem;
         }
         .btn-primary-bm { 
-            background: linear-gradient(135deg, #FF6B35 0%, #FF4500 100%); 
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%); 
             color: #fff !important; 
             border: none; 
             border-radius: 9999px; 
             font-weight: 700; 
             padding: 0.78rem; 
-            box-shadow: 0 4px 14px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
             transition: all .2s; 
         }
         .btn-primary-bm:hover { 
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
         .otp-inputs {
             display: flex;
@@ -85,10 +85,10 @@
             transition: all 0.2s;
         }
         .otp-digit:focus {
-            border-color: #FF5722;
+            border-color: #2563EB;
             background: #FFFFFF;
             outline: none;
-            box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.15);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
         }
         .badge-role {
             display: inline-block;
@@ -101,19 +101,19 @@
             margin-bottom: 0.75rem;
         }
         .badge-role.customer {
-            background: #ECFDF5;
-            color: #059669;
-            border: 1px solid #A7F3D0;
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
         }
         .badge-role.seller {
-            background: #FFF5F0;
-            color: #EA580C;
-            border: 1px solid #FFD3C4;
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
         }
         .badge-demo {
-            background: #FFF5F0;
-            color: #FF5722;
-            border: 1px solid #FFD3C4;
+            background: #EFF6FF;
+            color: #2563EB;
+            border: 1px solid #BFDBFE;
             font-weight: 700;
             font-size: 0.78rem;
             border-radius: 8px;
@@ -122,7 +122,7 @@
         .resend-btn {
             background: none;
             border: none;
-            color: #FF5722;
+            color: #2563EB;
             font-weight: 700;
             font-size: 0.88rem;
             padding: 0;
@@ -161,7 +161,7 @@
         </p>
         <div class="d-inline-flex align-items-center gap-2 mb-3">
             <span class="fw-800 text-dark" style="font-size: 0.95rem;">{{ $maskedPhone }}</span>
-            <a href="{{ route($returnRoute) }}" class="text-decoration-none small fw-700" style="color: #FF5722;">
+            <a href="{{ route($returnRoute) }}" class="text-decoration-none small fw-700" style="color: #2563EB;">
                 <i class="bi bi-pencil-square me-1"></i>Change
             </a>
         </div>

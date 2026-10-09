@@ -36,23 +36,23 @@
         .brand-text { 
             font-size: 1.65rem; 
             font-weight: 800; 
-            color: #FF5722; 
+            color: #2563EB; 
             letter-spacing: -0.03em;
         }
         .brand-text span { color: #0F172A; }
         .btn-primary-bm { 
-            background: linear-gradient(135deg, #FF6B35 0%, #FF4500 100%); 
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%); 
             color: #fff !important; 
             border: none; 
             border-radius: 9999px; 
             font-weight: 700; 
             padding: 0.75rem; 
-            box-shadow: 0 4px 14px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
             transition: all .2s; 
         }
         .btn-primary-bm:hover { 
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
         .form-control { 
             border-radius: 12px; 
@@ -62,8 +62,8 @@
             font-weight: 500;
         }
         .form-control:focus { 
-            border-color: #FF5722; 
-            box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12); 
+            border-color: #2563EB; 
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); 
         }
         .divider { display: flex; align-items: center; gap: .75rem; color: #94A3B8; font-size: .85rem; font-weight: 600; }
         .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #E2E8F0; }
@@ -80,14 +80,14 @@
             padding: 0.5rem 0.75rem;
             font-size: 0.85rem;
             font-weight: 700;
-            border-radius: 9px;
+            border-radius: 99px;
             text-decoration: none;
             color: #64748B;
             transition: all 0.2s;
         }
         .auth-tab.active {
             background: #FFFFFF;
-            color: #FF5722;
+            color: #2563EB;
             box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
         }
         .auth-tab:hover:not(.active) {
@@ -156,8 +156,8 @@
         </a>
 
         <div class="text-center">
-            <p class="small mb-2 fw-500">New customer? <a href="{{ route('register') }}" style="color: #FF5722; font-weight: 700;">Create Free Account</a></p>
-            <p class="small mb-0 fw-500">Want to sell surplus stock? <a href="{{ route('register.seller') }}" style="color: #FF5722; font-weight: 700;">Register Your Shop</a></p>
+            <p class="small mb-2 fw-500">New customer? <a href="{{ route('register') }}" style="color: #2563EB; font-weight: 700;">Create Free Account</a></p>
+            <p class="small mb-0 fw-500">Want to sell surplus stock? <a href="{{ route('register.seller') }}" style="color: #2563EB; font-weight: 700;">Register Your Shop</a></p>
         </div>
 
         {{-- Demo Credentials --}}

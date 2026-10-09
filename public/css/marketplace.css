@@ -6,15 +6,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap');
 
 :root {
-    /* Brand Colors */
-    --bm-primary: #FF5722;
-    --bm-primary-hover: #E64A19;
-    --bm-primary-gradient: linear-gradient(135deg, #FF6B35 0%, #FF4500 100%);
-    --bm-primary-light: #FFF5F0;
-    --bm-primary-subtle: #FFEDE6;
-    --bm-primary-border: #FFD3C4;
+    /* Brand Colors - Deep Royal Sapphire Blue */
+    --bm-primary: #2563EB;
+    --bm-primary-hover: #1D4ED8;
+    --bm-primary-gradient: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%);
+    --bm-primary-light: #EFF6FF;
+    --bm-primary-subtle: #DBEAFE;
+    --bm-primary-border: #BFDBFE;
 
-    /* Slate & Dark Themes */
+    /* Slate & Light Clean Backgrounds */
     --bm-dark: #0F172A;
     --bm-navy: #1E293B;
     --bm-secondary: #334155;
@@ -26,6 +26,8 @@
     --bm-border-light: #F1F5F9;
 
     /* Accents & Status */
+    --bm-accent: #0284C7;
+    --bm-accent-light: #E0F2FE;
     --bm-success: #10B981;
     --bm-success-light: #ECFDF5;
     --bm-success-border: #A7F3D0;
@@ -44,11 +46,11 @@
     --bm-radius-pill: 9999px;
 
     /* Elevation & Shadows */
-    --bm-shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
-    --bm-shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.05);
-    --bm-shadow: 0 6px 20px -3px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-    --bm-shadow-hover: 0 14px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.05);
-    --bm-shadow-primary: 0 8px 24px -4px rgba(255, 87, 34, 0.35);
+    --bm-shadow-subtle: 0 1px 3px rgba(37, 99, 235, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+    --bm-shadow-sm: 0 2px 6px rgba(37, 99, 235, 0.06);
+    --bm-shadow: 0 6px 20px -3px rgba(37, 99, 235, 0.09), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+    --bm-shadow-hover: 0 14px 32px -4px rgba(37, 99, 235, 0.16), 0 4px 10px -2px rgba(15, 23, 42, 0.05);
+    --bm-shadow-primary: 0 8px 24px -4px rgba(37, 99, 235, 0.35);
 
     /* Bottom App Bar Height */
     --bm-bottom-nav-height: 64px;
@@ -162,7 +164,7 @@ a:hover {
 
 .form-control:focus, .form-select:focus {
     border-color: var(--bm-primary);
-    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 /* ── Buttons ── */
@@ -178,7 +180,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
     transition: var(--bm-transition);
     cursor: pointer;
     text-decoration: none;
@@ -186,9 +188,9 @@ a:hover {
 }
 
 .btn-primary-bm:hover {
-    background: linear-gradient(135deg, #E64A19 0%, #D83B01 100%);
+    background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(255, 87, 34, 0.38);
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.38);
     color: #ffffff !important;
 }
 
@@ -320,7 +322,7 @@ a:hover {
 .market-location__button:hover {
     border-color: var(--bm-primary);
     color: var(--bm-primary);
-    box-shadow: 0 4px 14px rgba(255, 87, 34, 0.1);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
 }
 
 .market-location__button i.bi-geo-alt-fill {
@@ -344,7 +346,7 @@ a:hover {
 
 .market-search:focus-within {
     border-color: var(--bm-primary);
-    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .market-search input {
@@ -446,7 +448,7 @@ a:hover {
     font-weight: 700;
     font-size: 0.78rem;
     letter-spacing: 0.03em;
-    box-shadow: 0 3px 12px rgba(255, 87, 34, 0.3);
+    box-shadow: 0 3px 12px rgba(37, 99, 235, 0.3);
     transition: var(--bm-transition);
     text-decoration: none;
     white-space: nowrap;
@@ -454,7 +456,7 @@ a:hover {
 
 .market-sell-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(255, 87, 34, 0.4);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
     color: #ffffff !important;
 }
 
@@ -540,7 +542,7 @@ a:hover {
     background: var(--bm-primary);
     color: #FFFFFF;
     border-color: var(--bm-primary);
-    box-shadow: 0 4px 14px rgba(255, 87, 34, 0.35);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
     transform: translateY(-50%) scale(1.08);
 }
 
@@ -853,7 +855,7 @@ a:hover {
     background: var(--bm-primary-gradient);
     color: #FFFFFF !important;
     border-color: transparent;
-    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
 .btn-card-wa-icon {
@@ -898,8 +900,8 @@ a:hover {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--bm-primary);
-    background: #FFF0EB;
-    border: 1px solid #FFD3C4;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
     padding: 0.22rem 0.75rem;
     border-radius: var(--bm-radius-pill);
     margin-bottom: 0.45rem;
@@ -958,9 +960,9 @@ a:hover {
 }
 
 .category-card:hover {
-    border-color: #FFD3C4;
+    border-color: #BFDBFE;
     transform: translateY(-4px);
-    box-shadow: 0 10px 24px -4px rgba(255, 87, 34, 0.14);
+    box-shadow: 0 10px 24px -4px rgba(37, 99, 235, 0.14);
     color: var(--bm-dark);
 }
 
@@ -972,7 +974,7 @@ a:hover {
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background: #FFF5F0;
+    background: #DBEAFE;
     color: var(--bm-primary);
     display: flex;
     align-items: center;
@@ -980,14 +982,14 @@ a:hover {
     font-size: 1.6rem;
     margin-bottom: 0.65rem;
     transition: var(--bm-transition);
-    border: 1px solid #FFE4D6;
+    border: 1px solid #BFDBFE;
 }
 
 .category-card:hover .cat-icon {
     transform: scale(1.1);
     background: var(--bm-primary-gradient);
     border-color: transparent;
-    box-shadow: 0 6px 16px rgba(255, 87, 34, 0.28);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.28);
 }
 
 .category-card .cat-name {
@@ -1098,9 +1100,9 @@ a:hover {
 }
 
 .bm-step-card:hover {
-    border-color: #FFD3C4;
+    border-color: #BFDBFE;
     transform: translateY(-3px);
-    box-shadow: 0 12px 28px -4px rgba(255, 87, 34, 0.12);
+    box-shadow: 0 12px 28px -4px rgba(37, 99, 235, 0.12);
 }
 
 .bm-step-number {
@@ -1114,7 +1116,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.28);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
 }
 
 /* ── Shop Cards ── */
@@ -1160,13 +1162,13 @@ a:hover {
     background: var(--bm-primary-gradient) !important;
     border-color: transparent !important;
     color: #FFFFFF !important;
-    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.28);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
 }
 
 .page-item .page-link:hover {
-    background: #FFF5F0;
+    background: #EFF6FF;
     color: var(--bm-primary);
-    border-color: #FFD3C4;
+    border-color: #BFDBFE;
 }
 
 .page-item.disabled .page-link {
@@ -1251,7 +1253,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
-    box-shadow: 0 6px 18px rgba(255, 87, 34, 0.45);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
     border: 3px solid #FFFFFF;
     transition: transform 0.2s ease;
 }
@@ -1391,7 +1393,7 @@ nav[role="navigation"] svg,
     background: var(--bm-primary-gradient) !important;
     border-color: transparent !important;
     color: #FFFFFF !important;
-    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
 }
 
 .pagination .page-item .page-link:hover {

@@ -34,23 +34,23 @@
         .brand-text { 
             font-size: 1.8rem; 
             font-weight: 800; 
-            color: #FF5722; 
+            color: #2563EB; 
             letter-spacing: -0.03em;
         }
         .brand-text span { color: #0F172A; }
         .btn-primary-bm { 
-            background: linear-gradient(135deg, #FF6B35 0%, #FF4500 100%); 
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%); 
             color: #fff !important; 
             border: none; 
             border-radius: 9999px; 
             font-weight: 700; 
             padding: 0.75rem; 
-            box-shadow: 0 4px 14px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
             transition: all .2s; 
         }
         .btn-primary-bm:hover { 
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
         }
         .form-control { 
             border-radius: 12px; 
@@ -60,8 +60,8 @@
             font-weight: 500;
         }
         .form-control:focus { 
-            border-color: #FF5722; 
-            box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.12); 
+            border-color: #2563EB; 
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12); 
         }
         .benefit-item { display: flex; align-items: center; gap: .75rem; padding: .45rem 0; font-size: .92rem; font-weight: 600; color: #334155; }
         .benefit-item i { color: #10B981; font-size: 1.2rem; }
@@ -88,8 +88,8 @@
                     <div class="benefit-item"><i class="bi bi-check-circle-fill"></i> 0% commission on your sales</div>
                 </div>
 
-                <div class="mt-4 p-3 rounded-4" style="background: #FFF5F0; border: 1px solid #FFD3C4;">
-                    <div class="small fw-800 text-uppercase" style="color: #FF5722; font-size: 0.72rem; letter-spacing: 0.05em;">PAY-PER-LISTING FREEDOM</div>
+                <div class="mt-4 p-3 rounded-4" style="background: #EFF6FF; border: 1px solid #BFDBFE;">
+                    <div class="small fw-800 text-uppercase" style="color: #2563EB; font-size: 0.72rem; letter-spacing: 0.05em;">PAY-PER-LISTING FREEDOM</div>
                     <div class="small text-muted mt-1 fw-500">No monthly lock-ins. Pay only ₹12 when you want to list an item, with 2 free edits included.</div>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                 </form>
 
                 <div class="text-center mt-4">
-                    <p class="small mb-0 fw-500">Already registered? <a href="{{ route('login') }}" style="color: #FF5722; font-weight: 700;">Sign In</a></p>
+                    <p class="small mb-0 fw-500">Already registered? <a href="{{ route('login') }}" style="color: #2563EB; font-weight: 700;">Sign In</a></p>
                 </div>
             </div>
         </div>

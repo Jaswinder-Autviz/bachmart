@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row g-3 mb-4">
-    @foreach([['label'=>'Total Featured','value'=>$stats['total'],'color'=>'#4F46E5'],['label'=>'Active','value'=>$stats['active'],'color'=>'#10B981'],['label'=>'Pending','value'=>$stats['pending'],'color'=>'#F59E0B'],['label'=>'Revenue','value'=>'₹'.number_format($stats['revenue']),'color'=>'#FF5722']] as $s)
+    @foreach([['label'=>'Total Featured','value'=>$stats['total'],'color'=>'#4F46E5'],['label'=>'Active','value'=>$stats['active'],'color'=>'#10B981'],['label'=>'Pending','value'=>$stats['pending'],'color'=>'#F59E0B'],['label'=>'Revenue','value'=>'₹'.number_format($stats['revenue']),'color'=>'#2563EB']] as $s)
     <div class="col-6 col-md-3">
         <div class="stat-card text-center py-3">
             <div class="stat-value" style="color:{{ $s['color'] }}">{{ $s['value'] }}</div>

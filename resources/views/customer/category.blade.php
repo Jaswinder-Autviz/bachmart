@@ -994,9 +994,9 @@
     color: var(--bm-dark);
 }
 .quick-pill.active {
-    background: #FFF0EB;
+    background: #EFF6FF;
     color: var(--bm-primary);
-    border-color: #FFD3C4;
+    border-color: #BFDBFE;
 }
 
 /* Filter Tag Chips */

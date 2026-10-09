@@ -81,7 +81,7 @@
             {{-- Featured Promotion Pricing --}}
             <div class="card-admin p-4 mb-4">
                 <h6 class="fw-700 text-dark mb-3">
-                    <i class="bi bi-star-fill me-2" style="color:#FF5722"></i>Featured Promotion Rates (₹)
+                    <i class="bi bi-star-fill me-2" style="color:#2563EB"></i>Featured Promotion Rates (₹)
                 </h6>
 
                 <div class="row g-2">

@@ -19,7 +19,7 @@
         <img src="{{ $product->primary_image_url }}" width="72" height="72" class="rounded-3 border" style="object-fit:cover">
         <div>
             <h6 class="fw-700 text-dark mb-1">{{ $product->name }}</h6>
-            <div class="fw-700" style="color:#FF5722">₹{{ number_format($product->offer_price) }}
+            <div class="fw-700" style="color:#2563EB">₹{{ number_format($product->offer_price) }}
                 <span class="badge bg-success-subtle text-success rounded-pill ms-1 px-2 py-0.5" style="font-size: 0.72rem;">{{ round($product->discount_percent) }}% OFF</span>
             </div>
             <div class="text-muted small">{{ $product->category->name }} · {{ $product->shop->name }}</div>
@@ -39,12 +39,12 @@
                    {{ $key === '7days' ? 'checked' : '' }}>
             <div class="card border-2 rounded-4 p-4 text-center package-card h-100 bg-white shadow-sm
                         {{ $key === '7days' ? 'border-primary' : 'border-light' }}"
-                 style="transition:all .2s; border-color: {{ $key === '7days' ? '#FF5722 !important;' : '#E2E8F0 !important;' }}">
+                 style="transition:all .2s; border-color: {{ $key === '7days' ? '#2563EB !important;' : '#E2E8F0 !important;' }}">
                 @if($package['popular'])
-                    <span class="badge mb-2 mx-auto rounded-pill px-3 py-1" style="background:#FF5722;color:#fff;font-size: 0.72rem;">Best Value</span>
+                    <span class="badge mb-2 mx-auto rounded-pill px-3 py-1" style="background:#2563EB;color:#fff;font-size: 0.72rem;">Best Value</span>
                 @endif
                 <div class="fw-600 mb-1 text-dark">{{ $package['label'] }} Featured</div>
-                <div class="fs-3 fw-800" style="color:#FF5722">₹{{ $package['price'] }}</div>
+                <div class="fs-3 fw-800" style="color:#2563EB">₹{{ $package['price'] }}</div>
                 <div class="text-muted small mt-2">₹{{ round($package['price']/$package['days'],1) }}/day</div>
             </div>
         </label>
